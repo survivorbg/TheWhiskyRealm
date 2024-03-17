@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWhiskyRealm", "TheWhiskyRealm\TheWhiskyRealm.csproj", "{7DFB5815-D022-4E6B-870E-E1491DACD0B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWhiskyRealm.Core", "TheWhiskyRealm.Core\TheWhiskyRealm.Core.csproj", "{D05126CF-C587-4653-97C4-B33CDEC2AE37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheWhiskyRealm.Infrastructure", "TheWhiskyRealm.Infrastructure\TheWhiskyRealm.Infrastructure.csproj", "{67DA61F7-89F0-431A-BA5C-CA13F2AA761B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{7DFB5815-D022-4E6B-870E-E1491DACD0B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DFB5815-D022-4E6B-870E-E1491DACD0B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DFB5815-D022-4E6B-870E-E1491DACD0B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D05126CF-C587-4653-97C4-B33CDEC2AE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D05126CF-C587-4653-97C4-B33CDEC2AE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D05126CF-C587-4653-97C4-B33CDEC2AE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D05126CF-C587-4653-97C4-B33CDEC2AE37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DA61F7-89F0-431A-BA5C-CA13F2AA761B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DA61F7-89F0-431A-BA5C-CA13F2AA761B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DA61F7-89F0-431A-BA5C-CA13F2AA761B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DA61F7-89F0-431A-BA5C-CA13F2AA761B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
