@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
 
@@ -10,4 +11,6 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     {
 
     }
+
+    public DbSet<Country> Countries { get; set; } = null!;
 }
