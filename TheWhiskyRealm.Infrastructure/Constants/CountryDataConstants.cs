@@ -1,6 +1,6 @@
 ﻿namespace TheWhiskyRealm.Infrastructure.Constants;
 /// <summary>
-/// Data Constants for the entity Country
+/// Data Constants for the entity Country.
 /// </summary>
 public static class CountryDataConstants
 {
