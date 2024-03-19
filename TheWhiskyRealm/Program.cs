@@ -1,3 +1,5 @@
+using TheWhiskyRealm.Infrastructure.Data.Common;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContext(builder.Configuration);
@@ -24,6 +26,10 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+using var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<AdminUserAndRoleSeeder>();
+seeder.SeedAsync().Wait();
 
 app.MapControllerRoute(
     name: "default",
