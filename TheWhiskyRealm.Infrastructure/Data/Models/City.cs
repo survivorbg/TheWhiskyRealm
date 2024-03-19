@@ -22,4 +22,5 @@ public class City
 
     [ForeignKey(nameof(CountryId))]
     public Country Country { get; set; } = null!;
+    public ICollection<Venue> Venues { get; set; } = new List<Venue>();
 }
