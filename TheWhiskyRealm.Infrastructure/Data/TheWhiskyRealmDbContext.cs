@@ -20,10 +20,18 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Award> Awards { get; set; } = null!;
     public DbSet<City> Cities { get; set; } = null!;
     public DbSet<Venue> Venues { get; set; } = null!;
+    public DbSet<Event> Events { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        //Event configurations
+        builder.Entity<Event>()
+            .Property(e => e.Price)
+            .HasPrecision(18, 2);
+           
+
+
         base.OnModelCreating(builder);
     }
 }
