@@ -28,7 +28,12 @@ public static class ServiceCollectionExtension
     {
         services.AddDefaultIdentity<ApplicationUser>(options =>
             {
-
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
             })
             .AddEntityFrameworkStores<TheWhiskyRealmDbContext>();
 
