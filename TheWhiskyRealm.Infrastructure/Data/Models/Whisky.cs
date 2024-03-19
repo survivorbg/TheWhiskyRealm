@@ -29,4 +29,12 @@ public class Whisky
 
     [ForeignKey(nameof(DistilleryId))]
     public Distillery Distillery { get; set; } = null!;
+
+    [Required]
+    public int WhiskyTypeId { get; set; }
+
+    [ForeignKey(nameof(WhiskyTypeId))]
+    public WhiskyType WhiskyType { get; set; } = null!;
+
+    public ICollection<Award> Awards { get; set; } = new List<Award>();
 }

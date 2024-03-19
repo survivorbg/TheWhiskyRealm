@@ -16,6 +16,8 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Region> Regions { get; set; } = null!;
     public DbSet<Distillery> Distilleries { get; set; } = null!;
     public DbSet<Whisky> Whiskies { get; set; } = null!;
+    public DbSet<WhiskyType> WhiskyTypes { get; set; } = null!;
+    public DbSet<Award> Awards { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
