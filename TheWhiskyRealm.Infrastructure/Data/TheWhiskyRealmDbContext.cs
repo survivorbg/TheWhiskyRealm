@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
@@ -21,6 +22,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<City> Cities { get; set; } = null!;
     public DbSet<Venue> Venues { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
+    public DbSet<UserEvent> UsersEvents { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -29,8 +31,16 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
         builder.Entity<Event>()
             .Property(e => e.Price)
             .HasPrecision(18, 2);
-           
 
+        //UserEvent configuration
+        builder.Entity<UserEvent>()
+            .HasKey(ue => new { ue.EventId, ue.UserId });
+
+        builder.Entity<UserEvent>()
+            .HasOne(ue => ue.Event)
+            .WithMany(e => e.UsersEvents)
+            .HasForeignKey(ue => ue.EventId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(builder);
     }

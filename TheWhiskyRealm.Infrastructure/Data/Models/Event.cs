@@ -42,4 +42,6 @@ public class Event
 
     [ForeignKey(nameof(VenueId))]
     public Venue Venue { get; set; } = null!;
+
+    public ICollection<UserEvent> UsersEvents { get; set; } = new List<UserEvent>();
 }
