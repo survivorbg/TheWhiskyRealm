@@ -43,4 +43,11 @@ public static class ServiceCollectionExtension
 
         return services;
     }
+
+    public static void SeedUserData(this IApplicationBuilder app)
+    {
+        using var scope = app.ApplicationServices.CreateScope();
+        var seeder = scope.ServiceProvider.GetRequiredService<AdminUserAndRoleSeeder>();
+        seeder.SeedAsync().Wait();
+    }
 }

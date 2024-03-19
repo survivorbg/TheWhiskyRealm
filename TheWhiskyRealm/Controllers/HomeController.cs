@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TheWhiskyRealm.Models;
 
@@ -13,11 +14,12 @@ namespace TheWhiskyRealm.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Administrator,User")]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize(Roles = "Administrator")]
         public IActionResult Privacy()
         {
             return View();

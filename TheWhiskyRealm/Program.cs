@@ -27,9 +27,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-using var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<AdminUserAndRoleSeeder>();
-seeder.SeedAsync().Wait();
+app.SeedUserData();
 
 app.MapControllerRoute(
     name: "default",

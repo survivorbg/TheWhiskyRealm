@@ -5,7 +5,7 @@ using static TheWhiskyRealm.Infrastructure.Constants.RatingDataConstants;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
 
-public class TheWhiskyRealmDbContext : IdentityDbContext
+public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
 {
     public TheWhiskyRealmDbContext(DbContextOptions<TheWhiskyRealmDbContext> options)
         : base(options)
@@ -27,7 +27,6 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Rating> Ratings { get; set; } = null!;
     public DbSet<Article> Articles { get; set; } = null!;
     public DbSet<Comment> Comments { get; set; } = null!;
-
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

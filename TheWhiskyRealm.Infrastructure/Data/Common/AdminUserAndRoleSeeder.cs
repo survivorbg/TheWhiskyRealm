@@ -31,7 +31,7 @@ public class AdminUserAndRoleSeeder
 
         var adminUser = new ApplicationUser
         {
-            UserName = "admin",
+            UserName = "admin@gmail.com",
             Email = "admin@gmail.com",
             Age = 29
         };
