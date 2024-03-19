@@ -3,7 +3,7 @@
 /// <summary>
 /// Data Constants for the entity Region.
 /// </summary>
-public class RegionDataConstants
+public static class RegionDataConstants
 {
     /// <summary>
     /// Minimum region name length.

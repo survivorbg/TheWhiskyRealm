@@ -3,7 +3,7 @@
 /// <summary>
 /// Data Constants for the entity Award.
 /// </summary>
-public class AwardDataConstants
+public static class AwardDataConstants
 {
     /// <summary>
     /// Minimum length for the award title.

@@ -3,7 +3,7 @@
 /// </summary>
 namespace TheWhiskyRealm.Infrastructure.Constants;
 
-public class CityDataConstants
+public static class CityDataConstants
 {
     /// <summary>
     /// Minimum length for the city name.
