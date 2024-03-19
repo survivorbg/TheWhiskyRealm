@@ -25,6 +25,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<UserEvent> UsersEvents { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Rating> Ratings { get; set; } = null!;
+    public DbSet<Article> Articles { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
