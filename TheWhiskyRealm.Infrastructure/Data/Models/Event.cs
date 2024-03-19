@@ -47,8 +47,8 @@ public class Event
     /// </summary>
     [ForeignKey(nameof(OrganiserId))]
     [Comment("The user who organised the event.")]
-    public IdentityUser Organiser { get; set; } = null!;
-
+    public ApplicationUser Organiser { get; set; } = null!;
+            
     /// <summary>
     /// Gets or sets the start date of the event.
     /// </summary>

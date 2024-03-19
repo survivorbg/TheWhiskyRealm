@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Infrastructure.Data;
+using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +26,7 @@ public static class ServiceCollectionExtension
 
     public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
     {
-        services.AddDefaultIdentity<IdentityUser>(options =>
+        services.AddDefaultIdentity<ApplicationUser>(options =>
             {
 
             })

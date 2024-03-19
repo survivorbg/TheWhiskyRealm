@@ -21,7 +21,7 @@ public class UserEvent
     /// </summary>
     [ForeignKey(nameof(UserId))]
     [Comment("The user associated with the event.")]
-    public IdentityUser User { get; set; } = null!;
+    public ApplicationUser User { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the identifier of the event associated with the user.

@@ -69,5 +69,5 @@ public class Rating
     /// </summary>
     [ForeignKey(nameof(UserId))]
     [Comment("The user who gave the rating.")]
-    public IdentityUser User { get; set; } = null!;
+    public ApplicationUser User { get; set; } = null!;
 }

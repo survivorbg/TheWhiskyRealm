@@ -69,7 +69,7 @@ public class Article
     /// </summary>
     [ForeignKey(nameof(PublisherUserId))]
     [Comment("The user who published the article.")]
-    public IdentityUser PublisherUser { get; set; } = null!;
+    public ApplicationUser PublisherUser { get; set; } = null!;
 
     
 }

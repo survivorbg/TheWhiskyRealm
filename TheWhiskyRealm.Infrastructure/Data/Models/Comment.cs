@@ -45,8 +45,8 @@ public class Comment
     /// Gets or sets the user who posted the comment.
     /// </summary>
     [ForeignKey(nameof(UserId))]
-    [Comment("The user who posted the comment.")]
-    public IdentityUser User { get; set; } = null!;
+    [Comment("The user who posted the comment.")]       
+    public ApplicationUser User { get; set; } = null!;
 
     /// <summary>
     /// Gets or sets the identifier of the article associated with the comment.

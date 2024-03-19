@@ -63,6 +63,11 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
             .HasForeignKey(c=>c.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        //Application User
+        builder.Entity<ApplicationUser>()
+            .HasCheckConstraint("CK_Age_Min", "[Age] >= 18")
+            .HasCheckConstraint("CK_Age_Max", "[Age] <= 119");
+
         base.OnModelCreating(builder);
     }
 }
