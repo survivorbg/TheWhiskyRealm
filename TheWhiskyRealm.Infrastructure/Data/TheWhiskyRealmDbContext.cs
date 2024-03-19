@@ -26,6 +26,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Rating> Ratings { get; set; } = null!;
     public DbSet<Article> Articles { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -45,7 +46,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
             .HasForeignKey(ue => ue.EventId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        //Rating
+        //Rating configuration
         builder.Entity<Rating>()
        .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {MinNoseValue}")
        .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {MaxNoseValue}")
@@ -54,6 +55,13 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
        .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {MinFinishValue}")
        .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {MaxFinishValue}");
 
+        //Comment configuration
+
+        builder.Entity<Comment>()
+            .HasOne(c => c.User)
+            .WithMany()
+            .HasForeignKey(c=>c.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         base.OnModelCreating(builder);
     }
