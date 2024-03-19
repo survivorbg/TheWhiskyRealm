@@ -26,4 +26,5 @@ public class Country
     public string Name { get; set; } = string.Empty;
 
     public ICollection<Region> Regions { get; set; } = new List<Region>();
+    public ICollection<City> Cities { get; set; } = new List<City>();
 }
