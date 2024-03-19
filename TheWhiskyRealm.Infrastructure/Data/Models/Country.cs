@@ -25,6 +25,15 @@ public class Country
     [Comment("The name of the country.")]
     public string Name { get; set; } = string.Empty;
 
+    // <summary>
+    /// Gets or sets the regions associated with the country.
+    /// </summary>
+    [Comment("The regions associated with the country.")]
     public ICollection<Region> Regions { get; set; } = new List<Region>();
+
+    /// <summary>
+    /// Gets or sets the cities associated with the country.
+    /// </summary>
+    [Comment("The cities associated with the country.")]
     public ICollection<City> Cities { get; set; } = new List<City>();
 }
