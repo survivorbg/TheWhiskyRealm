@@ -23,6 +23,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Venue> Venues { get; set; } = null!;
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<UserEvent> UsersEvents { get; set; } = null!;
+    public DbSet<Review> Reviews { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
