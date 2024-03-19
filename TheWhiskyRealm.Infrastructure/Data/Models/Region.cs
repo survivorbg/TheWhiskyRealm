@@ -18,4 +18,5 @@ public class Region
 
     [ForeignKey(nameof(CountryId))]
     public Country Country { get; set; } = null!;
+    public ICollection<Distillery> Distilleries { get; set; } = new List<Distillery>();
 }
