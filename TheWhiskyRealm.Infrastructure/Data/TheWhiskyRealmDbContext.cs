@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 using TheWhiskyRealm.Infrastructure.Data.Models;
+using static TheWhiskyRealm.Infrastructure.Constants.RatingDataConstants;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
 
@@ -24,6 +24,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     public DbSet<Event> Events { get; set; } = null!;
     public DbSet<UserEvent> UsersEvents { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
+    public DbSet<Rating> Ratings { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -42,6 +43,16 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
             .WithMany(e => e.UsersEvents)
             .HasForeignKey(ue => ue.EventId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        //Rating
+        builder.Entity<Rating>()
+       .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {MinNoseValue}")
+       .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {MaxNoseValue}")
+       .HasCheckConstraint("CK_Taste_Min", $"[Taste] >= {MinTasteValue}")
+       .HasCheckConstraint("CK_Taste_Max", $"[Taste] <= {MaxTasteValue}")
+       .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {MinFinishValue}")
+       .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {MaxFinishValue}");
+
 
         base.OnModelCreating(builder);
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheWhiskyRealm.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319154515_AddedEntityRating")]
+    partial class AddedEntityRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,13 +410,9 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.ToTable("Ratings");
 
-                    b.HasCheckConstraint("CK_Finish_Max", "[Finish] <= 100");
+                    b.HasCheckConstraint("CK_Nose_Max", "[Finish] <= 100");
 
-                    b.HasCheckConstraint("CK_Finish_Min", "[Finish] >= 1");
-
-                    b.HasCheckConstraint("CK_Nose_Max", "[Nose] <= 100");
-
-                    b.HasCheckConstraint("CK_Nose_Min", "[Nose] >= 1");
+                    b.HasCheckConstraint("CK_Nose_Min", "[Finish] >= 1");
 
                     b.HasCheckConstraint("CK_Taste_Max", "[Taste] <= 100");
 

@@ -37,4 +37,6 @@ public class Whisky
     public WhiskyType WhiskyType { get; set; } = null!;
 
     public ICollection<Award> Awards { get; set; } = new List<Award>();
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
 }
