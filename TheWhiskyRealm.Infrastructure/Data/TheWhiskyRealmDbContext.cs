@@ -13,6 +13,7 @@ public class TheWhiskyRealmDbContext : IdentityDbContext
     }
 
     public DbSet<Country> Countries { get; set; } = null!;
+    public DbSet<Region> Regions { get; set; } = null!;
 
 
     protected override void OnModelCreating(ModelBuilder builder)
