@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 using static TheWhiskyRealm.Infrastructure.Constants.RatingDataConstants;
 
@@ -66,6 +67,10 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
         builder.Entity<ApplicationUser>()
             .HasCheckConstraint("CK_Age_Min", "[Age] >= 18")
             .HasCheckConstraint("CK_Age_Max", "[Age] <= 119");
+
+        Assembly cfg = Assembly.GetAssembly(typeof(TheWhiskyRealmDbContext)) ?? Assembly.GetExecutingAssembly();
+
+        builder.ApplyConfigurationsFromAssembly(cfg);
 
         base.OnModelCreating(builder);
     }
