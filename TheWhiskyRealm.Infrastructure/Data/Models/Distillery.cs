@@ -42,6 +42,13 @@ public class Distillery
     public int RegionId { get; set; }
 
     /// <summary>
+    /// Gets or sets the URL address of the image of the distillery.
+    /// </summary>
+    [Required]
+    [Comment("The URL address of the image of the distillery.")]
+    public string ImageUrl { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the region where the distillery is located.
     /// </summary>
     [ForeignKey(nameof(RegionId))]

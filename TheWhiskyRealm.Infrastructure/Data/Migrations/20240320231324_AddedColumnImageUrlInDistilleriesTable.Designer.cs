@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheWhiskyRealm.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240320231324_AddedColumnImageUrlInDistilleriesTable")]
+    partial class AddedColumnImageUrlInDistilleriesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -502,120 +504,6 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.ToTable("Distilleries");
 
                     b.HasComment("Represents a distillery entity.");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ImageUrl = "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/34/2022/06/Auchentoshan-Distillery-920x609.jpg",
-                            Name = "Auchentoshan",
-                            RegionId = 1,
-                            YearFounded = 1823
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ImageUrl = "https://www.secret-scotland.com/datafiles/uploaded/cmsRefImage/popularPlaces/additional/main/main_110_Glenmorangie.jpg",
-                            Name = "Glenmorangie",
-                            RegionId = 2,
-                            YearFounded = 1843
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ImageUrl = "https://www.robertson.co.uk/sites/default/files/styles/news_header/public/news_images/Macallan%20press%20image%20POM2018124G0800208003.jpg?itok=wyUPa5o2",
-                            Name = "The Macallan",
-                            RegionId = 3,
-                            YearFounded = 2017
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ImageUrl = "https://www.laphroaig.com/sites/default/files/styles/style_20_9/public/2022-06/Laphroaig_Distillery_banner_DT.jpg.webp?itok=k-vrPwBD",
-                            Name = "Laphroaig",
-                            RegionId = 6,
-                            YearFounded = 1815
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ImageUrl = "https://www.whisky.com/fileadmin/_processed_/4/5/csm__MG_5906_732d67d3b250e58ad3dcdcddda309e7a_f491af0c94.jpg",
-                            Name = "Springbank",
-                            RegionId = 5,
-                            YearFounded = 1828
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ImageUrl = "https://www.highlandparkwhisky.com/sites/g/files/jrulke331/files/styles/text_structured_image/public/Highland%20Park%20Distillery.jpg?itok=OxqQUxKL",
-                            Name = "Highland Park",
-                            RegionId = 4,
-                            YearFounded = 1798
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ImageUrl = "https://www.discoveringireland.com/contentFiles/productImages/Medium/Bushmills_Distillery.jpg",
-                            Name = "Bushmills",
-                            RegionId = 7,
-                            YearFounded = 1784
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ImageUrl = "https://static.wixstatic.com/media/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg/v1/fill/w_598,h_390,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg",
-                            Name = "Jameson",
-                            RegionId = 9,
-                            YearFounded = 1780
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ImageUrl = "https://americanwhiskeytrail.distilledspirits.org/sites/default/files/styles/flexslider_full/public/distillery/field_slides/Jack%20Daniels%20Visitor%27s%20Center_opt.jpg?itok=vpZAEgVu",
-                            Name = "Jack Daniel's",
-                            RegionId = 12,
-                            YearFounded = 1866
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ImageUrl = "https://www.foodandwine.com/thmb/rVUUWewQYYdDzAQMPOQTZH06nzQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/James-Beam-Distillery-FT-BLOG1021-28072a663ffe4cf8ac3adeb05b843143.jpg",
-                            Name = "Jim Beam",
-                            RegionId = 11,
-                            YearFounded = 1795
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ImageUrl = "https://www.nikka.com/eng/img/distilleries/topmenu_miyagikyo.jpg",
-                            Name = "Nikka",
-                            RegionId = 13,
-                            YearFounded = 1934
-                        },
-                        new
-                        {
-                            Id = 13,
-                            ImageUrl = "https://whiskyetc.files.wordpress.com/2019/05/kavalan-distillery-03-1.jpg",
-                            Name = "Kavalan",
-                            RegionId = 14,
-                            YearFounded = 2005
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ImageUrl = "https://www.whisky.com/fileadmin/_processed_/1/5/csm_IMG_0402_718cec422ff28f51b8654e744519f5ec_1fb068e7c2.jpg",
-                            Name = "Amrut",
-                            RegionId = 15,
-                            YearFounded = 1948
-                        },
-                        new
-                        {
-                            Id = 15,
-                            ImageUrl = "https://smartcdn.gprod.postmedia.digital/windsorstar/wp-content/uploads/2021/02/hiram-walker-sons-distillery-1.jpg",
-                            Name = "Hiram-Walker & Sons distillery",
-                            RegionId = 16,
-                            YearFounded = 1858
-                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Event", b =>
