@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
@@ -70,6 +69,4 @@ public class Article
     [ForeignKey(nameof(PublisherUserId))]
     [Comment("The user who published the article.")]
     public ApplicationUser PublisherUser { get; set; } = null!;
-
-    
 }
