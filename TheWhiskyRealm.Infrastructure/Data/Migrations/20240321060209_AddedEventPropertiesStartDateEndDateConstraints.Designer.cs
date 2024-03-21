@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheWhiskyRealm.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240321060209_AddedEventPropertiesStartDateEndDateConstraints")]
+    partial class AddedEventPropertiesStartDateEndDateConstraints
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1427,20 +1429,6 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.HasCheckConstraint("CK_Event_EndDate", "[EndDate] > [StartDate]");
 
                     b.HasCheckConstraint("CK_Event_StartDate", "[StartDate] < [EndDate]");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Join us for an evening of whisky tasting and discovery.",
-                            DurationInHours = 3,
-                            EndDate = new DateTime(2024, 3, 25, 21, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrganiserId = "a8909756-a101-47c5-8d52-085322ffa6e6",
-                            Price = 25.99m,
-                            StartDate = new DateTime(2024, 3, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Whisky Tasting Evening",
-                            VenueId = 1
-                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Rating", b =>
