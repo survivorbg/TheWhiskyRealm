@@ -23,5 +23,5 @@ public class ArticleDataConstants
     /// <summary>
     /// Maximum length for the article content.
     /// </summary>
-    public const int MaxContentLength = 2500;
+    public const int MaxContentLength = 5000;
 }
