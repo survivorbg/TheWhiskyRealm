@@ -31,21 +31,6 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        //Event configurations
-        builder.Entity<Event>()
-            .Property(e => e.Price)
-            .HasPrecision(18, 2);
-
-        //UserEvent configuration
-        builder.Entity<UserEvent>()
-            .HasKey(ue => new { ue.EventId, ue.UserId });
-
-        builder.Entity<UserEvent>()
-            .HasOne(ue => ue.Event)
-            .WithMany(e => e.UsersEvents)
-            .HasForeignKey(ue => ue.EventId)
-            .OnDelete(DeleteBehavior.Restrict);
-
         Assembly cfg = Assembly.GetAssembly(typeof(TheWhiskyRealmDbContext)) ?? Assembly.GetExecutingAssembly();
 
         builder.ApplyConfigurationsFromAssembly(cfg);
