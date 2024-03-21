@@ -46,15 +46,6 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
             .HasForeignKey(ue => ue.EventId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        //Rating configuration
-        builder.Entity<Rating>()
-       .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {MinNoseValue}")
-       .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {MaxNoseValue}")
-       .HasCheckConstraint("CK_Taste_Min", $"[Taste] >= {MinTasteValue}")
-       .HasCheckConstraint("CK_Taste_Max", $"[Taste] <= {MaxTasteValue}")
-       .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {MinFinishValue}")
-       .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {MaxFinishValue}");
-
         Assembly cfg = Assembly.GetAssembly(typeof(TheWhiskyRealmDbContext)) ?? Assembly.GetExecutingAssembly();
 
         builder.ApplyConfigurationsFromAssembly(cfg);
