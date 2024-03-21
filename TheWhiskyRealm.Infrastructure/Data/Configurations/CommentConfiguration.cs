@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Globalization;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Infrastructure.Data.Configurations;

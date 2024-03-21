@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TheWhiskyRealm.Infrastructure.Data.Models;
-using static TheWhiskyRealm.Infrastructure.Constants.RatingDataConstants;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
 

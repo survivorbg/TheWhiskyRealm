@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
-namespace TheWhiskyRealm.Infrastructure.Data.Common;
+namespace TheWhiskyRealm.Infrastructure.Data.Configurations;
 
 public class AdminUserAndRoleSeeder
 {
@@ -48,8 +48,8 @@ public class AdminUserAndRoleSeeder
             Email = "test@gmail.com",
             Age = 18
         };
-        
-        if(await userManager.FindByNameAsync(userOne.UserName) == null)
+
+        if (await userManager.FindByNameAsync(userOne.UserName) == null)
         {
             await userManager.CreateAsync(userOne, "test123");
             await userManager.AddToRoleAsync(userOne, userRole.Name);

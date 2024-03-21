@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 using static TheWhiskyRealm.Infrastructure.Constants.AwardDataConstants;
 
