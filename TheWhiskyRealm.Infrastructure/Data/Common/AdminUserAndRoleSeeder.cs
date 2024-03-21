@@ -36,13 +36,51 @@ public class AdminUserAndRoleSeeder
             Age = 29
         };
 
-        var user = await userManager.FindByNameAsync(adminUser.UserName);
-
-        if (user == null)
+        if (await userManager.FindByNameAsync(adminUser.UserName) == null)
         {
             await userManager.CreateAsync(adminUser, "admin123");
             await userManager.AddToRoleAsync(adminUser, adminRole.Name);
         }
 
+        var userOne = new ApplicationUser
+        {
+            UserName = "test@gmail.com",
+            Email = "test@gmail.com",
+            Age = 18
+        };
+        
+        if(await userManager.FindByNameAsync(userOne.UserName) == null)
+        {
+            await userManager.CreateAsync(userOne, "test123");
+            await userManager.AddToRoleAsync(userOne, userRole.Name);
+
+        }
+
+        var userTwo = new ApplicationUser
+        {
+            UserName = "sober@gmail.com",
+            Email = "sober@gmail.com",
+            Age = 24
+        };
+
+        if (await userManager.FindByNameAsync(userTwo.UserName) == null)
+        {
+            await userManager.CreateAsync(userTwo, "test123");
+            await userManager.AddToRoleAsync(userTwo, userRole.Name);
+
+        }
+
+        var userThree = new ApplicationUser
+        {
+            UserName = "noToAlcohol@gmail.com",
+            Email = "noToAlcohol@gmail.com",
+            Age = 64
+        };
+
+        if (await userManager.FindByNameAsync(userThree.UserName) == null)
+        {
+            await userManager.CreateAsync(userThree, "test123");
+            await userManager.AddToRoleAsync(userThree, userRole.Name);
+        }
     }
 }
