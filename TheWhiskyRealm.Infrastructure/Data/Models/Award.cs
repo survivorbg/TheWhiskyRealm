@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static TheWhiskyRealm.Infrastructure.Constants.AwardDataConstants;
 using Microsoft.EntityFrameworkCore;
+using TheWhiskyRealm.Infrastructure.Data.Enums;
 
 
 namespace TheWhiskyRealm.Infrastructure.Data.Models;
@@ -28,10 +29,18 @@ public class Award
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the URL of the image associated with the award.
+    /// Gets or sets the award ceremony this award was won by the whisky.
     /// </summary>
-    [Comment("The URL of the image associated with the award.")]
-    public string? ImageUrl { get; set; }
+    [StringLength(MaxDescLength)]
+    [Comment("The award ceremony this award was won by the whisky.")]
+    public string AwardsCeremony { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the type of the medal.(Gold / Silver / Bronze)
+    /// </summary>
+    [Comment("The type of the medal.")]
+    [Required]
+    public MedalType MedalType { get; set; }
 
     /// <summary>
     /// Gets or sets the year the award was given.

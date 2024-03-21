@@ -16,6 +16,11 @@ public static class AwardDataConstants
     public const int MaxTitleLength = 150;
 
     /// <summary>
+    /// Maximum length for the award description.
+    /// </summary>
+    public const int MaxDescLength = 150;
+
+    /// <summary>
     /// Minimum value for the award year.
     /// </summary>
     public const double MinYearValue = 1690;
