@@ -55,16 +55,6 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
        .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {MinFinishValue}")
        .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {MaxFinishValue}");
 
-        //Comment configuration
-
-        builder.Entity<Comment>()
-            .HasOne(c => c.User)
-            .WithMany()
-            .HasForeignKey(c=>c.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-       
-
         Assembly cfg = Assembly.GetAssembly(typeof(TheWhiskyRealmDbContext)) ?? Assembly.GetExecutingAssembly();
 
         builder.ApplyConfigurationsFromAssembly(cfg);
