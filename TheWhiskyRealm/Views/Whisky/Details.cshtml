@@ -1,0 +1,141 @@
+﻿@model DetailsWhiskyViewModel
+@{
+    ViewData["Title"] = "Details";
+    string sufix = ((Model.WhiskyType == "Irish") || (Model.WhiskyType == "Bourbon")) ? "Whiskey" : "Whisky";
+}
+
+<style>
+    body {
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 900px;
+    }
+
+    .whisky-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .whisky-title {
+        font-size: 32px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .whisky-type {
+        font-size: 18px;
+        font-style: italic;
+        text-align: center;
+        color: #808080;
+    }
+
+    .whisky-info {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+    }
+
+    .whisky-info.main-img {
+       margin-top: 0px;
+    }
+
+    .whisky-info-box {
+        display: flex;
+    }
+
+
+    .whisky-rating {
+        text-align: center;
+        margin-top: 30px;
+        font-size: 20px;
+    }
+
+    .box-img-div {
+        width: 50px;
+    }
+
+    .box-img {
+        width: 100%;
+    }
+
+    .box-content {
+        margin-left: 16px;
+        line-height: 1;
+    }
+
+        .box-content p {
+            color: darkgray;
+        }
+
+    .row.box {
+        margin-top:30px;
+        margin-bottom:30px;
+        justify-content: space-between;
+    }
+
+    .whisky-age{
+        text-align:center;
+        color: black;
+    }
+
+    .description{
+        max-width:800px;
+    }
+</style>
+
+<div class="container">
+    <div class="whisky-title">@Model.Name</div>
+    <div class="whisky-type">@Model.WhiskyType  @sufix @Model.AlcoholPercentage% </div>
+
+    @if (Model.Age != null)
+    {
+        <div class="whisky-age">
+            @Model.Age Y.O.
+        </div>
+    }
+
+    <div class="whisky-info main-img">
+        <img src="~/images/1697536046IMG-1694.jpg" class="whisky-image" alt="Whisky Image">
+    </div>
+    <div class="whisky-info"><p class="description">@Model.Description</p></div>
+    <hr>
+    <div class="row box">
+        <div class="col">
+            <div class="whisky-info-box">
+                <div class="box-img-div">
+                    <img src="~/images/country.svg" alt="country" class="box-img" />
+                </div>
+                <div class="box-content">
+                    <p>Country</p>
+                    @Model.CountryName
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="whisky-info-box">
+                <div class="box-img-div">
+                    <img src="~/images/region.svg" alt="region" class="box-img" />
+                </div>
+                <div class="box-content">
+                    <p>Region</p>
+                    @Model.RegionName
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="whisky-info-box">
+                <div class="box-img-div">
+                    <img src="~/images/distillery.svg" alt="region" class="box-img" />
+                </div>
+                <div class="box-content">
+                    <p>Distillery</p>
+                    @Model.DistilleryName
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
+</div>
