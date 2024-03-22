@@ -16,3 +16,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
