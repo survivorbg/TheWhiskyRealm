@@ -15,9 +15,31 @@ public class WhiskyService : IWhiskyService
         this.repo = repo;
     }
 
-    public async Task<IEnumerable<AllWhiskyModel>> AllWhiskiesAsync()
+    public async Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take)
     {
         return await repo.AllReadOnly<Whisky>()
+            .OrderBy(w => w.Id)
+            .Skip(skip)
+            .Take(take)
+            .Select(x => new AllWhiskyModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Age = x.Age,
+                AlcoholPercentage = x.AlcoholPercentage,
+                WhiskyType = x.WhiskyType.Name,
+                Reviews = x.Reviews.Count()
+            })
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take)
+    {
+        
+        return await repo.AllReadOnly<Whisky>()
+            .OrderBy(w => w.Id)
+            .Skip(skip)
+            .Take(take)
             .Select(x => new AllWhiskyModel()
             {
                 Id = x.Id,

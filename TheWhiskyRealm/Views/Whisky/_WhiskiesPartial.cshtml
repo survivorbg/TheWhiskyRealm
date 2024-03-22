@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AllWhiskyModel>
+
+@foreach (var whisky in Model)
+{
+    <div class="col-md-4 mb-4">
+        <div class="card text-center">
+            <img src="~/images/1697536046IMG-1694.jpg" class="card-img-top" alt="Whisky Image">
+            <div class="card-body">
+                <h5 class="card-title">@whisky.Name</h5>
+                <p class="card-text whisky-type">@whisky.WhiskyType</p>
+                @if (whisky.Age.HasValue)
+                {
+                    <p class="card-text">
+                        Age: @whisky.Age YO
+                    </p>
+                }
+                <p class="card-text">ABV: @whisky.AlcoholPercentage%</p>
+                <p class="card-text">Reviews: @whisky.Reviews</p>
+                <button class="details-button" onclick="window.location.href='@Url.Action("Details", "Whisky", new { id = whisky.Id })'">See More</button>
+            </div>
+        </div>
+    </div>
+}

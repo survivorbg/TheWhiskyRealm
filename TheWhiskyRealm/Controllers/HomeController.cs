@@ -17,7 +17,7 @@ namespace TheWhiskyRealm.Controllers
         [Authorize(Roles = "Administrator,User")]
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("All", "Whisky");
         }
         [Authorize(Roles = "Administrator")]
         public IActionResult Privacy()

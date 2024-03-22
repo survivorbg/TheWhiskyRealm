@@ -4,5 +4,6 @@ namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IWhiskyService
 {
-    Task<IEnumerable<AllWhiskyModel>> AllWhiskiesAsync();
+    Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take);
+    Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take);
 }
