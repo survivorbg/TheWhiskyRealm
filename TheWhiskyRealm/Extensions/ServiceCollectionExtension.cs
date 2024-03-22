@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Infrastructure.Data;
+using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Configurations;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -21,7 +22,7 @@ public static class ServiceCollectionExtension
             options.UseSqlServer(connectionString));
 
         services.AddDatabaseDeveloperPageExceptionFilter();
-
+        services.AddScoped<IRepository, Repository>();
         return services;
     }
 
