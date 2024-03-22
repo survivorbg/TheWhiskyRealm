@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Services;
 using TheWhiskyRealm.Infrastructure.Data;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Configurations;
@@ -11,6 +13,8 @@ public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddApplicationService(this IServiceCollection services)
     {
+        services.AddScoped<IWhiskyService, WhiskyService>();
+
         return services;
     }
 
