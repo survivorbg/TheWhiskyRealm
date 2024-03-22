@@ -9,10 +9,12 @@ namespace TheWhiskyRealm.Core.Services;
 public class WhiskyService : IWhiskyService
 {
     private readonly IRepository repo;
+    private readonly IRatingService ratingService;
 
-    public WhiskyService(IRepository repo)
+    public WhiskyService(IRepository repo, IRatingService ratingService)
     {
         this.repo = repo;
+        this.ratingService = ratingService;
     }
 
     public async Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take)
@@ -50,5 +52,35 @@ public class WhiskyService : IWhiskyService
                 Reviews = x.Reviews.Count()
             })
             .ToListAsync();
+    }
+
+    public async Task<bool> WhiskyExistAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Whisky>()
+            .AnyAsync(w => w.Id == id);
+    }
+
+    public async Task<DetailsWhiskyViewModel> GetWhiskyByIdAsync(int id)
+    {
+        var avgRating = await ratingService.GetAvgRatingAsync(id);
+
+        return await repo
+            .AllReadOnly<Whisky>()
+            .Where(w => w.Id == id)
+            .Select(w=> new DetailsWhiskyViewModel
+            {
+                Id= w.Id,
+                Name = w.Name,
+                Age= w.Age,
+                AlcoholPercentage= w.AlcoholPercentage.ToString("F1"),
+                Description = w.Description,
+                WhiskyType = w.WhiskyType.Name,
+                DistilleryName = w.Distillery.Name,
+                CountryName = w.Distillery.Region.Country.Name,
+                RegionName = w.Distillery.Region.Name,
+                AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet"
+            })
+            .FirstAsync();
     }
 }

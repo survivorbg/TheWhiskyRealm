@@ -23,6 +23,19 @@ public class WhiskyController : BaseController
     }
 
     [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        if(!await whiskyService.WhiskyExistAsync(id))
+        {
+            return BadRequest();
+        }
+
+        var model = await whiskyService.GetWhiskyByIdAsync(id);
+
+        return View(model);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> LoadMoreWhiskies(int skip, int take)
     {
         
