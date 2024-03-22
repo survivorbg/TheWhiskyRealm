@@ -14,6 +14,7 @@ public static class ServiceCollectionExtension
     public static IServiceCollection AddApplicationService(this IServiceCollection services)
     {
         services.AddScoped<IWhiskyService, WhiskyService>();
+        services.AddScoped<IRatingService, RatingService>();
 
         return services;
     }
