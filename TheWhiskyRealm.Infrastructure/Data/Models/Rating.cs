@@ -43,6 +43,18 @@ public class Rating
     public int Finish { get; set; }
 
     /// <summary>
+    /// Average points(Nose,Taste,Finish)
+    /// </summary>
+    [NotMapped]
+    public int AveragePoints
+    {
+        get
+        {
+            return (Nose + Taste + Finish) / 3;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the identifier of the whisky being rated.
     /// </summary>
     [Required]
