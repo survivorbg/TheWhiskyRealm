@@ -24,14 +24,14 @@ public class Award
     /// Gets or sets the title of the award.
     /// </summary>
     [Required]
-    [StringLength(MaxTitleLength)]
+    [StringLength(AwardMaxTitleLength)]
     [Comment("The title of the award.")]
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the award ceremony this award was won by the whisky.
     /// </summary>
-    [StringLength(MaxDescLength)]
+    [StringLength(AwardMaxDescLength)]
     [Comment("The award ceremony this award was won by the whisky.")]
     public string AwardsCeremony { get; set; } = string.Empty;
 
@@ -46,7 +46,7 @@ public class Award
     /// Gets or sets the year the award was given.
     /// </summary>
     [Required]
-    [Range(MinYearValue, MaxYearValue)]
+    [Range(AwardMinYearValue, AwardMaxYearValue)]
     [Comment("The year the award was given.")]
     public int Year { get; set; }
 

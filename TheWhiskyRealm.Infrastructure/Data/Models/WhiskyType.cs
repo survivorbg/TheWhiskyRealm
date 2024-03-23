@@ -21,7 +21,7 @@ public class WhiskyType
     /// Gets or sets the name of the whisky type.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(WhiskyTypeMaxNameLength)]
     [Comment("The name of the whisky type.")]
     public string Name { get; set; } = string.Empty;
 
@@ -29,7 +29,7 @@ public class WhiskyType
     /// Gets or sets the description of the whisky type.
     /// </summary>
     [Required]
-    [StringLength(MaxDescLength)]
+    [StringLength(WhiskyTypeMaxDescLength)]
     [Comment("The description of the whisky type.")]
     public string Description { get; set; } = string.Empty;
 

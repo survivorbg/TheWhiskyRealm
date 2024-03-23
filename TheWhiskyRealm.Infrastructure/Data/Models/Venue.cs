@@ -22,7 +22,7 @@ public class Venue
     /// Gets or sets the name of the venue.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(VenueMaxNameLength)]
     [Comment("The name of the venue.")]
     public string Name { get; set; } = string.Empty;
 
@@ -30,7 +30,7 @@ public class Venue
     /// Gets or sets the capacity of the venue.
     /// </summary>
     [Required]
-    [Range(MinCapacity, MaxCapacity)]
+    [Range(VenueMinCapacity, VenueMaxCapacity)]
     [Comment("The capacity of the venue.")]
     public int Capacity { get; set; }
 

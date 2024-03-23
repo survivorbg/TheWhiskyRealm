@@ -22,7 +22,7 @@ public class Region
     /// Gets or sets the name of the region.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(RegionMaxNameLength)]
     [Comment("The name of the region.")]
     public string Name { get; set; } = string.Empty;
 

@@ -23,7 +23,7 @@ public class City
     /// Gets or sets the name of the city.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(CityMaxNameLength)]
     [Comment("The name of the city.")]
     public string Name { get; set; } = string.Empty;
 
@@ -31,7 +31,7 @@ public class City
     /// Gets or sets the zip code of the city.
     /// </summary>
     [Required]
-    [StringLength(MaxZipCodeLength)]
+    [StringLength(CityMaxZipCodeLength)]
     [Comment("The zip code of the city.")]
     public string ZipCode { get; set; } = string.Empty;
 

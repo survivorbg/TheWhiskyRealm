@@ -10,8 +10,8 @@ public class AwardConfiguration : IEntityTypeConfiguration<Award>
     public void Configure(EntityTypeBuilder<Award> builder)
     {
         builder
-            .HasCheckConstraint("CK_Year_Min", $"[Year] >= {MinYearValue}")
-            .HasCheckConstraint("CK_Year_Max", $"[Year] <= {MaxYearValue}");
+            .HasCheckConstraint("CK_Year_Min", $"[Year] >= {AwardMinYearValue}")
+            .HasCheckConstraint("CK_Year_Max", $"[Year] <= {AwardMaxYearValue}");
 
         builder.HasData(GenerateAwards());
     }

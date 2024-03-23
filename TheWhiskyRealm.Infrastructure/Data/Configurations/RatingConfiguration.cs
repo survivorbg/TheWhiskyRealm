@@ -12,12 +12,12 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
     {
         //Rating configuration
         builder
-       .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {MinNoseValue}")
-       .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {MaxNoseValue}")
-       .HasCheckConstraint("CK_Taste_Min", $"[Taste] >= {MinTasteValue}")
-       .HasCheckConstraint("CK_Taste_Max", $"[Taste] <= {MaxTasteValue}")
-       .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {MinFinishValue}")
-       .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {MaxFinishValue}");
+       .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {RatingMinNoseValue}")
+       .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {RatingMaxNoseValue}")
+       .HasCheckConstraint("CK_Taste_Min", $"[Taste] >= {RatingMinTasteValue}")
+       .HasCheckConstraint("CK_Taste_Max", $"[Taste] <= {RatingMaxTasteValue}")
+       .HasCheckConstraint("CK_Finish_Min", $"[Finish] >= {RatingMinFinishValue}")
+       .HasCheckConstraint("CK_Finish_Max", $"[Finish] <= {RatingMaxFinishValue}");
 
         builder.HasData(GenerateRatings());
     }

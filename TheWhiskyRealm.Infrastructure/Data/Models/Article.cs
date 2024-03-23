@@ -23,7 +23,7 @@ public class Article
     /// Gets or sets the title of the article.
     /// </summary>
     [Required]
-    [StringLength(MaxTitleLength)]
+    [StringLength(ArticleMaxTitleLength)]
     [Comment("The title of the article.")]
     public string Title { get; set; } = string.Empty;
 
@@ -31,7 +31,7 @@ public class Article
     /// Gets or sets the content of the article.
     /// </summary>
     [Required]
-    [StringLength(MaxContentLength)]
+    [StringLength(ArticleMaxContentLength)]
     [Comment("The content of the article.")]
     public string Content { get; set; } = string.Empty;
 

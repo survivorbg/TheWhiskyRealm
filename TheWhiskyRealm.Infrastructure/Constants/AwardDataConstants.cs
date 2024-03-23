@@ -8,27 +8,27 @@ public static class AwardDataConstants
     /// <summary>
     /// Minimum length for the award title.
     /// </summary>
-    public const int MinTitleLength = 10;
+    public const int AwardMinTitleLength = 10;
 
     /// <summary>
     /// Maximum length for the award title.
     /// </summary>
-    public const int MaxTitleLength = 150;
+    public const int AwardMaxTitleLength = 150;
 
     /// <summary>
     /// Maximum length for the award description.
     /// </summary>
-    public const int MaxDescLength = 150;
+    public const int AwardMaxDescLength = 150;
 
     /// <summary>
     /// Minimum value for the award year.
     /// </summary>
-    public const double MinYearValue = 1690;
+    public const double AwardMinYearValue = 1690;
 
     /// <summary>
     /// Maximum length for tee award year.
     /// </summary>
-    public const double MaxYearValue = 2024;
+    public const double AwardMaxYearValue = 2024;
 }
 
 

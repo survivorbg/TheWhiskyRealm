@@ -8,10 +8,10 @@ public static class CommentDataConstants
     /// <summary>
     /// Minimum length for the comment content.
     /// </summary>
-    public const int MinContentLength = 5;
+    public const int CommentMinContentLength = 5;
 
     /// <summary>
     /// Maximum length for the comment content.
     /// </summary>
-    public const int MaxContentLength = 300;
+    public const int CommentMaxContentLength = 300;
 }

@@ -22,7 +22,7 @@ public class Event
     /// Gets or sets the title of the event.
     /// </summary>
     [Required]
-    [StringLength(MaxTitleLength)]
+    [StringLength(EventMaxTitleLength)]
     [Comment("The title of the event.")]
     public string Title { get; set; } = string.Empty;
 
@@ -30,7 +30,7 @@ public class Event
     /// Gets or sets the description of the event.
     /// </summary>
     [Required]
-    [StringLength(MaxDescLength)]
+    [StringLength(EventMaxDescLength)]
     [Comment("The description of the event.")]
     public string Description { get; set; } = string.Empty;
 
@@ -66,14 +66,14 @@ public class Event
     /// Gets or sets the duration of the event in hours.
     /// </summary>
     [Required]
-    [Range(MinDuration, MaxDuration)]
+    [Range(EventMinDuration, EventMaxDuration)]
     [Comment("The duration of the event in hours.")]
     public int DurationInHours { get; set; }
 
     /// <summary>
     /// Gets or sets the price of the event.
     /// </summary>
-    [Range(MinPrice, MaxPrice)]
+    [Range(EventMinPrice, EventMaxPrice)]
     [Comment("The price of the event.")]
     public decimal? Price { get; set; }
 

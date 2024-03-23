@@ -8,10 +8,10 @@ public static class RegionDataConstants
     /// <summary>
     /// Minimum region name length.
     /// </summary>
-    public const int MinNameLength = 2;
+    public const int RegionMinNameLength = 2;
 
     /// <summary>
     /// Maximum region name length.
     /// </summary>
-    public const int MaxNameLength = 85;
+    public const int RegionMaxNameLength = 85;
 }

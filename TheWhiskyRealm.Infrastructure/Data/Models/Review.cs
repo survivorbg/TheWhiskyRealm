@@ -22,7 +22,7 @@ public class Review
     /// Gets or sets the title of the review.
     /// </summary>
     [Required]
-    [StringLength(MaxTitleLength)]
+    [StringLength(ReviewMaxTitleLength)]
     [Comment("The title of the review.")]
     public string Title { get; set; } = string.Empty;
 
@@ -30,7 +30,7 @@ public class Review
     /// Gets or sets the content of the review.
     /// </summary>
     [Required]
-    [StringLength(MaxContentLength)]
+    [StringLength(ReviewMaxContentLength)]
     [Comment("The content of the review.")]
     public string Content { get; set; } = string.Empty;
 

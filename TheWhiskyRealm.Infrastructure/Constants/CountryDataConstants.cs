@@ -7,10 +7,10 @@ public static class CountryDataConstants
     /// <summary>
     /// Minimum country name length.
     /// </summary>
-    public const int MinNameLength = 4;
+    public const int CountryMinNameLength = 4;
 
     /// <summary>
     /// Maximum country name length.
     /// </summary>
-    public const int MaxNameLength = 62;
+    public const int CountryMaxNameLength = 62;
 }

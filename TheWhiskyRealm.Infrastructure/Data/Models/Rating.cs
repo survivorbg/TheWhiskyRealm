@@ -22,7 +22,7 @@ public class Rating
     /// Gets or sets the rating that is given for the whisky aroma.
     /// </summary>
     [Required]
-    [Range(MinNoseValue, MaxNoseValue)]
+    [Range(RatingMinNoseValue, RatingMaxNoseValue)]
     [Comment("Represents the rating that is given for the whisky aroma.")]
     public int Nose { get; set; }
 
@@ -30,7 +30,7 @@ public class Rating
     /// Gets or sets the rating that is given for the whisky taste.
     /// </summary>
     [Required]
-    [Range(MinTasteValue, MaxTasteValue)]
+    [Range(RatingMinTasteValue, RatingMaxTasteValue)]
     [Comment("Represents the rating that is given for the whisky taste.")]
     public int Taste { get; set; }
 
@@ -38,7 +38,7 @@ public class Rating
     /// Gets or sets the rating that is given for the whisky finishing notes.
     /// </summary>
     [Required]
-    [Range(MinFinishValue, MaxFinishValue)]
+    [Range(RatingMinFinishValue, RatingMaxFinishValue)]
     [Comment("Represents the rating that is given for the whisky finishing notes.")]
     public int Finish { get; set; }
 

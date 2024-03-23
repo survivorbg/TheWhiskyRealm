@@ -22,14 +22,14 @@ public class Whisky
     /// Gets or sets the name of the whisky.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(WhiskyMaxNameLength)]
     [Comment("The name of the whisky.")]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the age of the whisky.
     /// </summary>
-    [Range(MinAge, MaxAge)]
+    [Range(WhiskyMinAge, WhiskyMaxAge)]
     [Comment("The age of the whisky.")]
     public int? Age { get; set; }
 
@@ -37,7 +37,7 @@ public class Whisky
     /// Gets or sets the alcohol percentage of the whisky.
     /// </summary>
     [Required]
-    [Range(MinABV, MaxABV)]
+    [Range(WhiskyMinABV, WhiskyMaxABV)]
     [Comment("The alcohol percentage of the whisky.")]
     public double AlcoholPercentage { get; set; }
 
@@ -45,7 +45,7 @@ public class Whisky
     /// Gets or sets the description of the whisky.
     /// </summary>
     [Required]
-    [StringLength(MaxDescLength)]
+    [StringLength(WhiskyMaxDescLength)]
     [Comment("The description of the whisky.")]
     public string Description { get; set; } = string.Empty;
 

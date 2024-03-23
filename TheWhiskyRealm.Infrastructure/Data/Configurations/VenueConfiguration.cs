@@ -10,8 +10,8 @@ public class VenueConfiguration : IEntityTypeConfiguration<Venue>
     public void Configure(EntityTypeBuilder<Venue> builder)
     {
         builder
-            .HasCheckConstraint("CK_Capacity_Min", $"[Capacity] >= {MinCapacity}")
-            .HasCheckConstraint("CK_Capacity_Max", $"[Capacity] <= {MaxCapacity}");
+            .HasCheckConstraint("CK_Capacity_Min", $"[Capacity] >= {VenueMinCapacity}")
+            .HasCheckConstraint("CK_Capacity_Max", $"[Capacity] <= {VenueMaxCapacity}");
 
         builder.HasData(GenerateVenues());
     }

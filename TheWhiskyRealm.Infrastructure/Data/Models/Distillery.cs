@@ -22,7 +22,7 @@ public class Distillery
     /// Gets or sets the name of the distillery.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(DistilleryMaxNameLength)]
     [Comment("The name of the distillery.")]
     public string Name { get; set; } = string.Empty;
 
@@ -30,7 +30,7 @@ public class Distillery
     /// Gets or sets the year the distillery was founded.
     /// </summary>
     [Required]
-    [Range(MinYearFounded, MaxYearFounded)]
+    [Range(DistilleryMinYearFounded, DistilleryMaxYearFounded)]
     [Comment("The year the distillery was founded.")]
     public int YearFounded { get; set; }
 

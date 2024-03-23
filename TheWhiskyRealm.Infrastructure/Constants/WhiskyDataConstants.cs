@@ -8,40 +8,40 @@ public static class WhiskyDataConstants
     /// <summary>
     /// Minimum whisky name length.
     /// </summary>
-    public const int MinNameLength = 4;
+    public const int WhiskyMinNameLength = 4;
 
     /// <summary>
     /// Maximum whisky name length.
     /// </summary>
-    public const int MaxNameLength = 70;
+    public const int WhiskyMaxNameLength = 70;
 
     /// <summary>
     /// Minimum whisky description length.
     /// </summary>
-    public const int MinDescLength = 50;
+    public const int WhiskyMinDescLength = 50;
 
     /// <summary>
     /// Maximum whisky description length.
     /// </summary>
-    public const int MaxDescLength = 1500;
+    public const int WhiskyMaxDescLength = 1500;
 
     /// <summary>
     /// Minimum value for the whisky's age.
     /// </summary>
-    public const double MinAge = 2;
+    public const double WhiskyMinAge = 2;
 
     /// <summary>
     /// Maximum value for the whisky's age.
     /// </summary>
-    public const double MaxAge = 99;
+    public const double WhiskyMaxAge = 99;
 
     /// <summary>
     /// Minimum value for whisky's alcohol content percentage.
     /// </summary>
-    public const double MinABV = 40;
+    public const double WhiskyMinABV = 40;
 
     /// <summary>
     /// Maximum value for whisky's alcohol content percentage.
     /// </summary>
-    public const double MaxABV = 94.8;
+    public const double WhiskyMaxABV = 94.8;
 }

@@ -8,20 +8,20 @@ public static class WhiskyTypeDataConstants
     /// <summary>
     /// Minimum length for whisky type name.
     /// </summary>
-    public const int MinNameLength = 5;
+    public const int WhiskyTypeMinNameLength = 5;
 
     /// <summary>
     /// Maximum length for whisky type name.
     /// </summary>
-    public const int MaxNameLength = 25;
+    public const int WhiskyTypeMaxNameLength = 25;
 
     /// <summary>
     /// Minimum length for whisky type description.
     /// </summary>
-    public const int MinDescLength = 35;
+    public const int WhiskyTypeMinDescLength = 35;
 
     /// <summary>
     /// Maximum length for whisky type description.
     /// </summary>
-    public const int MaxDescLength = 1000;
+    public const int WhiskyTypeMaxDescLength = 1000;
 }

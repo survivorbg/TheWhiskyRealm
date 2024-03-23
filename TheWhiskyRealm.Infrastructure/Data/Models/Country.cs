@@ -21,7 +21,7 @@ public class Country
     /// Gets or sets the name of the country.
     /// </summary>
     [Required]
-    [StringLength(MaxNameLength)]
+    [StringLength(CountryMaxNameLength)]
     [Comment("The name of the country.")]
     public string Name { get; set; } = string.Empty;
 

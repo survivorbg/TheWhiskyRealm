@@ -8,21 +8,21 @@ public static class CityDataConstants
     /// <summary>
     /// Minimum length for the city name.
     /// </summary>
-    public const int MinNameLength = 1;
+    public const int CityMinNameLength = 1;
 
     /// <summary>
     /// Maximum length for the city name.
     /// </summary>
-    public const int MaxNameLength = 187;
+    public const int CityMaxNameLength = 187;
 
     /// <summary>
     /// Minimum length for the city postal code.
     /// </summary>
-    public const int MinZipCodeLength = 4;
+    public const int CityMinZipCodeLength = 4;
 
     /// <summary>
     /// Maximum length for the city postal code.
     /// </summary>
-    public const int MaxZipCodeLength = 10;
+    public const int CityMaxZipCodeLength = 10;
 }
 

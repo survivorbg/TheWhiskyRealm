@@ -8,21 +8,21 @@ public static class ReviewDataConstants
     /// <summary>
     /// Minimum length for the review title.
     /// </summary>
-    public const int MinTitleLength = 4;
+    public const int ReviewMinTitleLength = 4;
 
     /// <summary>
     /// Maximum length for the review title.
     /// </summary>
-    public const int MaxTitleLength = 50;
+    public const int ReviewMaxTitleLength = 50;
 
     /// <summary>
     /// Minimum length for the review content.
     /// </summary>
-    public const int MinContentLength = 15;
+    public const int ReviewMinContentLength = 15;
 
     /// <summary>
     /// Maximum length for the review content.
     /// </summary>
-    public const int MaxContentLength = 150;
+    public const int ReviewMaxContentLength = 150;
 
 }

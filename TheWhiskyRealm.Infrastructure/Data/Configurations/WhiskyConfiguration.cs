@@ -10,10 +10,10 @@ public class WhiskyConfiguration : IEntityTypeConfiguration<Whisky>
     public void Configure(EntityTypeBuilder<Whisky> builder)
     {
         builder
-            .HasCheckConstraint("CK_WhiskyAge_Min", $"[Age] >= {MinAge}")
-            .HasCheckConstraint("CK_WhiskyAge_Max", $"[Age] <= {MaxAge}")
-            .HasCheckConstraint("CK_ABV_Min", $"[AlcoholPercentage] >= {MinABV}")
-            .HasCheckConstraint("CK_ABV_Max", $"[AlcoholPercentage] <= {MaxABV}");
+            .HasCheckConstraint("CK_WhiskyAge_Min", $"[Age] >= {WhiskyMinAge}")
+            .HasCheckConstraint("CK_WhiskyAge_Max", $"[Age] <= {WhiskyMaxAge}")
+            .HasCheckConstraint("CK_ABV_Min", $"[AlcoholPercentage] >= {WhiskyMinABV}")
+            .HasCheckConstraint("CK_ABV_Max", $"[AlcoholPercentage] <= {WhiskyMaxABV}");
 
         builder.HasData(GenerateWhiskies());
     }

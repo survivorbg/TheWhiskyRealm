@@ -7,22 +7,22 @@ public static class VenueDataConstants
 {
     /// Minimum length for the venue name.
     /// </summary>
-    public const int MinNameLength = 10;
+    public const int VenueMinNameLength = 10;
 
     /// <summary>
     /// Maximum length for the venue name.
     /// </summary>
-    public const int MaxNameLength = 100;
+    public const int VenueMaxNameLength = 100;
 
     /// <summary>
     /// Minimum value for the venue capacity.
     /// </summary>
-    public const double MinCapacity = 3;
+    public const double VenueMinCapacity = 3;
 
     /// <summary>
     /// Maximum value for the venue capacity.
     /// </summary>
-    public const double MaxCapacity = 100;
+    public const double VenueMaxCapacity = 100;
 }
 
 

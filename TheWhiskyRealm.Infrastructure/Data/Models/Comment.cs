@@ -22,7 +22,7 @@ public class Comment
     /// Gets or sets the content of the comment.
     /// </summary>
     [Required]
-    [StringLength(MaxContentLength)]
+    [StringLength(CommentMaxContentLength)]
     [Comment("The content of the comment.")]
     public string Content { get; set; } = string.Empty;
 
