@@ -27,7 +27,7 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
             Content = "Great article! I learned a lot about the whisky types.",
             PostedDate = new DateTime(2024, 3, 17),
             ArticleId = 1,
-            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
         });
 
         comments.Add(new Comment
@@ -36,7 +36,7 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
             Content = "I completely agree with your list! Can't wait to try these whiskies.",
             PostedDate = new DateTime(2024, 3, 16),
             ArticleId = 1,
-            UserId = "2d730ec7-1b14-4bf5-9265-3522e35c06d5"
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
         });
 
 

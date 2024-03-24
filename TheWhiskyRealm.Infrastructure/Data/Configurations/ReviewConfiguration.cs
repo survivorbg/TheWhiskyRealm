@@ -22,7 +22,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "This whisky has an amazing taste profile, rich and complex.",
                 Recommend = true,
                 WhiskyId = 1,
-                UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+                UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
             });
 
             reviews.Add(new Review
@@ -32,7 +32,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Really enjoyed sipping on this whisky, smooth with a nice finish.",
                 Recommend = true,
                 WhiskyId = 2,
-                UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+                UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
             });
 
             reviews.Add(new Review
@@ -42,7 +42,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "This whisky is unbeatable. Smooth and easy to drink.",
                 Recommend = true,
                 WhiskyId = 3,
-                UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+                UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
             });
 
             reviews.Add(new Review
@@ -52,7 +52,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Expected more from this whisky. Found it lacking in flavor.",
                 Recommend = false,
                 WhiskyId = 4,
-                UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+                UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
             });
 
             reviews.Add(new Review
@@ -62,7 +62,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "This whisky is a real treat for the senses. Highly recommended.",
                 Recommend = true,
                 WhiskyId = 5,
-                UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+                UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
             });
 
             reviews.Add(new Review
@@ -72,7 +72,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Smooth and elegant, with a lovely finish. A delightful whisky.",
                 Recommend = true,
                 WhiskyId = 6,
-                UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+                UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
             });
 
             reviews.Add(new Review
@@ -82,7 +82,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Decent whisky, but nothing extraordinary. Would drink again though.",
                 Recommend = true,
                 WhiskyId = 7,
-                UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+                UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
             });
 
             reviews.Add(new Review
@@ -92,7 +92,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Really enjoyed the complexity of flavors in this whisky. A must-try.",
                 Recommend = true,
                 WhiskyId = 8,
-                UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+                UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
             });
 
             reviews.Add(new Review
@@ -102,7 +102,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Save this one for special occasions. Truly a special whisky.",
                 Recommend = true,
                 WhiskyId = 9,
-                UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+                UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
             });
 
             reviews.Add(new Review
@@ -112,7 +112,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 Content = "Was not impressed with this whisky. Expected more.",
                 Recommend = false,
                 WhiskyId = 10,
-                UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+                UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
             });
 
             return reviews.ToArray();

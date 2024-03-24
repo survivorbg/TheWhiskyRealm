@@ -10,7 +10,6 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
 {
     public void Configure(EntityTypeBuilder<Rating> builder)
     {
-        //Rating configuration
         builder
        .HasCheckConstraint("CK_Nose_Min", $"[Nose] >= {RatingMinNoseValue}")
        .HasCheckConstraint("CK_Nose_Max", $"[Nose] <= {RatingMaxNoseValue}")
@@ -33,7 +32,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 54,
             Finish = 45,
             WhiskyId = 10,
-            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
         });
 
         ratings.Add(new Rating
@@ -43,7 +42,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 87,
             Finish = 43,
             WhiskyId = 11,
-            UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
         });
 
         ratings.Add(new Rating
@@ -53,7 +52,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 77,
             Finish = 88,
             WhiskyId = 12,
-            UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
         });
 
         ratings.Add(new Rating
@@ -63,7 +62,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 59,
             Finish = 59,
             WhiskyId = 13,
-            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
         });
 
         ratings.Add(new Rating
@@ -73,7 +72,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 78,
             Finish = 87,
             WhiskyId = 14,
-            UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
         });
 
         ratings.Add(new Rating
@@ -83,7 +82,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 42,
             Finish = 31,
             WhiskyId = 15,
-            UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
         });
 
         ratings.Add(new Rating
@@ -93,7 +92,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 55,
             Finish = 51,
             WhiskyId = 16,
-            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
         });
 
         ratings.Add(new Rating
@@ -103,7 +102,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 63,
             Finish = 81,
             WhiskyId = 17,
-            UserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
         });
 
         ratings.Add(new Rating
@@ -113,7 +112,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 18,
             Finish = 45,
             WhiskyId = 18,
-            UserId = "d9ef08e4-4307-4a78-8b8c-afaea5d8a0d2"
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
         });
 
         ratings.Add(new Rating
@@ -123,7 +122,7 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             Taste = 59,
             Finish = 49,
             WhiskyId = 19,
-            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
         });
 
 

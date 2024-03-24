@@ -30,7 +30,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
             Id =1,
             Title = "Whisky Tasting Evening",
             Description = "Join us for an evening of whisky tasting and discovery.",
-            OrganiserId = "a8909756-a101-47c5-8d52-085322ffa6e6",
+            OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
             StartDate = new DateTime(2024, 3, 25, 18, 0, 0),
             EndDate = new DateTime(2024, 3, 25, 21, 0, 0),
             DurationInHours = 3,

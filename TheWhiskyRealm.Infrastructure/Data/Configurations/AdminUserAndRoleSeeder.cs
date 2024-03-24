@@ -31,6 +31,7 @@ public class AdminUserAndRoleSeeder
 
         var adminUser = new ApplicationUser
         {
+            Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
             UserName = "admin@gmail.com",
             Email = "admin@gmail.com",
             Age = 29
@@ -44,6 +45,7 @@ public class AdminUserAndRoleSeeder
 
         var userOne = new ApplicationUser
         {
+            Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
             UserName = "test@gmail.com",
             Email = "test@gmail.com",
             Age = 18
@@ -58,6 +60,7 @@ public class AdminUserAndRoleSeeder
 
         var userTwo = new ApplicationUser
         {
+            Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
             UserName = "sober@gmail.com",
             Email = "sober@gmail.com",
             Age = 24
@@ -72,6 +75,7 @@ public class AdminUserAndRoleSeeder
 
         var userThree = new ApplicationUser
         {
+            Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
             UserName = "noToAlcohol@gmail.com",
             Email = "noToAlcohol@gmail.com",
             Age = 64

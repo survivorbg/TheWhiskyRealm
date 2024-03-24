@@ -25,7 +25,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 ImageUrl = "https://www.tasteofhome.com/wp-content/uploads/2019/08/bottles-of-scotch-whiskey-on-shelf-shutterstock_283026071.jpg?fit=1024,640",
                 DateCreated = new DateTime(2024, 3, 15),
                 Type = ArticleType.General,
-                PublisherUserId = "bca5356a-d5d8-47d7-b314-e74901211b99"
+                PublisherUserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
             });
 
             return articles.ToArray();
