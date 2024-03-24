@@ -1,4 +1,4 @@
-﻿using TheWhiskyRealm.Core.Models;
+﻿using TheWhiskyRealm.Core.Models.Whisky.Add;
 
 namespace TheWhiskyRealm.Core.Contracts;
 
