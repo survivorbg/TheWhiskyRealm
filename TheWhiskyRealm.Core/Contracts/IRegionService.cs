@@ -4,5 +4,5 @@ namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IRegionService
 {
-    Task<IEnumerable<RegionViewModel>> GetAllRegionsAsync();
+    
 }

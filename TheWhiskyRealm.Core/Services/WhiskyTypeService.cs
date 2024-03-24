@@ -26,4 +26,20 @@ public class WhiskyTypeService : IWhiskyTypeService
             })
             .ToListAsync();
     }
+
+    public async Task<string> GetWhiskyTypeNameAsync(int id)
+    {
+        var whiskyType = await repo.GetByIdAsync<WhiskyType>(id);
+
+        return whiskyType.Name;
+    }
+
+    public async Task<bool> WhiskyTypeExistsAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<WhiskyType>()
+            .AnyAsync(wt=>wt.Id == id);
+    }
+
+    
 }

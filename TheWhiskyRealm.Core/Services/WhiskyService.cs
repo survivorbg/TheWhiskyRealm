@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models;
+using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -20,7 +21,7 @@ public class WhiskyService : IWhiskyService
     public async Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take)
     {
         return await repo.AllReadOnly<Whisky>()
-            .OrderBy(w => w.Id)
+            .OrderByDescending(w => w.Id)
             .Skip(skip)
             .Take(take)
             .Select(x => new AllWhiskyModel()
@@ -37,9 +38,9 @@ public class WhiskyService : IWhiskyService
 
     public async Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take)
     {
-        
+
         return await repo.AllReadOnly<Whisky>()
-            .OrderBy(w => w.Id)
+            .OrderByDescending(w => w.Id)
             .Skip(skip)
             .Take(take)
             .Select(x => new AllWhiskyModel()
@@ -68,12 +69,12 @@ public class WhiskyService : IWhiskyService
         return await repo
             .AllReadOnly<Whisky>()
             .Where(w => w.Id == id)
-            .Select(w=> new DetailsWhiskyViewModel
+            .Select(w => new DetailsWhiskyViewModel
             {
-                Id= w.Id,
+                Id = w.Id,
                 Name = w.Name,
-                Age= w.Age,
-                AlcoholPercentage= w.AlcoholPercentage.ToString("F1"),
+                Age = w.Age,
+                AlcoholPercentage = w.AlcoholPercentage.ToString("F1"),
                 Description = w.Description,
                 WhiskyType = w.WhiskyType.Name,
                 DistilleryName = w.Distillery.Name,
@@ -82,5 +83,23 @@ public class WhiskyService : IWhiskyService
                 AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet"
             })
             .FirstAsync();
+    }
+
+    public async Task AddWhiskyAsync(AddWhiskyViewModel model)
+    {
+        if (model != null)
+        {
+            Whisky whisky = new()
+            {
+                Age = model.Age,
+                AlcoholPercentage = model.AlcoholPercentage,
+                Description = model.Description,
+                DistilleryId = model.DistilleryId,
+                WhiskyTypeId = model.WhiskyTypeId,
+                Name = model.Name
+            };
+            await repo.AddAsync(whisky);
+            await repo.SaveChangesAsync();
+        }
     }
 }

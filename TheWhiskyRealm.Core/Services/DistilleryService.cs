@@ -14,6 +14,14 @@ public class DistilleryService : IDistilleryService
     {
         this.repo = repo;
     }
+
+    public async Task<bool> DistilleryExistsAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Distillery>()
+            .AnyAsync(d=>d.Id == id);
+    }
+
     public async Task<IEnumerable<DistilleryAddWhiskyViewModel>> GetAllDistilleriesAsync()
     {
         return await repo

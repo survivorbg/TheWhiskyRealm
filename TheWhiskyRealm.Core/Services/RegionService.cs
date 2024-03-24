@@ -15,15 +15,5 @@ public class RegionService : IRegionService
         this.repo = repo;
     }
 
-    public async Task<IEnumerable<RegionViewModel>> GetAllRegionsAsync()
-    {
-        return await repo
-            .AllReadOnly<Region>()
-            .Select(r => new RegionViewModel()
-            {
-                RegionId = r.Id,
-                Name = r.Name,
-            })
-            .ToListAsync();
-    } 
+    
 }

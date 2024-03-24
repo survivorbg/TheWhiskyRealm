@@ -1,0 +1,95 @@
+﻿@using TheWhiskyRealm.Core.Models.Whisky.Add
+@model AddWhiskyViewModel
+
+@{
+    ViewData["Title"] = "Add Whisky";
+}
+
+<h1>Add Whisky</h1>
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" placeholder="Whisky Name...">
+                <span asp-validation-for="Name" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age"></label>
+                <input asp-for="Age" class="form-control" placeholder="Age...">
+                <span asp-validation-for="Age" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AlcoholPercentage"></label>
+                <input asp-for="AlcoholPercentage" class="form-control" placeholder="Alcohol Percentage...">
+                <span asp-validation-for="AlcoholPercentage" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Description..."></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DistilleryId"></label>
+                <select asp-for="DistilleryId" class="form-control">
+                    <optgroup label="Scotland">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "Scotland"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                    <optgroup label="Ireland">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "Ireland"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                    <optgroup label="United States">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "United States"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                    <optgroup label="Japan">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "Japan"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                    <optgroup label="India">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "India"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                    <optgroup label="Taiwan">
+                        @foreach (var distillery in Model.Distilleries.Where(d => d.Country == "Taiwan"))
+                        {
+                            <option value="@distillery.DistilleryId">@distillery.Name</option>
+                        }
+                    </optgroup>
+                </select>
+                <span asp-validation-for="DistilleryId" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WhiskyTypeId"></label>
+                <select asp-for="WhiskyTypeId" class="form-control">
+                    @foreach (var type in Model.WhiskyTypes)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="WhiskyTypeId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
