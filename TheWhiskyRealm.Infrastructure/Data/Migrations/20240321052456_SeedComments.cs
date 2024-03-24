@@ -19,12 +19,12 @@ namespace TheWhiskyRealm.Infrastructure.Data
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "ArticleId", "Content", "PostedDate", "UserId" },
-                values: new object[] { 1, 1, "Great article! I learned a lot about the whisky types.", new DateTime(2024, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "a8909756-a101-47c5-8d52-085322ffa6e6" });
+                values: new object[] { 1, 1, "Great article! I learned a lot about the whisky types.", new DateTime(2024, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "1cf4a321-6128-459e-8e4e-e4615c85d30f" });
 
             migrationBuilder.InsertData(
                 table: "Comments",
                 columns: new[] { "Id", "ArticleId", "Content", "PostedDate", "UserId" },
-                values: new object[] { 2, 1, "I completely agree with your list! Can't wait to try these whiskies.", new DateTime(2024, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "2d730ec7-1b14-4bf5-9265-3522e35c06d5" });
+                values: new object[] { 2, 1, "I completely agree with your list! Can't wait to try these whiskies.", new DateTime(2024, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

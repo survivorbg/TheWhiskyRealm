@@ -12,7 +12,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                 name: "ImageUrl",
                 table: "Distilleries",
                 type: "nvarchar(max)",
-                nullable: false,
+                nullable: true,
                 defaultValue: "",
                 comment: "The URL address of the image of the distillery.");
         }

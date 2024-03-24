@@ -274,7 +274,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("PublisherUserId");
 
-                    b.ToTable("Articles");
+                    b.ToTable("Articles", (string)null);
 
                     b.HasComment("Represents an article entity.");
 
@@ -328,7 +328,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("WhiskyId");
 
-                    b.ToTable("Awards");
+                    b.ToTable("Awards", (string)null);
 
                     b.HasComment("Represents an award entity.");
 
@@ -1052,7 +1052,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
 
                     b.HasComment("Represents a city entity.");
 
@@ -1114,7 +1114,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasComment("Represents a comment entity.");
 
@@ -1154,7 +1154,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasComment("Represents a country entity.");
 
@@ -1226,6 +1226,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("The URL address of the image of the distillery.");
 
@@ -1247,7 +1248,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("Distilleries");
+                    b.ToTable("Distilleries", (string)null);
 
                     b.HasComment("Represents a distillery entity.");
 
@@ -1419,7 +1420,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("VenueId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Events", (string)null);
 
                     b.HasComment("Represents an event entity.");
 
@@ -1478,7 +1479,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("WhiskyId");
 
-                    b.ToTable("Ratings");
+                    b.ToTable("Ratings", (string)null);
 
                     b.HasComment("Represents a rating entity.");
 
@@ -1610,7 +1611,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Regions");
+                    b.ToTable("Regions", (string)null);
 
                     b.HasComment("Represents a region entity.");
 
@@ -1753,7 +1754,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("WhiskyId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
 
                     b.HasComment("Represents a review entity.");
 
@@ -1864,7 +1865,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UsersEvents");
+                    b.ToTable("UsersEvents", (string)null);
 
                     b.HasComment("Represents a mapping entity between a user and an event.");
 
@@ -1913,7 +1914,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Venues");
+                    b.ToTable("Venues", (string)null);
 
                     b.HasComment("Represents a venue entity.");
 
@@ -2016,7 +2017,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasIndex("WhiskyTypeId");
 
-                    b.ToTable("Whiskies");
+                    b.ToTable("Whiskies", (string)null);
 
                     b.HasComment("Represents a whisky entity.");
 
@@ -2367,7 +2368,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.HasKey("Id");
 
-                    b.ToTable("WhiskyTypes");
+                    b.ToTable("WhiskyTypes", (string)null);
 
                     b.HasComment("Represents a whisky type entity.");
 
