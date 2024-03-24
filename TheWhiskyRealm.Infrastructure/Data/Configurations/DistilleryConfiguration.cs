@@ -208,7 +208,7 @@ public class DistilleryConfiguration : IEntityTypeConfiguration<Distillery>
         distilleries.Add(new Distillery { Id = 192, Name = "Michters Distillery", ImageUrl = null, YearFounded = 1847, RegionId = 26 });
         distilleries.Add(new Distillery { Id = 193, Name = "Willett Distillery", ImageUrl = null, YearFounded = 1936, RegionId = 26 });
         distilleries.Add(new Distillery { Id = 194, Name = "Bulleit", ImageUrl = "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg", YearFounded = 2017, RegionId = 26 });
-        distilleries.Add(new Distillery { Id = 195, Name = "Kavalan", ImageUrl = "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg", YearFounded = 2005, RegionId = 26 });
+        distilleries.Add(new Distillery { Id = 195, Name = "Kavalan", ImageUrl = "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg", YearFounded = 2005, RegionId = 36 });
         distilleries.Add(new Distillery { Id = 196, Name = "Amrut", ImageUrl = "https://www.whisky.com/fileadmin/_processed_/1/5/csm_IMG_0402_718cec422ff28f51b8654e744519f5ec_1fb068e7c2.jpg", YearFounded = 1948, RegionId = 37 });
         distilleries.Add(new Distillery { Id = 197, Name = "Hiram-Walker & Sons distillery", ImageUrl = "https://smartcdn.gprod.postmedia.digital/windsorstar/wp-content/uploads/2021/02/hiram-walker-sons-distillery-1.jpg", YearFounded = 1858, RegionId = 38 });
 

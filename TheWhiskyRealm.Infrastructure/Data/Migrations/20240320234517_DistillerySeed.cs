@@ -596,7 +596,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
             194, "Bulleit", 2017, 26, "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg"
         },
         {
-            195, "Kavalan", 2005, 26, "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg"
+            195, "Kavalan", 2005, 36, "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg"
         },
         {
             196, "Amrut", 1948, 37, "https://www.whisky.com/fileadmin/_processed_/1/5/csm_IMG_0402_718cec422ff28f51b8654e744519f5ec_1fb068e7c2.jpg"
