@@ -16,6 +16,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IWhiskyService, WhiskyService>();
         services.AddScoped<IRatingService, RatingService>();
         services.AddScoped<IWhiskyTypeService, WhiskyTypeService>();
+        services.AddScoped<IRegionService, RegionService>();
+        services.AddScoped<IDistilleryService, DistilleryService>();
 
         return services;
     }
