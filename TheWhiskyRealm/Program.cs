@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddApplicationService();
 builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider());
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
 var app = builder.Build();
