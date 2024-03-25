@@ -1,4 +1,4 @@
-﻿namespace TheWhiskyRealm.Core.Models;
+﻿namespace TheWhiskyRealm.Core.Models.Whisky;
 
 public class ReviewViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TheWhiskyRealm.Infrastructure.Data;
 
-namespace TheWhiskyRealm.Core.Models;
+namespace TheWhiskyRealm.Core.Models.Whisky;
 
 public class AllWhiskyModel
 {
@@ -32,5 +32,5 @@ public class AllWhiskyModel
     /// <summary>
     /// Represents the number ot reviews associated with this whisky.
     /// </summary>
-    public int Reviews { get; set; } 
+    public int Reviews { get; set; }
 }

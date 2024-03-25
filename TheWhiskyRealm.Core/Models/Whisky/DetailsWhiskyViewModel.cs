@@ -1,4 +1,4 @@
-﻿namespace TheWhiskyRealm.Core.Models;
+﻿namespace TheWhiskyRealm.Core.Models.Whisky;
 
 public class DetailsWhiskyViewModel
 {
@@ -17,7 +17,7 @@ public class DetailsWhiskyViewModel
     public string DistilleryName { get; set; } = string.Empty;
     public string WhiskyType { get; set; } = string.Empty;
     public string CountryName { get; set; } = string.Empty;
-    public string RegionName {  get; set; } = string.Empty;
+    public string RegionName { get; set; } = string.Empty;
     public string AverageRating { get; set; } = string.Empty;
 }
 
