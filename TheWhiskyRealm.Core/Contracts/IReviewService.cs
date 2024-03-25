@@ -1,5 +1,10 @@
-﻿namespace TheWhiskyRealm.Core.Contracts;
+﻿using TheWhiskyRealm.Core.Models.Review;
+
+namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IReviewService
 {
+    Task AddReviewAsync(ReviewFormModel model,string userId);
+    Task<bool> UserAlreadyReviewedWhiskyAsync(string userId,int whiskyId);
+    Task<int> GetReviewIdAsync(string userId, int whiskyId);
 }
