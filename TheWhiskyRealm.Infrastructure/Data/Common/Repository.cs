@@ -83,4 +83,17 @@ public class Repository : IRepository
     {
         return await context.SaveChangesAsync();
     }
+
+    /// <summary>
+    /// Deletes the entity with the specified id from the database.
+    /// </summary>
+    /// <param name="id">The id of the entity to delete from the database.</param>
+    public async Task DeleteById<T>(object id) where T : class
+    {
+        var entity = await GetByIdAsync<T>(id);
+        if (entity != null)
+        {
+            DbSet<T>().Remove(entity);
+        }
+    }
 }

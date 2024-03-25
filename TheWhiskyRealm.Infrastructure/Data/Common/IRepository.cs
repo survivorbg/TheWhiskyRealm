@@ -39,6 +39,12 @@ public interface IRepository
     void Delete<T>(T entity) where T : class;
 
     /// <summary>
+    /// Deletes the entity with the specified id from the database.
+    /// </summary>
+    /// <param name="id">The id of the entity to delete from the database.</param>
+    Task DeleteById<T>(object id) where T : class;
+
+    /// <summary>
     /// Asynchronously saves all changes made in the database context.
     /// </summary>
     /// <returns>Returns the number of affected rows.</returns>
