@@ -59,7 +59,7 @@ public class WhiskyController : BaseController
     [HttpGet]
     public async Task<IActionResult> Add()
     {
-        var model = new AddWhiskyViewModel();
+        var model = new WhiskyFormModel();
 
         model.WhiskyTypes = await whiskyTypeService.GetAllWhiskyTypesAsync();
         model.Distilleries = await distilleryService.GetAllDistilleriesAsync();
@@ -69,7 +69,7 @@ public class WhiskyController : BaseController
 
     [Authorize(Roles = "Administrator")]
     [HttpPost]
-    public async Task<IActionResult> Add(AddWhiskyViewModel model)
+    public async Task<IActionResult> Add(WhiskyFormModel model)
     {
         if (model == null)
         {
@@ -107,4 +107,67 @@ public class WhiskyController : BaseController
 
         return RedirectToAction(nameof(All));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        if(await whiskyService.WhiskyExistAsync(id) == false)
+        {
+            return BadRequest();
+        }
+
+        var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
+
+        model.WhiskyTypes = await whiskyTypeService.GetAllWhiskyTypesAsync();
+        model.Distilleries = await distilleryService.GetAllDistilleriesAsync();
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, WhiskyFormModel model)
+    {
+        if (model == null)
+        {
+            return BadRequest();
+        }
+
+        if (await whiskyService.WhiskyExistAsync(id) == false)
+        {
+            return BadRequest();
+        }
+
+        if (await distilleryService.DistilleryExistsAsync(model.DistilleryId) == false)
+        {
+            ModelState.AddModelError(nameof(model.DistilleryId), "Distillery does not exist!");
+        }
+
+        if (await whiskyTypeService.WhiskyTypeExistsAsync(model.WhiskyTypeId) == false)
+        {
+            ModelState.AddModelError(nameof(model.DistilleryId), "Whisky type does not exist!");
+        }
+
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) == "Bourbon" && model.Age < 2)
+        {
+            ModelState.AddModelError("Age", "Bourbon whiskeys must be at least 2 years old!");
+        }
+
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) != "Bourbon" && model.Age < 3)
+        {
+            ModelState.AddModelError("Age", "All whiskies, except Bourbon, should be at least 3 years old!");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.WhiskyTypes = await whiskyTypeService.GetAllWhiskyTypesAsync();
+            model.Distilleries = await distilleryService.GetAllDistilleriesAsync();
+            return View(model);
+        }
+
+        await whiskyService.EditWhiskyAsync(id, model);
+
+        return RedirectToAction("Details", new {id});
+    }
+
+
 }

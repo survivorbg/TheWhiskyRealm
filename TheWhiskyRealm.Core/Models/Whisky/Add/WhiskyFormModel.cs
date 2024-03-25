@@ -4,7 +4,7 @@ using static TheWhiskyRealm.Infrastructure.Constants.WhiskyDataConstants;
 
 namespace TheWhiskyRealm.Core.Models.Whisky.Add;
 
-public class AddWhiskyViewModel
+public class WhiskyFormModel
 {
     [Required(ErrorMessage = RequiredMessage)]
     [StringLength(WhiskyMaxNameLength, MinimumLength = WhiskyMinNameLength, ErrorMessage = LengthMessage)]

@@ -1,0 +1,59 @@
+﻿@model TheWhiskyRealm.Core.Models.Whisky.Add.WhiskyFormModel
+
+@{
+    ViewData["Title"] = "Edit Whisky";
+}
+
+<h1>Edit Whisky</h1>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AlcoholPercentage"></label>
+        <input asp-for="AlcoholPercentage" class="form-control" />
+        <span asp-validation-for="AlcoholPercentage" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DistilleryId"></label>
+        <select asp-for="DistilleryId" class="form-control">
+            <option value="">-- Select Distillery --</option>
+            @foreach (var distillery in Model.Distilleries)
+            {
+                <option value="@distillery.DistilleryId">@distillery.Name</option>
+            }
+        </select>
+        <span asp-validation-for="DistilleryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WhiskyTypeId"></label>
+        <select asp-for="WhiskyTypeId" class="form-control">
+            <option value="">-- Select Whisky Type --</option>
+            @foreach (var whiskyType in Model.WhiskyTypes)
+            {
+                <option value="@whiskyType.Id">@whiskyType.Name</option>
+            }
+        </select>
+        <span asp-validation-for="WhiskyTypeId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

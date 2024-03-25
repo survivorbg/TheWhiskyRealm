@@ -85,7 +85,7 @@ public class WhiskyService : IWhiskyService
             .FirstAsync();
     }
 
-    public async Task AddWhiskyAsync(AddWhiskyViewModel model)
+    public async Task AddWhiskyAsync(WhiskyFormModel model)
     {
         if (model != null)
         {
@@ -101,5 +101,39 @@ public class WhiskyService : IWhiskyService
             await repo.AddAsync(whisky);
             await repo.SaveChangesAsync();
         }
+    }
+
+    public async Task<WhiskyFormModel> GetWhiskyByIdForEditAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Whisky>()
+            .Where(w => w.Id == id)
+            .Select(w => new WhiskyFormModel
+            {
+                Name = w.Name,
+                Age = w.Age,
+                AlcoholPercentage = w.AlcoholPercentage,
+                Description = w.Description,
+                WhiskyTypeId = w.WhiskyType.Id,
+                DistilleryId = w.Distillery.Id,
+            })
+            .FirstAsync();
+    }
+
+    public async Task EditWhiskyAsync(int whiskyId, WhiskyFormModel model)
+    {
+        var whisky = await repo.GetByIdAsync<Whisky>(whiskyId);
+
+        if(whisky != null)
+        {
+            whisky.Name = model.Name;
+            whisky.Age = model.Age;
+            whisky.WhiskyTypeId = model.WhiskyTypeId;
+            whisky.AlcoholPercentage = model.AlcoholPercentage;
+            whisky.Description = model.Description;
+            whisky.DistilleryId = model.DistilleryId;
+        }
+
+        await repo.SaveChangesAsync();
     }
 }
