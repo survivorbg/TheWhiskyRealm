@@ -136,4 +136,13 @@ public class WhiskyService : IWhiskyService
 
         await repo.SaveChangesAsync();
     }
+
+    public async Task DeleteAsync(int id)
+    {
+        if (await WhiskyExistAsync(id))
+        {
+            await repo.DeleteById<Whisky>(id);
+        }
+        await repo.SaveChangesAsync();
+    }
 }

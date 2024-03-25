@@ -169,5 +169,30 @@ public class WhiskyController : BaseController
         return RedirectToAction("Details", new {id});
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        if(await whiskyService.WhiskyExistAsync(id) == false)
+        {
+            return BadRequest();
+        }
 
+        var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(int id, WhiskyFormModel model)
+    {
+        if (await whiskyService.WhiskyExistAsync(id) == false)
+        {
+            return BadRequest();
+        }
+
+        await whiskyService.DeleteAsync(id);
+
+
+        return RedirectToAction(nameof(All));
+    }
 }

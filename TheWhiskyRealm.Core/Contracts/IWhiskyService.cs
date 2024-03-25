@@ -12,4 +12,5 @@ public interface IWhiskyService
     Task<WhiskyFormModel> GetWhiskyByIdForEditAsync(int id);
     Task AddWhiskyAsync(WhiskyFormModel model);
     Task EditWhiskyAsync(int whiskyId, WhiskyFormModel model);
+    Task DeleteAsync(int id);
 }
