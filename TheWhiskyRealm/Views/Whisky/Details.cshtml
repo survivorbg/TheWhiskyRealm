@@ -1,7 +1,9 @@
-﻿@model DetailsWhiskyViewModel
+﻿@using System.Security.Claims
+@model DetailsWhiskyViewModel
 @{
     ViewData["Title"] = "Details";
     string sufix = ((Model.WhiskyType == "Irish") || (Model.WhiskyType == "Bourbon")) ? "Whiskey" : "Whisky";
+    string username = User.Identity.Name;
 }
 <link rel="stylesheet" type="text/css" href="~/css/whiskyDetails.css">
 <div class="container">
@@ -67,7 +69,7 @@
 
     @foreach (var review in Model.Reviews)
     {
-            string recommend = review.Recommend ? "Recommended" : "Not Recommended";
+        string recommend = review.Recommend ? "Recommended" : "Not Recommended";
 
         <div class="container">
             <div class="card mb-3">
@@ -76,11 +78,14 @@
                     <h6 class="card-subtitle mb-2 text-muted">@recommend</h6>
                     <p class="card-text">@review.Content</p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
-                        </div>
-                        <small class="text-muted">@review.UserName</small>
+                        @if (username == review.UserName)
+                        {
+                            <div class="btn-group">
+                                <a asp-controller="Review" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a asp-controller="Review" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+                            </div>
+                        }
+                        <small class="text-muted">published by: @review.UserName</small>
                     </div>
                 </div>
             </div>
