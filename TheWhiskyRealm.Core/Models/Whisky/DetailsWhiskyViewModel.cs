@@ -17,5 +17,6 @@ public class DetailsWhiskyViewModel
     public string CountryName { get; set; } = string.Empty;
     public string RegionName { get; set; } = string.Empty;
     public string AverageRating { get; set; } = string.Empty;
+    public ICollection<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
 }
 

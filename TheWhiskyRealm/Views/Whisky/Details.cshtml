@@ -57,4 +57,33 @@
     </div>
     <hr />
     <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
+    <hr />
+    <a asp-controller="Whisky" asp-action="Edit" asp-route-id="@Model.Id"
+       class="btn btn-warning">Edit</a>
+    <hr />
+    <h3>
+        Reviews for Auchentoshan Three Wood
+    </h3>
+
+    @foreach (var review in Model.Reviews)
+    {
+            string recommend = review.Recommend ? "Recommended" : "Not Recommended";
+
+        <div class="container">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@review.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@recommend</h6>
+                    <p class="card-text">@review.Content</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>
+                        </div>
+                        <small class="text-muted">@review.UserName</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>

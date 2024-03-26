@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Review;
+using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -29,6 +30,22 @@ public class ReviewService : IReviewService
 
         await repo.AddAsync(review);
         await repo.SaveChangesAsync();
+    }
+
+    public async Task<ICollection<ReviewViewModel>> AllReviewsForWhiskyAsync(int whiskyId)
+    {
+        return await repo
+            .AllReadOnly<Review>()
+            .Where(r => r.WhiskyId == whiskyId)
+            .Select(r => new ReviewViewModel()
+            {
+                Content= r.Content,
+                Id = r.Id,
+                Recommend = r.Recommend,
+                Title = r.Title,
+                UserName = r.User.UserName
+            })
+            .ToListAsync();
     }
 
     public async Task EditReviewAsync(int id, ReviewFormModel model)
