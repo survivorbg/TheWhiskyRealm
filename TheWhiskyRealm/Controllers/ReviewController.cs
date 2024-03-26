@@ -37,8 +37,6 @@ public class ReviewController : BaseController
             return BadRequest();
         }
 
-        var whisky = await whiskyService.GetWhiskyByIdAsync(id);
-
         var model = new ReviewFormModel()
         {
             WhiskyId = id
