@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.Rating;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -27,5 +28,27 @@ public class RatingService : IRatingService
         }
 
         return -1;
+    }
+
+    public async Task RateAsync(string userId, RatingViewModel model)
+    {
+        var rating = new Rating()
+        {
+            Finish = model.Finish,
+            Nose = model.Nose,
+            Taste = model.Taste,
+            UserId = userId,
+            WhiskyId = model.WhiskyId
+        };
+
+        await repo.AddAsync(rating);
+        await repo.SaveChangesAsync();
+    }
+
+    public async Task<bool> UserAlreadyGaveRatingAsync(string userId, int whiskyId)
+    {
+        return await repo
+            .AllReadOnly<Rating>()
+            .AnyAsync(r => r.WhiskyId == whiskyId && r.UserId == userId);
     }
 }
