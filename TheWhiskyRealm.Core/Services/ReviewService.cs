@@ -31,12 +31,51 @@ public class ReviewService : IReviewService
         await repo.SaveChangesAsync();
     }
 
+    public async Task EditReviewAsync(int id, ReviewFormModel model)
+    {
+        var review = await repo
+            .GetByIdAsync<Review>(id);
+
+        if(review != null)
+        {
+            review.Title = model.Title; 
+            review.Recommend = model.Recommend;
+            review.Content = model.Content;
+        }
+
+        await repo.SaveChangesAsync();
+    }
+
+    public async Task<EditReviewFormModel?> GetReviewAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Review>()
+            .Where(r => r.Id == id)
+            .Select(r => new EditReviewFormModel()
+            {
+                Content=r.Content,
+                Recommend=r.Recommend,
+                Title = r.Title,
+                WhiskyId = r.WhiskyId,
+                UserId = r.UserId,
+                Id = id
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<int> GetReviewIdAsync(string userId, int whiskyId)
     {
         var review = await repo
              .AllReadOnly<Review>()
              .FirstAsync(r => r.WhiskyId == whiskyId && r.UserId == userId);
         return review.Id;
+    }
+
+    public async Task<bool> ReviewExistAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Review>()
+            .AnyAsync(r => r.Id == id);
     }
 
     public async Task<bool> UserAlreadyReviewedWhiskyAsync(string userId, int whiskyId)
