@@ -48,6 +48,19 @@ public class ReviewService : IReviewService
             .ToListAsync();
     }
 
+    public async Task DeleteReviewAsync(int id)
+    {
+        var review = await repo
+            .GetByIdAsync<Review>(id);
+
+        if(review != null)
+        {
+            repo.Delete(review);    
+        }
+
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditReviewAsync(int id, ReviewFormModel model)
     {
         var review = await repo

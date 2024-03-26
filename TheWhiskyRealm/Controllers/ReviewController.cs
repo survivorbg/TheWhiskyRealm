@@ -136,4 +136,30 @@ public class ReviewController : BaseController
 
         return RedirectToAction("Details","Whisky",new {id=model.WhiskyId});
     }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var userId = User.Id();
+
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        if (await reviewService.ReviewExistAsync(id) == false)
+        {
+            return BadRequest(); //TODO Change to My Reviews
+        }
+
+        var review = await reviewService.GetReviewAsync(id);
+
+        if (userId != review.UserId)
+        {
+            return Unauthorized();
+        }
+
+        await reviewService.DeleteReviewAsync(id);
+
+        return RedirectToAction("All", "Whisky");
+    }
 }
