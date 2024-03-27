@@ -1,0 +1,53 @@
+﻿@model ICollection<AwardViewModel>
+<style>
+    #awardsDiv{
+        height: 300px;
+        overflow-y: auto;
+        line-height:1;
+    }
+    
+    #awardsDiv::-webkit-scrollbar {
+        width: 10px;
+    }
+    #awardsDiv::-webkit-scrollbar-track {
+        background: white;
+    }
+    #awardsDiv::-webkit-scrollbar-thumb {
+        background-image: linear-gradient(45deg, brown, silver);
+        border-radius:10px;
+    }
+        #awardsDiv::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+    #awardsDiv .award-container{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+    }
+
+    #awardsDiv .award-container img{
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+    }
+    
+</style>
+
+<div style="" id="awardsDiv">
+    @foreach (var award in Model)
+    {
+        <div class="award-container">
+            <img src="@Url.Content($"~/images/{award.MedalType}.png")" alt="Medal" style="" />
+            <div>
+                <h4>@award.Title</h4>
+                <p>@award.AwardsCeremony, @award.Year</p>
+            </div>
+        </div>
+
+
+        @*  <a asp-controller="Awards" asp-action="Edit" asp-route-id="@award.Id">Редактирай</a>
+    <a asp-controller="Awards" asp-action="Delete" asp-route-id="@award.Id">Изтрий</a> *@
+
+    }
+</div>

@@ -13,18 +13,21 @@ public class WhiskyController : BaseController
     private readonly IRegionService regionService;
     private readonly IDistilleryService distilleryService;
     private readonly IReviewService reviewService;
+    private readonly IAwardService awardService;
 
     public WhiskyController(IWhiskyService whiskyService,
         IWhiskyTypeService whiskyTypeService,
         IRegionService regionService,
         IDistilleryService distilleryService,
-        IReviewService reviewService)
+        IReviewService reviewService,
+        IAwardService awardService)
     {
         this.whiskyService = whiskyService;
         this.whiskyTypeService = whiskyTypeService;
         this.regionService = regionService;
         this.distilleryService = distilleryService;
         this.reviewService = reviewService;
+        this.awardService = awardService;
     }
 
     [HttpGet]
@@ -50,6 +53,7 @@ public class WhiskyController : BaseController
         {
             WhiskyId = id 
         };
+        model.Awards = await awardService.GetAllWhiskyAwards(id);
         
         return View(model);
     }

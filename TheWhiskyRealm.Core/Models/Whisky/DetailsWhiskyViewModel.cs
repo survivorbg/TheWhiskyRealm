@@ -25,6 +25,7 @@ public class DetailsWhiskyViewModel
     public int Finish { get; set; }
     public ReviewFormModel Review { get; set; } = null!;
     public ICollection<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
+    public ICollection<AwardViewModel> Awards { get; set; } = new List<AwardViewModel>();
     
 }
 
