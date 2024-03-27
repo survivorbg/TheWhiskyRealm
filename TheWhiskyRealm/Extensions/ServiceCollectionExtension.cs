@@ -19,6 +19,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IRegionService, RegionService>();
         services.AddScoped<IDistilleryService, DistilleryService>();
         services.AddScoped<IReviewService, ReviewService>();
+        services.AddScoped<IAwardService, AwardService>();
 
         return services;
     }
