@@ -94,4 +94,8 @@ public class Whisky
     /// </summary>
     [Comment("The ratings given for the whisky.")]
     public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+    /// <summary>
+    /// Mapping table between Whiskies and Users
+    /// </summary>
+    public ICollection<UserWhisky> UsersWhiskies { get; set; } = new List<UserWhisky>();
 }
