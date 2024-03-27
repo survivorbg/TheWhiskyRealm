@@ -81,18 +81,20 @@ div.user-rating {
     border-right: 4px indianred solid;
     border-radius: 10px;
     text-align: center;
+    color: antiquewhite;
+    font-weight: bold;
 }
-    div.user-rating .nose{
-        background-color:greenyellow;
-        border-radius:0px 25px 5px 25px;
+    div.user-rating .nose {
+        background-image: linear-gradient(to right, purple, orange);
+        border-radius: 0px 25px 5px 25px;
         margin-bottom: 2px;
-        padding-top:4px;
-        padding-bottom:4px;
+        padding-top: 4px;
+        padding-bottom: 4px;
         
     }
 
     div.user-rating .taste {
-        background-color: mediumvioletred;
+        background-image: linear-gradient(to right, purple, orange);
         border-radius: 0px 25px 5px 25px;
         margin-bottom: 2px;
         padding-top: 4px;
@@ -100,7 +102,7 @@ div.user-rating {
     }
 
     div.user-rating .finish {
-        background-color: deepskyblue;
+        background-image: linear-gradient(to right, purple, orange);
         border-radius: 0px 25px 5px 25px;
         padding-top: 4px;
         padding-bottom: 4px;
