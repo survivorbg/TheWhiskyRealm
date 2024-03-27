@@ -3,43 +3,40 @@ using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Rating;
 
-namespace TheWhiskyRealm.Controllers
+namespace TheWhiskyRealm.Controllers;
+
+public class RatingController : BaseController
 {
-    public class RatingController : BaseController
+    private readonly IRatingService ratingService;
+    private readonly IWhiskyService whiskyService;
+
+    public RatingController(IRatingService ratingService, IWhiskyService whiskyService)
     {
-        private readonly IRatingService ratingService;
-        private readonly IWhiskyService whiskyService;
+        this.ratingService = ratingService;
+        this.whiskyService = whiskyService;
+    }
 
-        public RatingController(IRatingService ratingService, IWhiskyService whiskyService)
+    [HttpPost]
+    public async Task<IActionResult> Rate(RatingViewModel model)
+    {
+        var userId = User.Id();
+        if (userId == null)
         {
-            this.ratingService = ratingService;
-            this.whiskyService = whiskyService;
+            return RedirectToPage("/Account/Login");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Rate(RatingViewModel model)
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
         {
-            var userId = User.Id();
-            if (userId == null)
-            {
-                return RedirectToPage("/Account/Login");
-            }
-
-            if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
-            {
-                RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            await ratingService.RateAsync(userId, model);
-
-            return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
+            return RedirectToAction("All", "Whisky");
         }
 
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
 
+        await ratingService.RateAsync(userId, model);
+
+        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }
 }

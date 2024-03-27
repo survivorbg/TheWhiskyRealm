@@ -115,3 +115,8 @@ div.rating-container{
 h3 .whisky-rating{
     text-align:center;
 }
+
+div.whisky-buttons{
+    display:flex;
+    justify-content:space-evenly;
+}
