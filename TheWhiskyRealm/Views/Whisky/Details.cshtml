@@ -1,9 +1,13 @@
 ﻿@using System.Security.Claims
+@using TheWhiskyRealm.Core.Contracts
 @model DetailsWhiskyViewModel
+@inject IRatingService ratingService
+
 @{
     ViewData["Title"] = "Details";
     string sufix = ((Model.WhiskyType == "Irish") || (Model.WhiskyType == "Bourbon")) ? "Whiskey" : "Whisky";
     string username = User.Identity.Name;
+    var userRating = await ratingService.GetRatingAsync(User.Id(), Model.Id);
 }
 <link rel="stylesheet" type="text/css" href="~/css/whiskyDetails.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -61,7 +65,24 @@
         </div>
     </div>
     <hr />
-    <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
+    @if (userRating == null)
+    {
+        <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
+        <h3 class="text-center mt-3">Rate this whisky</h3>
+        <form asp-controller="Rating" asp-action="Rate" method="post">
+            <partial name="_RatingFormPartial" model="Model" />
+        </form>
+    }
+    else
+    {
+        <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
+        <h3 class="text-center mt-3">Your Rating</h3>
+        <div class="user-rating">
+            <div class="nose" style="width: @(userRating.Nose)%">Nose: @userRating.Nose</div>
+            <div class="taste" style="width: @(userRating.Taste)%">Taste: @userRating.Taste</div>
+            <div class="finish" style="width: @(userRating.Finish)%">Finish: @userRating.Finish</div>
+        </div>
+    }
     <hr />
     <a asp-controller="Whisky" asp-action="Edit" asp-route-id="@Model.Id"
        class="btn btn-warning">Edit</a>

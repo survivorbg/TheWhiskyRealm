@@ -7,4 +7,5 @@ public interface IRatingService
     Task<double> GetAvgRatingAsync(int whiskyId);
     Task<bool> UserAlreadyGaveRatingAsync(string userId, int whiskyId);
     Task RateAsync(string userId, RatingViewModel model);
+    Task<RatingViewModel?> GetRatingAsync(string userId, int whiskyId);
 }

@@ -1,0 +1,50 @@
+﻿<div class="rating-container">
+<div class="form-group">
+    <label for="nose">Nose:</label>
+    <input type="range" id="nose" name="nose" min="1" max="100" value="@Model.Nose">
+    <span id="nose-value">@Model.Nose</span>
+</div>
+
+<div class="form-group">
+    <label for="taste">Taste:</label>
+    <input type="range" id="taste" name="taste" min="1" max="100" value="@Model.Taste">
+    <span id="taste-value">@Model.Taste</span>
+</div>
+
+<div class="form-group">
+    <label for="finish">Finish:</label>
+    <input type="range" id="finish" name="finish" min="1" max="100" value="@Model.Finish">
+    <span id="finish-value">@Model.Finish</span>
+</div>
+
+<div class="form-group">
+    <input type="hidden" name="whiskyId" value="@Model.Id">
+    <button type="submit" class="btn btn-primary">Submit Rating</button>
+</div>
+</div>
+
+<script>
+    var noseSlider = document.getElementById("nose");
+    var tasteSlider = document.getElementById("taste");
+    var finishSlider = document.getElementById("finish");
+
+    var noseOutput = document.getElementById("nose-value");
+    var tasteOutput = document.getElementById("taste-value");
+    var finishOutput = document.getElementById("finish-value");
+
+    noseOutput.innerHTML = noseSlider.value;
+    tasteOutput.innerHTML = tasteSlider.value;
+    finishOutput.innerHTML = finishSlider.value;
+
+    noseSlider.oninput = function () {
+        noseOutput.innerHTML = this.value;
+    }
+
+    tasteSlider.oninput = function () {
+        tasteOutput.innerHTML = this.value;
+    }
+
+    finishSlider.oninput = function () {
+        finishOutput.innerHTML = this.value;
+    }
+</script>

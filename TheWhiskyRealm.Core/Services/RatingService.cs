@@ -30,6 +30,21 @@ public class RatingService : IRatingService
         return -1;
     }
 
+    public async Task<RatingViewModel?> GetRatingAsync(string userId, int whiskyId)
+    {
+        return await repo
+            .All<Rating>()
+            .Where(r => r.UserId == userId && r.WhiskyId == whiskyId)
+            .Select(r => new RatingViewModel
+            {
+                Finish = r.Finish,
+                Nose = r.Nose,
+                Taste = r.Taste,
+                WhiskyId = r.WhiskyId
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task RateAsync(string userId, RatingViewModel model)
     {
         var rating = new Rating()

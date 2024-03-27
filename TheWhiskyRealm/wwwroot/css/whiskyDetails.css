@@ -76,3 +76,40 @@
 .description {
     max-width: 800px;
 }
+
+div.user-rating {
+    border-right: 4px indianred solid;
+    border-radius: 10px;
+    text-align: center;
+}
+    div.user-rating .nose{
+        background-color:greenyellow;
+        border-radius:0px 25px 5px 25px;
+        margin-bottom: 2px;
+        padding-top:4px;
+        padding-bottom:4px;
+        
+    }
+
+    div.user-rating .taste {
+        background-color: mediumvioletred;
+        border-radius: 0px 25px 5px 25px;
+        margin-bottom: 2px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+    div.user-rating .finish {
+        background-color: deepskyblue;
+        border-radius: 0px 25px 5px 25px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+
+div.rating-container{
+    text-align:center;
+}
+
+h3 .whisky-rating{
+    text-align:center;
+}
