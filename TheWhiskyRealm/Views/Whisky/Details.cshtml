@@ -71,6 +71,12 @@
             </div>
         </div>
     </div>
+    
+    @if (Model.Awards.Any())
+    {
+        <hr />
+        <partial name="_AwardsPartial" model="Model.Awards" />
+    }
     <hr />
     @if (userRating == null)
     {
@@ -89,14 +95,9 @@
             <div class="finish" style="width: @(userRating.Finish)%">Finish: @userRating.Finish</div>
         </div>
     }
-    @if (Model.Awards.Any())
-    {
-        <hr />
-        <partial name="_AwardsPartial" model="Model.Awards" />
-    }
     <hr />
     <h3 class="text-center">
-        Reviews for Auchentoshan Three Wood
+        Reviews for @Model.Name
     </h3>
     <p class="text-center">@Model.Reviews.Count reviews</p>
     @if (userReviewed)
