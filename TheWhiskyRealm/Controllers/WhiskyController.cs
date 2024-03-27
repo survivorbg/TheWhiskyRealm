@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Review;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
@@ -49,12 +50,13 @@ public class WhiskyController : BaseController
 
         var model = await whiskyService.GetWhiskyByIdAsync(id);
         model.Reviews = await reviewService.AllReviewsForWhiskyAsync(id);
-        model.Review = new ReviewFormModel() 
+        model.Review = new ReviewFormModel()
         {
-            WhiskyId = id 
+            WhiskyId = id
         };
         model.Awards = await awardService.GetAllWhiskyAwards(id);
-        
+        model.IsFavorite = await whiskyService.WhiskyInFavouritesAsync(User.Id(), id);
+
         return View(model);
     }
 
@@ -208,4 +210,23 @@ public class WhiskyController : BaseController
 
         return RedirectToAction(nameof(All));
     }
+
+    [HttpPost]
+    public async Task<IActionResult> AddToFavorites(int id)
+    {
+        var userId = User.Id();
+
+
+        if (await whiskyService.WhiskyInFavouritesAsync(userId, id))
+        {
+            return BadRequest("Whisky is already in favorites.");
+        }
+
+
+        await whiskyService.AddToFavoritesAsync(userId, id);
+
+        return Ok();
+    }
+
+    
 }

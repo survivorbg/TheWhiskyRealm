@@ -1,5 +1,4 @@
-﻿using TheWhiskyRealm.Core.Models.Rating;
-using TheWhiskyRealm.Core.Models.Review;
+﻿using TheWhiskyRealm.Core.Models.Review;
 
 namespace TheWhiskyRealm.Core.Models.Whisky;
 
@@ -20,6 +19,7 @@ public class DetailsWhiskyViewModel
     public string CountryName { get; set; } = string.Empty;
     public string RegionName { get; set; } = string.Empty;
     public string AverageRating { get; set; } = string.Empty;
+    public bool IsFavorite { get; set; }
     public int Nose { get; set; }
     public int Taste { get; set; }
     public int Finish { get; set; }

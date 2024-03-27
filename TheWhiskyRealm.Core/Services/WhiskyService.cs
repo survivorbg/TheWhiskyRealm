@@ -145,4 +145,22 @@ public class WhiskyService : IWhiskyService
         }
         await repo.SaveChangesAsync();
     }
+
+    public async Task<bool> WhiskyInFavouritesAsync(string userId, int whiskyId)
+    {
+        return await repo
+            .AllReadOnly<UserWhisky>()
+            .AnyAsync(uw=> uw.User.Id == userId && uw.Whisky.Id == whiskyId);
+    }
+
+    public async Task AddToFavoritesAsync(string userId, int whiskyId)
+    {
+        var userWhisky = new UserWhisky()
+        {
+            UserId = userId,
+            WhiskyId = whiskyId
+        };
+        await repo.AddAsync(userWhisky);
+        await repo.SaveChangesAsync();
+    }
 }

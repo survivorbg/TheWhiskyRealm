@@ -120,3 +120,28 @@ div.whisky-buttons{
     display:flex;
     justify-content:space-evenly;
 }
+
+.heart-icon {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    transition: fill 0.3s ease;
+}
+
+    .heart-icon:hover {
+        fill: #ff0000;
+    }
+
+    .heart-icon.active {
+        fill: #ff0000;
+    }
+
+.container .whisky-title{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    align-content:center;
+}
