@@ -1,4 +1,5 @@
-﻿using TheWhiskyRealm.Core.Models.Review;
+﻿using TheWhiskyRealm.Core.Models.Rating;
+using TheWhiskyRealm.Core.Models.Review;
 
 namespace TheWhiskyRealm.Core.Models.Whisky;
 

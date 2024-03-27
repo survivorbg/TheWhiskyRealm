@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Rating;
+using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -30,17 +31,19 @@ public class RatingService : IRatingService
         return -1;
     }
 
-    public async Task<RatingViewModel?> GetRatingAsync(string userId, int whiskyId)
+    public async Task<RatingEditViewModel?> GetRatingAsync(string userId, int whiskyId)
     {
         return await repo
             .All<Rating>()
             .Where(r => r.UserId == userId && r.WhiskyId == whiskyId)
-            .Select(r => new RatingViewModel
+            .Select(r => new RatingEditViewModel
             {
+                Id = r.Id,
                 Finish = r.Finish,
                 Nose = r.Nose,
                 Taste = r.Taste,
-                WhiskyId = r.WhiskyId
+                WhiskyId = r.WhiskyId,
+                UserId = r.UserId,
             })
             .FirstOrDefaultAsync();
     }
