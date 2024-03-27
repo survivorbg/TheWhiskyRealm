@@ -70,7 +70,6 @@
     @if (userRating == null)
     {
         <div class="whisky-rating">Average Rating: @Model.AverageRating</div>
-        <h3 class="text-center mt-3">Rate this whisky</h3>
         <form asp-controller="Rating" asp-action="Rate" method="post">
             <partial name="_RatingFormPartial" model="Model" />
         </form>
@@ -92,22 +91,25 @@
     <h3 class="text-center">
         Reviews for Auchentoshan Three Wood
     </h3>
+    <p class="text-center">@Model.Reviews.Count reviews</p>
     @if (userReviewed)
     {
-        @if (Model.Reviews.Any())
-        {
-            <partial name="_ReviewPartial" model="Model.Reviews" />
-        }
-        else
-        {
-            <p>No reviews yet</p>
-        }
+        <partial name="_ReviewPartial" model="Model.Reviews" />
 
     }
     else
     {
         <h3>Add Review</h3>
         <partial name="_ReviewFormPartial" model="Model.Review" />
+        <hr />
+        @if (Model.Reviews.Any())
+        {
+            <partial name="_ReviewPartial" model="Model.Reviews" />
+        }
+        else
+        {
+            <h3 class="text-center">No reviews yet</h3>
+        }
     }
 </div>
 @section Scripts {

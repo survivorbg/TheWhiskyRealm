@@ -1,26 +1,28 @@
 ﻿<div class="rating-container">
-<div class="form-group">
-    <label for="nose">Nose:</label>
-    <input type="range" id="nose" name="nose" min="1" max="100" value="@Model.Nose">
-    <span id="nose-value">@Model.Nose</span>
-</div>
 
-<div class="form-group">
-    <label for="taste">Taste:</label>
-    <input type="range" id="taste" name="taste" min="1" max="100" value="@Model.Taste">
-    <span id="taste-value">@Model.Taste</span>
-</div>
+    <h3 class="text-center mt-3">Rate this whisky</h3>
+    <div class="form-group">
+        <label for="nose">Nose:</label>
+        <input type="range" id="nose" name="nose" min="1" max="100" value="@Model.Nose">
+        <span id="nose-value">@Model.Nose</span>
+    </div>
 
-<div class="form-group">
-    <label for="finish">Finish:</label>
-    <input type="range" id="finish" name="finish" min="1" max="100" value="@Model.Finish">
-    <span id="finish-value">@Model.Finish</span>
-</div>
+    <div class="form-group">
+        <label for="taste">Taste:</label>
+        <input type="range" id="taste" name="taste" min="1" max="100" value="@Model.Taste">
+        <span id="taste-value">@Model.Taste</span>
+    </div>
 
-<div class="form-group">
-    <input type="hidden" name="whiskyId" value="@Model.Id">
-    <button type="submit" class="btn btn-primary">Submit Rating</button>
-</div>
+    <div class="form-group">
+        <label for="finish">Finish:</label>
+        <input type="range" id="finish" name="finish" min="1" max="100" value="@Model.Finish">
+        <span id="finish-value">@Model.Finish</span>
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="whiskyId" value="@Model.Id">
+        <button type="submit" class="btn btn-primary">Submit Rating</button>
+    </div>
 </div>
 
 <script>
