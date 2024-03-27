@@ -16,33 +16,6 @@ namespace TheWhiskyRealm.Controllers
             this.whiskyService = whiskyService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Rate(int id)
-        {
-            var userId = User.Id();
-            if (userId == null)
-            {
-                return RedirectToPage("/Account/Login");
-            }
-
-            if (await whiskyService.WhiskyExistAsync(id) == false)
-            {
-                return BadRequest();
-            }
-
-            if (await ratingService.UserAlreadyGaveRatingAsync(userId, id))
-            {
-                RedirectToAction("Details", "Whisky", new { id });
-            }
-
-            var model = new RatingViewModel()
-            {
-                WhiskyId = id,
-            };
-
-            return View(model);
-        }
-
         [HttpPost]
         public async Task<IActionResult> Rate(RatingViewModel model)
         {

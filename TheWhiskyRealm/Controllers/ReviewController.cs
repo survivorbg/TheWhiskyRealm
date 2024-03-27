@@ -16,35 +16,6 @@ public class ReviewController : BaseController
         this.reviewService = reviewService;
     }
 
-    //SeeAllReviews
-    [HttpGet]
-    public async Task<IActionResult> Add(int id)
-    {
-        var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
-
-        if (await reviewService.UserAlreadyReviewedWhiskyAsync(userId, id))
-        {
-            var reviewId = await reviewService.GetReviewIdAsync(userId, id);
-            return RedirectToAction("Edit", new { id = reviewId });
-        }
-
-        if (await whiskyService.WhiskyExistAsync(id) == false)
-        {
-            return BadRequest();
-        }
-
-        var model = new ReviewFormModel()
-        {
-            WhiskyId = id
-        };
-
-        return View(model);
-    }
-
     [HttpPost]
     public async Task<IActionResult> Add(ReviewFormModel model)
     {
@@ -79,7 +50,7 @@ public class ReviewController : BaseController
     public async Task<IActionResult> Edit(int id)
     {
         var userId = User.Id();
-        
+
         if (await reviewService.ReviewExistAsync(id) == false)
         {
             return BadRequest(); //TODO Change to My Reviews
@@ -87,7 +58,7 @@ public class ReviewController : BaseController
 
         var review = await reviewService.GetReviewAsync(id);
 
-        if(userId != review.UserId)
+        if (userId != review.UserId)
         {
             return Unauthorized();
         }
@@ -104,7 +75,7 @@ public class ReviewController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit(int id,ReviewFormModel model)
+    public async Task<IActionResult> Edit(int id, ReviewFormModel model)
     {
         var userId = User.Id();
 
@@ -132,7 +103,7 @@ public class ReviewController : BaseController
 
         await reviewService.EditReviewAsync(id, model);
 
-        return RedirectToAction("Details","Whisky",new {id=model.WhiskyId});
+        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }
 
     public async Task<IActionResult> Delete(int id)
