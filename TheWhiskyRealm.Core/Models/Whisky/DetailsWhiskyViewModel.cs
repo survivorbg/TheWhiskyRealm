@@ -1,4 +1,6 @@
-﻿namespace TheWhiskyRealm.Core.Models.Whisky;
+﻿using TheWhiskyRealm.Core.Models.Review;
+
+namespace TheWhiskyRealm.Core.Models.Whisky;
 
 public class DetailsWhiskyViewModel
 {
@@ -21,7 +23,9 @@ public class DetailsWhiskyViewModel
     public int Nose { get; set; }
     public int Taste { get; set; }
     public int Finish { get; set; }
+    public ReviewFormModel Review { get; set; } = null!;
     //TEST
     public ICollection<ReviewViewModel> Reviews { get; set; } = new List<ReviewViewModel>();
+    
 }
 

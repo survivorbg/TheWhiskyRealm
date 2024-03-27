@@ -1,0 +1,26 @@
+﻿@model ICollection<ReviewViewModel>
+
+@foreach (var review in Model)
+{
+    string recommend = review.Recommend ? "Recommended" : "Not Recommended";
+
+    <div class="container">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">@review.Title</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@recommend</h6>
+                <p class="card-text">@review.Content</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    @if (User.Identity.Name == review.UserName)
+                    {
+                        <div class="btn-group">
+                            <a asp-controller="Review" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a asp-controller="Review" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+                        </div>
+                    }
+                    <small class="text-muted">published by: @review.UserName</small>
+                </div>
+            </div>
+        </div>
+    </div>
+}

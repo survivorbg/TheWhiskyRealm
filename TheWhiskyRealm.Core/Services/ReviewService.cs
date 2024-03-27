@@ -35,8 +35,9 @@ public class ReviewService : IReviewService
     public async Task<ICollection<ReviewViewModel>> AllReviewsForWhiskyAsync(int whiskyId)
     {
         return await repo
-            .AllReadOnly<Review>()
+            .All<Review>()
             .Where(r => r.WhiskyId == whiskyId)
+            .OrderByDescending(r=>r.Id)
             .Select(r => new ReviewViewModel()
             {
                 Content= r.Content,

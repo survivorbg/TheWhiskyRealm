@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.Review;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 
 namespace TheWhiskyRealm.Controllers;
@@ -45,7 +46,11 @@ public class WhiskyController : BaseController
 
         var model = await whiskyService.GetWhiskyByIdAsync(id);
         model.Reviews = await reviewService.AllReviewsForWhiskyAsync(id);
-
+        model.Review = new ReviewFormModel() 
+        {
+            WhiskyId = id 
+        };
+        
         return View(model);
     }
 
@@ -115,7 +120,7 @@ public class WhiskyController : BaseController
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        if(await whiskyService.WhiskyExistAsync(id) == false)
+        if (await whiskyService.WhiskyExistAsync(id) == false)
         {
             return BadRequest();
         }
@@ -170,13 +175,13 @@ public class WhiskyController : BaseController
 
         await whiskyService.EditWhiskyAsync(id, model);
 
-        return RedirectToAction("Details", new {id});
+        return RedirectToAction("Details", new { id });
     }
 
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        if(await whiskyService.WhiskyExistAsync(id) == false)
+        if (await whiskyService.WhiskyExistAsync(id) == false)
         {
             return BadRequest();
         }

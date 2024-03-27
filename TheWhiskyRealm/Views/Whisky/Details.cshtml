@@ -2,12 +2,14 @@
 @using TheWhiskyRealm.Core.Contracts
 @model DetailsWhiskyViewModel
 @inject IRatingService ratingService
+@inject IReviewService reviewService
 
 @{
     ViewData["Title"] = "Details";
     string sufix = ((Model.WhiskyType == "Irish") || (Model.WhiskyType == "Bourbon")) ? "Whiskey" : "Whisky";
     string username = User.Identity.Name;
     var userRating = await ratingService.GetRatingAsync(User.Id(), Model.Id);
+    var userReviewed = await reviewService.UserAlreadyReviewedWhiskyAsync(User.Id(), Model.Id);
 }
 <link rel="stylesheet" type="text/css" href="~/css/whiskyDetails.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -87,32 +89,27 @@
     <a asp-controller="Whisky" asp-action="Edit" asp-route-id="@Model.Id"
        class="btn btn-warning">Edit</a>
     <hr />
-    <h3>
+    <h3 class="text-center">
         Reviews for Auchentoshan Three Wood
     </h3>
-
-    @foreach (var review in Model.Reviews)
+    @if (userReviewed)
     {
-        string recommend = review.Recommend ? "Recommended" : "Not Recommended";
+        @if (Model.Reviews.Any())
+        {
+            <partial name="_ReviewPartial" model="Model.Reviews" />
+        }
+        else
+        {
+            <p>No reviews yet</p>
+        }
 
-        <div class="container">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">@review.Title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@recommend</h6>
-                    <p class="card-text">@review.Content</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        @if (username == review.UserName)
-                        {
-                            <div class="btn-group">
-                                <a asp-controller="Review" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                <a asp-controller="Review" asp-action="Delete" asp-route-id="@review.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
-                            </div>
-                        }
-                        <small class="text-muted">published by: @review.UserName</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+    }
+    else
+    {
+        <h3>Add Review</h3>
+        <partial name="_ReviewFormPartial" model="Model.Review" />
     }
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
