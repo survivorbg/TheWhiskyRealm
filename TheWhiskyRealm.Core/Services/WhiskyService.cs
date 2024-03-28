@@ -153,7 +153,7 @@ public class WhiskyService : IWhiskyService
             .AnyAsync(uw=> uw.User.Id == userId && uw.Whisky.Id == whiskyId);
     }
 
-    public async Task AddToFavoritesAsync(string userId, int whiskyId)
+    public async Task AddToFavouritesAsync(string userId, int whiskyId)
     {
         var userWhisky = new UserWhisky()
         {
@@ -161,6 +161,20 @@ public class WhiskyService : IWhiskyService
             WhiskyId = whiskyId
         };
         await repo.AddAsync(userWhisky);
+        await repo.SaveChangesAsync();
+    }
+
+    public async Task RemoveFromFavouritesAsync(string userId, int whiskyId)
+    {
+        var entityToRemove = await repo.
+            All<UserWhisky>()
+            .Where(uw => uw.UserId == userId && uw.WhiskyId == whiskyId)
+            .FirstOrDefaultAsync();
+
+        if(entityToRemove != null)
+        {
+            repo.Delete(entityToRemove);
+        }
         await repo.SaveChangesAsync();
     }
 }

@@ -55,7 +55,7 @@ public class WhiskyController : BaseController
             WhiskyId = id
         };
         model.Awards = await awardService.GetAllWhiskyAwards(id);
-        model.IsFavorite = await whiskyService.WhiskyInFavouritesAsync(User.Id(), id);
+        model.IsFavourite = await whiskyService.WhiskyInFavouritesAsync(User.Id(), id);
 
         return View(model);
     }
@@ -212,21 +212,36 @@ public class WhiskyController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddToFavorites(int id)
+    public async Task<IActionResult> AddToFavourites(int id)
     {
         var userId = User.Id();
 
 
         if (await whiskyService.WhiskyInFavouritesAsync(userId, id))
         {
-            return BadRequest("Whisky is already in favorites.");
+            return BadRequest("Whisky is already in favourites.");
         }
 
 
-        await whiskyService.AddToFavoritesAsync(userId, id);
+        await whiskyService.AddToFavouritesAsync(userId, id);
 
         return Ok();
     }
+    [HttpPost]
+    public async Task<IActionResult> RemoveFromFavourites(int id)
+    {
+        var userId = User.Id();
 
-    
+
+        if (await whiskyService.WhiskyInFavouritesAsync(userId, id) == false)
+        {
+            return BadRequest("Whisky is already in favourites.");
+        }
+
+
+        await whiskyService.RemoveFromFavouritesAsync(userId, id);
+        ;
+        return Ok();
+    }
+
 }

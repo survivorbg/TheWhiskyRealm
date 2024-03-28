@@ -14,5 +14,6 @@ public interface IWhiskyService
     Task EditWhiskyAsync(int whiskyId, WhiskyFormModel model);
     Task DeleteAsync(int id);
     Task<bool> WhiskyInFavouritesAsync(string userId, int whiskyId);
-    Task AddToFavoritesAsync(string userId, int whiskyId);
+    Task AddToFavouritesAsync(string userId, int whiskyId);
+    Task RemoveFromFavouritesAsync(string userId, int whiskyId);
 }
