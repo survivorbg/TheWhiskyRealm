@@ -49,6 +49,24 @@ public class ReviewService : IReviewService
             .ToListAsync();
     }
 
+    public async Task<ICollection<MyReviewModel>> AllUserReviewsAsync(string userId)
+    {
+        return await repo
+            .AllReadOnly<Review>()
+            .Where(r=>r.UserId ==  userId)
+            .OrderByDescending (r=>r.Id)
+            .Select(r=> new MyReviewModel()
+            {
+                Content = r.Content,
+                Id = r.Id,
+                Recommend= r.Recommend,
+                Title = r.Title,
+                WhiskyId = r.WhiskyId,
+                WhiskyName = r.Whisky.Name
+            })
+            .ToListAsync();
+    }
+
     public async Task DeleteReviewAsync(int id)
     {
         var review = await repo

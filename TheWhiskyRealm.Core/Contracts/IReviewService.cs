@@ -13,4 +13,5 @@ public interface IReviewService
     Task EditReviewAsync(int id, ReviewFormModel model);
     Task<ICollection<ReviewViewModel>> AllReviewsForWhiskyAsync(int whiskyId);
     Task DeleteReviewAsync(int id);
+    Task<ICollection<MyReviewModel>> AllUserReviewsAsync(string userId);
 }

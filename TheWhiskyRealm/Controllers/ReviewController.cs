@@ -131,4 +131,18 @@ public class ReviewController : BaseController
 
         return RedirectToAction("Details", "Whisky", new { id = review.WhiskyId });
     }
+    [HttpGet]
+    public async Task<IActionResult> MyReviews ()
+    {
+        var userId = User.Id();
+        if(userId == null)
+        {
+            return BadRequest();
+        }
+
+        var model = await reviewService.AllUserReviewsAsync(userId);
+
+        return View(model);
+    }
+
 }
