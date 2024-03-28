@@ -23,6 +23,16 @@ public class AwardService : IAwardService
             .AnyAsync(a => a.Id == id);
     }
 
+    public async Task DeleteAwardAsync(int id)
+    {
+        var exist = await AwardExistAsync(id);
+        if (exist)
+        {
+            await repo.DeleteById<Award>(id);
+        }
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditAwardAsync(AwardViewModel model)
     {
         var award = await repo.GetByIdAsync<Award>(model.Id);

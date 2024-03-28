@@ -70,4 +70,43 @@ public class AwardController : BaseController
 
         return RedirectToAction("Details", "Whisky", new {id=model.WhiskyId});
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        var award = await awardService.GetAwardByIdAsync(id);
+        if (award == null)
+        {
+            return NotFound();
+        }
+
+        return View(award);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Delete(AwardViewModel model)
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        var award = await awardService.GetAwardByIdAsync(model.Id);
+        if (award == null)
+        {
+            return NotFound();
+        }
+
+        await awardService.DeleteAwardAsync(model.Id);
+
+        return RedirectToAction("Details", "Whisky", new { id = award.WhiskyId });
+    }
+
 }

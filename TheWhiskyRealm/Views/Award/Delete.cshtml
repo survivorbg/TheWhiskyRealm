@@ -1,0 +1,22 @@
+﻿@model TheWhiskyRealm.Core.Models.Whisky.AwardViewModel
+@{
+    ViewData["Title"] = "Delete Award";
+}
+
+<h1 class="text-center">Delete Award</h1>
+
+<div class="alert alert-danger" role="alert">
+    Are you sure you want to delete the award with the following details?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">Year: @Model.Year</p>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-action="Details" asp-controller="Whisky" asp-route-id="@Model.WhiskyId" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

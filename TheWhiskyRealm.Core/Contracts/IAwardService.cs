@@ -8,4 +8,5 @@ public interface IAwardService
     Task EditAwardAsync(AwardViewModel model);
     Task<AwardViewModel?> GetAwardByIdAsync(int id);
     Task<bool> AwardExistAsync(int id);
+    Task DeleteAwardAsync(int id);
 }
