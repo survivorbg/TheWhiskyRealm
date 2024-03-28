@@ -1,53 +1,81 @@
 ﻿@model ICollection<AwardViewModel>
 <style>
-    #awardsDiv{
+    #awardsDiv {
         max-height: 300px;
         overflow-y: auto;
-        line-height:1;
+        line-height: 1;
     }
-    
-    #awardsDiv::-webkit-scrollbar {
-        width: 10px;
-    }
-    #awardsDiv::-webkit-scrollbar-track {
-        background: white;
-    }
-    #awardsDiv::-webkit-scrollbar-thumb {
-        background-image: linear-gradient(45deg, brown, silver);
-        border-radius:10px;
-    }
-        #awardsDiv::-webkit-scrollbar-thumb:hover {
-            background: #555;
+
+        #awardsDiv::-webkit-scrollbar {
+            width: 10px;
         }
 
-    #awardsDiv .award-container{
+        #awardsDiv::-webkit-scrollbar-track {
+            background: white;
+        }
+
+        #awardsDiv::-webkit-scrollbar-thumb {
+            background-image: linear-gradient(45deg, brown, silver);
+            border-radius: 10px;
+        }
+
+            #awardsDiv::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+        #awardsDiv .award-container {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-    }
+            margin-bottom: 25px;
+            justify-content:space-between;
+            align-content:center;
+        }
 
-    #awardsDiv .award-container img{
+            #awardsDiv .award-container img {
                 width: 50px;
                 height: 50px;
                 margin-right: 10px;
+            }
+
+            #awardsDiv .award-container .award-button-container{
+                
+            }
+            #awardsDiv .award-container .award-button-container .award-button {
+                all: unset;
+                cursor: pointer;
+                padding:12px 24px;
+                border-radius:25px;
+                    background: linear-gradient(to right, purple, orange);
+                    color:white;
+                    margin-right: 30px;
+            }
+
+    div.content-div {
+        display: flex;
     }
-    
+
+    #awardsDiv .award-container p{
+        margin-bottom:0px;
+    }
 </style>
 
 <div style="" id="awardsDiv">
     @foreach (var award in Model)
     {
         <div class="award-container">
-            <img src="@Url.Content($"~/images/{award.MedalType}.png")" alt="Medal" style="" />
-            <div>
-                <h4>@award.Title</h4>
-                <p>@award.AwardsCeremony, @award.Year</p>
+            <div class="content-div">
+                <img src="@Url.Content($"~/images/{award.MedalType}.png")" alt="Medal" style="" />
+                <div>
+                    <h4>@award.Title</h4>
+                    <p>@award.AwardsCeremony, @award.Year</p>
+                </div>
+            </div>
+
+            <div class="award-button-container">
+                <a class="award-button" asp-controller="Award" asp-action="Edit" asp-route-id="@award.Id">Edit</a>
+                <a class="award-button" asp-controller="Award" asp-action="Delete" asp-route-id="@award.Id">Delete</a>
             </div>
         </div>
-
-
-        @*  <a asp-controller="Awards" asp-action="Edit" asp-route-id="@award.Id">Редактирай</a>
-    <a asp-controller="Awards" asp-action="Delete" asp-route-id="@award.Id">Изтрий</a> *@
-
     }
 </div>
+

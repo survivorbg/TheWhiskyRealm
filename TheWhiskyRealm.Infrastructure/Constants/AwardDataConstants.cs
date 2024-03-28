@@ -16,6 +16,11 @@ public static class AwardDataConstants
     public const int AwardMaxTitleLength = 150;
 
     /// <summary>
+    /// Minimum length for the award description.
+    /// </summary>
+    public const int AwardMinDescLength = 10;
+
+    /// <summary>
     /// Maximum length for the award description.
     /// </summary>
     public const int AwardMaxDescLength = 150;
