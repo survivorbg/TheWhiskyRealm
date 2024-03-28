@@ -1,0 +1,98 @@
+﻿@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+body {
+    font-family: 'Lora', serif;
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    height: 100%;
+}
+
+.background {
+    background-image: url('../images/landing-page-background.png');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+    .background::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+    }
+
+.content {
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: antiquewhite;
+}
+
+    .content h1 {
+        font-size: 120px;
+        line-height: 1;
+        margin-bottom: 0px;
+        letter-spacing: 5px;
+    }
+
+    .content span {
+        font-size: 48px;
+        line-height: 1;
+    }
+
+    .content p {
+        margin-bottom: 20px;
+        color: antiquewhite;
+    }
+
+.btn-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+    .btn-container a{
+        all:unset;
+    }
+    .btn-container button {
+        background-color: transparent;
+        border: 1px solid lightgray;
+        color: white;
+        width: 360px;
+        height: 55px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 20px;
+        margin-bottom: 25px;
+        cursor: pointer;
+        border-radius: 25px;
+    }
+
+        .btn-container button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }

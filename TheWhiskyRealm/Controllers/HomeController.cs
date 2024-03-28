@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using TheWhiskyRealm.Models;
 
 namespace TheWhiskyRealm.Controllers
@@ -14,10 +15,15 @@ namespace TheWhiskyRealm.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Administrator,User")]
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return RedirectToAction("All", "Whisky");
+            if (User.Identity.IsAuthenticated || User.IsAdmin())
+            {
+                return RedirectToAction("All", "Whisky");
+            }
+
+            return View();
         }
         [Authorize(Roles = "Administrator")]
         public IActionResult Privacy()
