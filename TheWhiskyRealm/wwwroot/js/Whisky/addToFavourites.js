@@ -1,15 +1,15 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
-    var favoriteButton = document.getElementById('favorite-button');
+    var favouriteButton = document.getElementById('favourite-button');
 
-    favoriteButton.addEventListener('click', function () {
-        toggleFavorite();
+    favouriteButton.addEventListener('click', function () {
+        toggleFavourite();
     });
 
-    function toggleFavorite() {
-        var isFavorite = favoriteButton.classList.contains('active');
-        var addToFavoritesUrl = document.getElementById('addToFavoritesUrl').value;
-        var removeFromFavoritesUrl = document.getElementById('removeFromFavoritesUrl').value;
-        var url = isFavorite ? removeFromFavoritesUrl : addToFavoritesUrl;
+    function toggleFavourite() {
+        var isFavourite = favouriteButton.classList.contains('active');
+        var addToFavouritesUrl = document.getElementById('addToFavouritesUrl').value;
+        var removeFromFavouritesUrl = document.getElementById('removeFromFavouritesUrl').value;
+        var url = isFavourite ? removeFromFavouritesUrl : addToFavouritesUrl;
         var whiskyId = document.getElementById('whiskyId').value;
 
         var csrfToken = document.querySelector('input[name="__RequestVerificationToken"]').value;
@@ -26,10 +26,10 @@
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Failed to update favorites.');
+                    throw new Error('Failed to update favourites.');
                 }
 
-                favoriteButton.classList.toggle('active');
+                favouriteButton.classList.toggle('active');
             })
             .catch(error => {
                 console.error('Error:', error);
