@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.Award;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
 
@@ -19,7 +19,7 @@ public class AwardController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Edit (int id)
+    public async Task<IActionResult> Edit(int id)
     {
         var userId = User.Id();
         if (userId == null)
@@ -27,7 +27,7 @@ public class AwardController : BaseController
             return RedirectToPage("/Account/Login");
         }
 
-        if(await awardService.AwardExistAsync(id) == false)
+        if (await awardService.AwardExistAsync(id) == false)
         {
             return BadRequest();
         }
@@ -53,7 +53,7 @@ public class AwardController : BaseController
             return BadRequest();
         }
 
-        if(model.MedalType != "Gold" && model.MedalType != "Silver" && model.MedalType != "Bronze")
+        if (model.MedalType != "Gold" && model.MedalType != "Silver" && model.MedalType != "Bronze")
         {
             ModelState.AddModelError(nameof(AwardViewModel.MedalType), "Invalid medal type.");
             model.MedalTypeOptions = Enum.GetNames(typeof(MedalType));
@@ -68,7 +68,7 @@ public class AwardController : BaseController
 
         await awardService.EditAwardAsync(model);
 
-        return RedirectToAction("Details", "Whisky", new {id=model.WhiskyId});
+        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }
 
     [HttpGet]
@@ -109,4 +109,58 @@ public class AwardController : BaseController
         return RedirectToAction("Details", "Whisky", new { id = award.WhiskyId });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Add(int id)
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        if (await whiskyService.WhiskyExistAsync(id) == false)
+        {
+            return NotFound();
+        }
+        var model = new AwardAddModel()
+        {
+            MedalTypeOptions = Enum.GetNames(typeof(MedalType)),
+            WhiskyId = id
+        };
+
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(AwardAddModel model)
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
+        {
+            return NotFound();
+        }
+
+        if (model.MedalType != "Gold" && model.MedalType != "Silver" && model.MedalType != "Bronze")
+        {
+            ModelState.AddModelError(nameof(AwardViewModel.MedalType), "Invalid medal type.");
+            model.MedalTypeOptions = Enum.GetNames(typeof(MedalType));
+            return View(model);
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.MedalTypeOptions = Enum.GetNames(typeof(MedalType));
+            return View(model);
+        }
+
+        await awardService.AddAwardAsync(model);
+
+        return RedirectToAction("Details", "Whisky", new {id=model.WhiskyId});
+    }
 }

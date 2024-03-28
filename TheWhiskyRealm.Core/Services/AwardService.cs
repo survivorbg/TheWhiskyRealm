@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.Award;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
@@ -14,6 +15,21 @@ public class AwardService : IAwardService
     public AwardService(IRepository repo)
     {
         this.repo = repo;
+    }
+
+    public async Task AddAwardAsync(AwardAddModel model)
+    {
+        var award = new Award();
+        if(model != null)
+        {
+            award.AwardsCeremony = model.AwardsCeremony;
+            award.WhiskyId = model.WhiskyId;
+            award.MedalType = (MedalType)Enum.Parse(typeof(MedalType), model.MedalType);
+            award.Title = model.Title;
+            award.Year = model.Year;
+            await repo.AddAsync(award);
+        }
+        await repo.SaveChangesAsync();
     }
 
     public async Task<bool> AwardExistAsync(int id)

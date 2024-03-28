@@ -1,4 +1,5 @@
-﻿using TheWhiskyRealm.Core.Models.Whisky;
+﻿using TheWhiskyRealm.Core.Models.Award;
+using TheWhiskyRealm.Core.Models.Whisky;
 
 namespace TheWhiskyRealm.Core.Contracts;
 
@@ -9,4 +10,5 @@ public interface IAwardService
     Task<AwardViewModel?> GetAwardByIdAsync(int id);
     Task<bool> AwardExistAsync(int id);
     Task DeleteAwardAsync(int id);
+    Task AddAwardAsync(AwardAddModel model);
 }
