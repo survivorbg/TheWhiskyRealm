@@ -129,6 +129,6 @@ public class ReviewController : BaseController
 
         await reviewService.DeleteReviewAsync(id);
 
-        return RedirectToAction("All", "Whisky");
+        return RedirectToAction("Details", "Whisky", new { id = review.WhiskyId });
     }
 }
