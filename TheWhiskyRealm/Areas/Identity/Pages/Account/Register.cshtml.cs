@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+#nullable disable
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -24,7 +28,7 @@ public class RegisterModel : PageModel
 
     public string ReturnUrl { get; set; }
 
-   
+
     public class InputModel
     {
         [Required]
@@ -38,14 +42,14 @@ public class RegisterModel : PageModel
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Range(18,99)]
+        [Range(18, 99)]
         public int Age { get; set; }
     }
 
@@ -85,4 +89,3 @@ public class RegisterModel : PageModel
         return Page();
     }
 }
-
