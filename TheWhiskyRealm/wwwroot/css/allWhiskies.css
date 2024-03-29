@@ -77,3 +77,28 @@
     #myBtn:hover {
         background-color: darkgoldenrod;
     }
+
+#sortOrder {
+    background-color: #f2f2f2;
+    color: #333;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 8px 12px;
+}
+
+    #sortOrder:hover {
+        border-color: #ccc;
+        cursor: pointer;
+    }
+
+    #sortOrder option:checked {
+        background-color: #ddd;
+    }
+
+    #sortOrder option:hover {
+        background-color: red; 
+        color: red; 
+    }

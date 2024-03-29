@@ -61,14 +61,13 @@ public class WhiskyController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> LoadMoreWhiskies(int skip, int take)
+    public async Task<IActionResult> LoadMoreWhiskies(int skip, int take, string sortOrder)
     {
-
-        var whiskies = await whiskyService.GetMoreWhiskiesAsync(skip, take);
-
+        var whiskies = await whiskyService.GetPagedWhiskiesAsync(skip, take, sortOrder);
 
         return PartialView("_WhiskiesPartial", whiskies);
     }
+
 
     [Authorize(Roles = "Administrator")]
     [HttpGet]

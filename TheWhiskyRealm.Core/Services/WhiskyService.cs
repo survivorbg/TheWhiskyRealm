@@ -177,4 +177,51 @@ public class WhiskyService : IWhiskyService
         }
         await repo.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take, string sortOrder)
+    {
+        var whiskiesQuery = repo
+            .AllReadOnly<Whisky>()
+            .Select(x => new AllWhiskyModel()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Age = x.Age,
+            AlcoholPercentage = x.AlcoholPercentage,
+            WhiskyType = x.WhiskyType.Name,
+            Reviews = x.Reviews.Count()
+        });
+
+        
+
+        switch (sortOrder)
+        {
+            case "recent":
+                whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Id);
+                break;
+            case "oldest":
+                whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Age);
+                break;
+            case "youngest":
+                whiskiesQuery = whiskiesQuery.OrderBy(w => w.Age);
+                break;
+            case "mostReviewed":
+                whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Reviews);
+                break;
+            case "abv":
+                whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.AlcoholPercentage);
+                break;
+            //case "highestRating":
+            //    whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.AverageRating);
+            //    break;
+            //case "lowestRating":
+            //    whiskiesQuery = whiskiesQuery.OrderBy(w => w.AverageRating);
+            //    break;
+            default:
+                whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Id);
+                break;
+        }
+
+        return await whiskiesQuery.Skip(skip).Take(take).ToListAsync();
+    }
 }

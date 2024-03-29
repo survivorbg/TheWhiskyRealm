@@ -33,4 +33,6 @@ public class AllWhiskyModel
     /// Represents the number ot reviews associated with this whisky.
     /// </summary>
     public int Reviews { get; set; }
+
+    public double AverageRating { get; set; }
 }
