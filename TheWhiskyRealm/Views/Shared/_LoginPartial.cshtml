@@ -4,11 +4,20 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">My Collection</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="MyReviews">My Reviews</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">My Ratings</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">My Events</a></li>
+                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Profile</a></li>
+            </ul>
+        </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
