@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Review;
+using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 
 namespace TheWhiskyRealm.Controllers;
@@ -243,18 +244,22 @@ public class WhiskyController : BaseController
         return Ok();
     }
 
-    [HttpGet]
-    public async Task<IActionResult> MyCollection()
+    public async Task<IActionResult> MyCollection(int page = 1, int pageSize = 4)
     {
         var userId = User.Id();
         if (userId == null)
         {
             return BadRequest();
         }
-
-        var model = await whiskyService.MyFavouriteWhiskiesAsync(userId);
-
+        MyCollectionPagination model = new MyCollectionPagination();
+        var allWhiskies = await whiskyService.MyFavouriteWhiskiesAsync(userId);
+        model.page = page;
+        model.pageSize = pageSize;
+        model.allWhiskies = allWhiskies.Count();
+        var paginatedWhiskies = allWhiskies.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        model.Whiskies = paginatedWhiskies;
         return View(model);
     }
+
 
 }

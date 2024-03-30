@@ -1,4 +1,4 @@
-﻿@model ICollection<MyCollectionWhiskyModel>
+﻿@model MyCollectionPagination
 @{
 }
 <style>
@@ -63,9 +63,28 @@
             bottom: 0px;
         }
 
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
 </style>
 <div class="row">
-    @foreach (var whisky in Model)
+    @foreach (var whisky in Model.Whiskies)
     {
         string ageProp = (whisky.Age != null) ? (@whisky.Age + " Y.O.") : "N/A";
 
@@ -86,4 +105,14 @@
             </div>
         </article>
     }
+    <div class="pagination">
+        @if (Model.page > 1)
+        {
+            <a asp-controller="Whisky" asp-action="MyCollection" asp-route-page="@(Model.page - 1)">Previous</a>
+        }
+        @if (Model.allWhiskies > Model.page * Model.pageSize)
+        {
+            <a asp-controller="Whisky" asp-action="MyCollection" asp-route-page="@(Model.page + 1)">Next</a>
+        }
+    </div>
 </div>
