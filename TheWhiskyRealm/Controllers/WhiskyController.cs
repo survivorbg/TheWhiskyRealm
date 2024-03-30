@@ -239,8 +239,22 @@ public class WhiskyController : BaseController
 
 
         await whiskyService.RemoveFromFavouritesAsync(userId, id);
-        ;
+        
         return Ok();
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MyCollection()
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return BadRequest();
+        }
+
+        var model = await whiskyService.MyFavouriteWhiskiesAsync(userId);
+
+        return View(model);
     }
 
 }

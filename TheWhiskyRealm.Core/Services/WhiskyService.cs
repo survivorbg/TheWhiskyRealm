@@ -224,4 +224,22 @@ public class WhiskyService : IWhiskyService
 
         return await whiskiesQuery.Skip(skip).Take(take).ToListAsync();
     }
+
+    public async Task<ICollection<MyCollectionWhiskyModel>> MyFavouriteWhiskiesAsync(string userId)
+    {
+        return await repo
+            .AllReadOnly<UserWhisky>()
+            .Where(uw => uw.UserId == userId)
+            .Select(uw => new MyCollectionWhiskyModel()
+            {
+                Id = uw.Whisky.Id,
+                WhiskyType = uw.Whisky.WhiskyType.Name,
+                Name = uw.Whisky.Name,
+                DistilleryName = uw.Whisky.Distillery.Name,
+                ABV = uw.Whisky.AlcoholPercentage.ToString("F1"),
+                Age = uw.Whisky.Age,
+                Description = uw.Whisky.Description,
+            })
+            .ToListAsync();
+    }
 }

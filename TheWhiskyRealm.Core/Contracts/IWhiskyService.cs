@@ -17,4 +17,5 @@ public interface IWhiskyService
     Task<bool> WhiskyInFavouritesAsync(string userId, int whiskyId);
     Task AddToFavouritesAsync(string userId, int whiskyId);
     Task RemoveFromFavouritesAsync(string userId, int whiskyId);
+    Task<ICollection<MyCollectionWhiskyModel>> MyFavouriteWhiskiesAsync(string userId);
 }
