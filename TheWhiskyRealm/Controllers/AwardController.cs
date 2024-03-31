@@ -21,7 +21,7 @@ public class AwardController : BaseController
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var userId = User.Id();
+        var userId = User.Id(); //TODO Remove all unnecessary validations like this
         if (userId == null)
         {
             return RedirectToPage("/Account/Login");
