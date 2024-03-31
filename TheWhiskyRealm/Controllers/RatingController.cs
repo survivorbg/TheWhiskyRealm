@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Rating;
@@ -28,7 +27,7 @@ public class RatingController : BaseController
 
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
         {
-            return RedirectToAction("All", "Whisky");
+            return NotFound();
         }
 
         if (!ModelState.IsValid)
@@ -86,7 +85,7 @@ public class RatingController : BaseController
             return NotFound();
         }
 
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid) //TODO 
         {
             return BadRequest(ModelState);
         }

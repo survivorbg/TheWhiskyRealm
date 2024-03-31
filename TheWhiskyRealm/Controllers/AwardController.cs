@@ -29,7 +29,7 @@ public class AwardController : BaseController
 
         if (await awardService.AwardExistAsync(id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         var model = await awardService.GetAwardByIdAsync(id);
@@ -50,7 +50,7 @@ public class AwardController : BaseController
 
         if (await awardService.AwardExistAsync(model.Id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         if (model.MedalType != "Gold" && model.MedalType != "Silver" && model.MedalType != "Bronze")

@@ -33,7 +33,7 @@ public class ReviewController : BaseController
 
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         if (!ModelState.IsValid)
@@ -53,7 +53,7 @@ public class ReviewController : BaseController
 
         if (await reviewService.ReviewExistAsync(id) == false)
         {
-            return BadRequest(); //TODO Change to My Reviews
+            return NotFound(); //TODO Change to My Reviews
         }
 
         var review = await reviewService.GetReviewAsync(id);
@@ -86,7 +86,7 @@ public class ReviewController : BaseController
 
         if (await reviewService.ReviewExistAsync(id) == false)
         {
-            return BadRequest(); //TODO Change to My Reviews
+            return NotFound(); //TODO Change to My Reviews
         }
 
         var review = await reviewService.GetReviewAsync(id);
@@ -117,7 +117,7 @@ public class ReviewController : BaseController
 
         if (await reviewService.ReviewExistAsync(id) == false)
         {
-            return BadRequest(); //TODO Change to My Reviews
+            return NotFound(); //TODO Change to My Reviews
         }
 
         var review = await reviewService.GetReviewAsync(id);
@@ -132,10 +132,10 @@ public class ReviewController : BaseController
         return RedirectToAction("Details", "Whisky", new { id = review.WhiskyId });
     }
     [HttpGet]
-    public async Task<IActionResult> MyReviews ()
+    public async Task<IActionResult> MyReviews()
     {
         var userId = User.Id();
-        if(userId == null)
+        if (userId == null)
         {
             return BadRequest();
         }

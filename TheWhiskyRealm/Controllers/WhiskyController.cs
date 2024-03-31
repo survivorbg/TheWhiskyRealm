@@ -46,7 +46,7 @@ public class WhiskyController : BaseController
     {
         if (!await whiskyService.WhiskyExistAsync(id))
         {
-            return BadRequest();
+            return NotFound();
         }
 
         var model = await whiskyService.GetWhiskyByIdAsync(id);
@@ -128,7 +128,7 @@ public class WhiskyController : BaseController
     {
         if (await whiskyService.WhiskyExistAsync(id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
@@ -149,7 +149,7 @@ public class WhiskyController : BaseController
 
         if (await whiskyService.WhiskyExistAsync(id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         if (await distilleryService.DistilleryExistsAsync(model.DistilleryId) == false)
@@ -189,7 +189,7 @@ public class WhiskyController : BaseController
     {
         if (await whiskyService.WhiskyExistAsync(id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
@@ -202,7 +202,7 @@ public class WhiskyController : BaseController
     {
         if (await whiskyService.WhiskyExistAsync(id) == false)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         await whiskyService.DeleteAsync(id);
@@ -235,7 +235,7 @@ public class WhiskyController : BaseController
 
         if (await whiskyService.WhiskyInFavouritesAsync(userId, id) == false)
         {
-            return BadRequest("Whisky is already in favourites.");
+            return BadRequest();
         }
 
 
