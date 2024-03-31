@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Rating;
-using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -14,6 +13,18 @@ public class RatingService : IRatingService
     public RatingService(IRepository repo)
     {
         this.repo = repo;
+    }
+
+    public async Task EditRatingAsync(RatingViewModel model, int ratingId)
+    {
+        var rating = await repo.GetByIdAsync<Rating>(ratingId);
+        if(rating != null)
+        {
+            rating.Nose = model.Nose;
+            rating.Finish = model.Finish;
+            rating.Taste = model.Taste;
+        }
+        await repo.SaveChangesAsync();
     }
 
     public async Task<double> GetAvgRatingAsync(int whiskyId)

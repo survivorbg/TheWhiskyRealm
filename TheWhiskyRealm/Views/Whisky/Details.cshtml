@@ -108,6 +108,7 @@
             <div class="taste" style="width: @(userRating.Taste)%">Taste: @userRating.Taste</div>
             <div class="finish" style="width: @(userRating.Finish)%">Finish: @userRating.Finish</div>
         </div>
+        <button id="editRatingButton" data-whisky-id="@Model.Id">Edit Rating</button>
     }
     <hr />
     <h3 class="text-center">
@@ -138,3 +139,4 @@
     <partial name="_ValidationScriptsPartial" />
 }
 <script src="~/js/Whisky/addToFavourites.js" asp-append-version="true"></script>
+<script src="~/js/Whisky/editRating.js" asp-append-version="true"></script>

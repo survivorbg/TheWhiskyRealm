@@ -1,0 +1,92 @@
+﻿@using TheWhiskyRealm.Core.Models.Rating
+@model RatingViewModel
+
+@{
+}
+<style>
+    input[type=range] {
+        -webkit-appearance: none;
+        background: linear-gradient(to right, purple, orange);
+        width: 600px;
+        height: 20px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background: linear-gradient(red,blue);
+        opacity: 0.5;
+        width: 10px;
+        height: 26px;
+    }
+
+    div.rating-container .form-group {
+        margin-bottom: 15px;
+    }
+
+        div.rating-container .form-group label {
+            font-size: 20px;
+            line-height: 1;
+            font-style: italic;
+            color: darkgray;
+            ;
+        }
+
+        div.rating-container .form-group .rating-btn {
+            all: unset;
+            cursor: pointer;
+            padding: 12px 38px;
+            border-radius: 24px;
+            background: linear-gradient(to right, purple, orange);
+            color: white;
+        }
+</style>
+
+<form asp-controller="Rating" asp-action="Update" method="post">
+    <div class="form-group">
+        <label for="nose">Nose:</label>
+        <input type="range" id="nose" name="nose" min="1" max="100" value="@Model.Nose">
+        <span id="nose-value">@Model.Nose</span>
+    </div>
+
+    <div class="form-group">
+        <label for="taste">Taste:</label>
+        <input type="range" id="taste" name="taste" min="1" max="100" value="@Model.Taste">
+        <span id="taste-value">@Model.Taste</span>
+    </div>
+
+    <div class="form-group">
+        <label for="finish">Finish:</label>
+        <input type="range" id="finish" name="finish" min="1" max="100" value="@Model.Finish">
+        <span id="finish-value">@Model.Finish</span>
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="whiskyId" value="@Model.WhiskyId">
+        <button type="submit" class="btn btn-primary rating-btn">Update Rating</button>
+    </div>
+</form>
+<script>
+    var noseSlider = document.getElementById("nose");
+    var tasteSlider = document.getElementById("taste");
+    var finishSlider = document.getElementById("finish");
+
+    var noseOutput = document.getElementById("nose-value");
+    var tasteOutput = document.getElementById("taste-value");
+    var finishOutput = document.getElementById("finish-value");
+
+    noseOutput.innerHTML = noseSlider.value;
+    tasteOutput.innerHTML = tasteSlider.value;
+    finishOutput.innerHTML = finishSlider.value;
+
+    noseSlider.oninput = function () {
+        noseOutput.innerHTML = this.value;
+    }
+
+    tasteSlider.oninput = function () {
+        tasteOutput.innerHTML = this.value;
+    }
+
+    finishSlider.oninput = function () {
+        finishOutput.innerHTML = this.value;
+    }
+</script>

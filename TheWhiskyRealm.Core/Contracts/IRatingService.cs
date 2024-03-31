@@ -8,4 +8,5 @@ public interface IRatingService
     Task<bool> UserAlreadyGaveRatingAsync(string userId, int whiskyId);
     Task RateAsync(string userId, RatingViewModel model);
     Task<RatingEditViewModel?> GetRatingAsync(string userId, int whiskyId);
+    Task EditRatingAsync(RatingViewModel model, int ratingId);
 }
