@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Rating\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\Assets\Lora\Lora-Italic-VariableFont_wght.ttf" />
     <None Include="wwwroot\Assets\Lora\Lora-VariableFont_wght.ttf" />
     <None Include="wwwroot\Assets\Lora\OFL.txt" />

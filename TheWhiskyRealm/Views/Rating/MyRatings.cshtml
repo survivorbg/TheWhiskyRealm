@@ -1,0 +1,53 @@
+﻿@using TheWhiskyRealm.Core.Models.Rating
+@model ICollection<MyRatingViewModel>
+@{
+}
+<style>
+    div.user-rating {
+        text-align: center;
+        color: antiquewhite;
+        font-weight: bold;
+        margin-bottom:45px;
+    }
+            div.user-rating h3 a{
+                text-decoration:none;
+                color: black;
+            }
+
+        div.user-rating .nose {
+            background-image: linear-gradient(to right, purple, orange);
+            border-radius: 0px 25px 5px 25px;
+            margin-bottom: 2px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        div.user-rating .taste {
+            background-image: linear-gradient(to right, purple, orange);
+            border-radius: 0px 25px 5px 25px;
+            margin-bottom: 2px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+
+        div.user-rating .finish {
+            background-image: linear-gradient(to right, purple, orange);
+            border-radius: 0px 25px 5px 25px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            margin-bottom: 25px;
+        }
+</style>
+
+<h2>Your Ratings</h2>
+
+@foreach (var rating in Model)
+{
+    <div class="user-rating">
+        <h3><a asp-controller="Whisky" asp-action="Details" asp-route-id="@rating.WhiskyId" >@rating.WhiskyName</a></h3>
+        <div class="nose" style="width: @(rating.Nose)%">Nose: @rating.Nose</div>
+        <div class="taste" style="width: @(rating.Taste)%">Taste: @rating.Taste</div>
+        <div class="finish" style="width: @(rating.Finish)%">Finish: @rating.Finish</div>
+        <a href="@Url.Action("Details", "Whisky", new { id = rating.WhiskyId })" class="btn btn-primary">See More</a>
+    </div>
+}

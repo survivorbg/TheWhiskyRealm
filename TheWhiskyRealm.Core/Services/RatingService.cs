@@ -59,6 +59,22 @@ public class RatingService : IRatingService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<ICollection<MyRatingViewModel>> GetRatingsByUserAsync(string userId)
+    {
+        return await repo
+            .AllReadOnly<Rating>()
+            .Where(r => r.UserId == userId)
+            .Select(r => new MyRatingViewModel
+            {
+                Finish = r.Finish,
+                Nose = r.Nose,
+                Taste = r.Taste,
+                WhiskyId= r.WhiskyId,
+                WhiskyName = r.Whisky.Name
+            })
+            .ToListAsync();
+    }
+
     public async Task RateAsync(string userId, RatingViewModel model)
     {
         var rating = new Rating()

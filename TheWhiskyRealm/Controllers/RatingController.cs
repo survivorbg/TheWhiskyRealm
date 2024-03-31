@@ -96,5 +96,18 @@ public class RatingController : BaseController
         return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> MyRatings()
+    {
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Account/Login");
+        }
+
+        var model = await ratingService.GetRatingsByUserAsync(userId);
+
+        return View(model);
+    }
 
 }
