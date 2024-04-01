@@ -20,10 +20,21 @@ namespace TheWhiskyRealm.Controllers
 
             return View(model);
         }
-
+        [HttpGet]
         public async Task<IActionResult> PastEvents()
         {
             var model = await eventService.GetAllPastEventsAsync();
+
+            return View(model);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await eventService.GetEventAsync(id);
+            if(model == null)
+            {
+                return NotFound();
+            }
 
             return View(model);
         }

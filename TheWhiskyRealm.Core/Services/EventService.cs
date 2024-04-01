@@ -24,7 +24,7 @@ public class EventService : IEventService
             {
                 Id = e.Id,
                 Price = e.Price,
-                StartDate = e.StartDate.ToString("dddd, dd MMMM yyyy"),
+                StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 Title = e.Title,
                 VenueName = e.Venue.Name,
                 AvailableSpots = e.Venue.Capacity
@@ -41,11 +41,32 @@ public class EventService : IEventService
             {
                 Id = e.Id,
                 Price = e.Price,
-                StartDate = e.StartDate.ToString("dddd, dd MMMM yyyy"),
+                StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 Title = e.Title,
                 VenueName = e.Venue.Name,
                 AvailableSpots = e.Venue.Capacity
             })
             .ToListAsync();
+    }
+
+    public async Task<EventDetailsViewModel?> GetEventAsync(int id)
+    {
+        return  await repo
+            .AllReadOnly<Event>()
+            .Where(e => e.Id == id)
+            .Select(e=>new EventDetailsViewModel
+            {
+                Id = e.Id,
+                Price= e.Price,
+                AvailableSpots = e.Venue.Capacity,
+                Description = e.Description,
+                DurationInHours = e.DurationInHours,
+                EndDate = e.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                OrganiserName = e.Organiser.UserName,
+                StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                Title = e.Title,
+                VenueName = e.Venue.Name
+            })
+            .FirstOrDefaultAsync(); 
     }
 }

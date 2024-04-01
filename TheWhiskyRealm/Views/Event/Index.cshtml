@@ -79,7 +79,7 @@
                         </p>
                         <p class="card-text">Venue: @eventItem.VenueName</p>
                         <p class="card-text">Available Spots: <span class="spots">@eventItem.AvailableSpots</span></p>
-                        <a href="#" class="btn btn-primary">More Info</a>
+                        <a href="@Url.Action("Details", "Event", new { id = eventItem.Id })" class="btn btn-primary">More</a>
                     </div>
                 </div>
             </div>
