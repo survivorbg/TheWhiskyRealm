@@ -10,8 +10,4 @@
     <ProjectReference Include="..\TheWhiskyRealm.Infrastructure\TheWhiskyRealm.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Event\" />
-  </ItemGroup>
-
 </Project>
