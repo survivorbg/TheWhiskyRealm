@@ -15,6 +15,23 @@ public class EventService : IEventService
         this.repo = repo;
     }
 
+    public async Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId  )
+    {
+        var ev = new Event
+        {
+            Description = model.Description,
+            DurationInHours = model.DurationInHours,
+            EndDate = endDate,
+            OrganiserId = userId,
+            Price = model.Price,
+            StartDate = startDate,
+            VenueId = model.VenueId,
+            Title = model.Title,
+        };
+        await repo.AddAsync(ev);
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditEventAsync(EventEditViewModel model, DateTime startDate, DateTime endDate)
     {
         Event ev = await repo.GetByIdAsync<Event>(model.Id);

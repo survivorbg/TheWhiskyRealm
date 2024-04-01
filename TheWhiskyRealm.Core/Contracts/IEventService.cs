@@ -11,4 +11,5 @@ public interface IEventService
     Task<EventEditViewModel?> GetEventForEditAsync(int id);
     Task<bool> EventExistAsync(int id);
     Task EditEventAsync(EventEditViewModel model,DateTime startDate, DateTime endDate);
+    Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId);
 }
