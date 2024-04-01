@@ -1,6 +1,10 @@
-﻿@using TheWhiskyRealm.Core.Models.Event
+﻿@inject IEventService eventService
+@using System.Security.Claims
+@using TheWhiskyRealm.Core.Contracts
+@using TheWhiskyRealm.Core.Models.Event
 @model EventDetailsViewModel
 @{
+    var organiserID = await eventService.GetOrganiserIdAsync(Model.Id);
 }
 <style>
 .event-details-card {
@@ -47,3 +51,7 @@
         </div>
     </div>
 </div>
+@if (User.Id() == organiserID || User.IsInRole("Administrator"))
+{
+    <a asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+}
