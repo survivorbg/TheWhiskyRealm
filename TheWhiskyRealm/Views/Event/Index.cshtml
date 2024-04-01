@@ -42,11 +42,21 @@
             color: #28a745;
             font-weight: bold;
         }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
 </style>
 
 <div class="container mt-5">
     <h1 class="mb-4">All Events</h1>
-
+    <a href="@Url.Action("PastEvents", "Event")" class="btn btn-secondary">Past Events</a>
     <div class="row">
         @foreach (var eventItem in Model)
         {
