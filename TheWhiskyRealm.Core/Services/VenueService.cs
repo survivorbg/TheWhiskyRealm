@@ -26,4 +26,11 @@ public class VenueService : IVenueService
             })
             .ToListAsync();
     }
+
+    public async Task<bool> VenueExistAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Venue>()
+            .AnyAsync(v => v.Id == id);
+    }
 }

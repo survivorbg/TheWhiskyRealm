@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheWhiskyRealm.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240401171823_AddedPropertyAvailableSpotsInEvents")]
+    partial class AddedPropertyAvailableSpotsInEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2670,7 +2672,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AvailableSpots")
+                    b.Property<int?>("AvailableSpots")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -2678,6 +2680,10 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)")
                         .HasComment("The description of the event.");
+
+                    b.Property<int>("DurationInHours")
+                        .HasColumnType("int")
+                        .HasComment("The duration of the event in hours.");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
@@ -2725,8 +2731,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         new
                         {
                             Id = 1,
-                            AvailableSpots = 0,
                             Description = "Join us for an evening of whisky tasting and discovery.",
+                            DurationInHours = 3,
                             EndDate = new DateTime(2024, 3, 25, 21, 0, 0, 0, DateTimeKind.Unspecified),
                             OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
                             Price = 25.99m,

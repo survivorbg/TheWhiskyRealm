@@ -9,7 +9,7 @@ namespace TheWhiskyRealm.Core.Services;
 public class EventService : IEventService
 {
     private readonly IRepository repo;
-
+    
     public EventService(IRepository repo)
     {
         this.repo = repo;
@@ -17,16 +17,18 @@ public class EventService : IEventService
 
     public async Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId  )
     {
+        var venue = await repo.GetByIdAsync<Venue>(model.VenueId);
+
         var ev = new Event
         {
             Description = model.Description,
-            DurationInHours = model.DurationInHours,
             EndDate = endDate,
             OrganiserId = userId,
             Price = model.Price,
             StartDate = startDate,
             VenueId = model.VenueId,
             Title = model.Title,
+            AvailableSpots = venue!.Capacity
         };
         await repo.AddAsync(ev);
         await repo.SaveChangesAsync();
@@ -39,7 +41,6 @@ public class EventService : IEventService
         {
             ev.Price = model.Price;
             ev.Description = model.Description;
-            ev.DurationInHours = model.DurationInHours;
             ev.Title = model.Title;
             ev.VenueId = model.VenueId;
             ev.StartDate = startDate;
@@ -67,7 +68,7 @@ public class EventService : IEventService
                 StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 Title = e.Title,
                 VenueName = e.Venue.Name,
-                AvailableSpots = e.Venue.Capacity
+                AvailableSpots = e.AvailableSpots
             })
             .ToListAsync();
     }
@@ -84,7 +85,7 @@ public class EventService : IEventService
                 StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 Title = e.Title,
                 VenueName = e.Venue.Name,
-                AvailableSpots = e.Venue.Capacity
+                AvailableSpots = e.AvailableSpots
             })
             .ToListAsync();
     }
@@ -100,7 +101,7 @@ public class EventService : IEventService
                 Price = e.Price,
                 AvailableSpots = e.Venue.Capacity,
                 Description = e.Description,
-                DurationInHours = e.DurationInHours,
+                //DurationInHours = e.DurationInHours,
                 EndDate = e.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 OrganiserName = e.Organiser.UserName,
                 StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
@@ -118,7 +119,7 @@ public class EventService : IEventService
             .Select(e => new EventEditViewModel()
             {
                 Description = e.Description,
-                DurationInHours = e.DurationInHours,
+                //DurationInHours = e.DurationInHours,
                 EndDate = e.EndDate.ToString("hh:mm dd.MM.yyyy"),
                 StartDate = e.StartDate.ToString("hh:mm dd.MM.yyyy"),
                 Id = e.Id,

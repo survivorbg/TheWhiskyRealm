@@ -33,7 +33,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
             OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
             StartDate = new DateTime(2024, 3, 25, 18, 0, 0),
             EndDate = new DateTime(2024, 3, 25, 21, 0, 0),
-            DurationInHours = 3,
+            //DurationInHours = 3,
             Price = 25.99m,
             VenueId = 1
         });

@@ -112,6 +112,11 @@ public class EventController : BaseController
             ModelState.AddModelError((model.StartDate), "The event must start atleast one day from now.");
         }
 
+        if (await venueService.VenueExistAsync(model.VenueId) == false)
+        {
+            ModelState.AddModelError(nameof(model.VenueId), "You must choose a valid venue.");
+        }
+
         if (!ModelState.IsValid)
         {
             model!.Venues = await venueService.GetVenuesAsync();
@@ -169,7 +174,12 @@ public class EventController : BaseController
 
         if (startDate <= DateTime.Now.AddDays(1))
         {
-            ModelState.AddModelError((model.StartDate), "The event must start atleast one day from now.");
+            ModelState.AddModelError(nameof(model.StartDate), "The event must start atleast one day from now.");
+        }
+
+        if(await venueService.VenueExistAsync(model.VenueId) == false)
+        {
+            ModelState.AddModelError(nameof(model.VenueId), "You must choose a valid venue.");
         }
 
         if (!ModelState.IsValid)
@@ -177,6 +187,7 @@ public class EventController : BaseController
             model!.Venues = await venueService.GetVenuesAsync();
             return View(model);
         }
+
         var userId = User.Id();
         await eventService.AddEventAsync(model, startDate, endDate, userId);
 

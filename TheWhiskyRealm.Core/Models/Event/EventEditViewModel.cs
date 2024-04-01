@@ -25,11 +25,6 @@ public class EventEditViewModel
     [Required(ErrorMessage = RequiredMessage)]
     public string EndDate { get; set; } = string.Empty;
 
-    [Display(Name = "Duration")]
-    [Required(ErrorMessage = RequiredMessage)]
-    [Range(EventMinDuration, EventMaxDuration, ErrorMessage = ValueMessage)]
-    public int DurationInHours { get; set; }
-
     
     [Range(EventMinPrice, EventMaxPrice, ErrorMessage = ValueMessage)]
     public decimal? Price { get; set; }

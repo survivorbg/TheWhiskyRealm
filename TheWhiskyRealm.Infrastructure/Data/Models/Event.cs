@@ -62,13 +62,7 @@ public class Event
     [Comment("The end date of the event.")]
     public DateTime EndDate { get; set; }
 
-    /// <summary>
-    /// Gets or sets the duration of the event in hours.
-    /// </summary>
-    [Required]
-    [Range(EventMinDuration, EventMaxDuration)]
-    [Comment("The duration of the event in hours.")]
-    public int DurationInHours { get; set; }
+    public int AvailableSpots { get; set; }
 
     /// <summary>
     /// Gets or sets the price of the event.
