@@ -193,5 +193,33 @@ public class EventController : BaseController
 
         return RedirectToAction("Index");
     }
+    [HttpPost]
+    public async Task<IActionResult> Join(int id)
+    {
+        if(await eventService.EventExistAsync(id) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+        if(userId == null)
+        {
+            return RedirectToPage("/Identity/Login"); //TODO Check 
+        }
+
+        if(await eventService.IsUserAlreadyJoinedAsync(id, userId) || await eventService.GetOrganiserIdAsync(id) == userId)
+        {
+            return BadRequest();
+        }
+
+        if(await eventService.HasAvaialbleSpotsAsync(id) == false || await eventService.HasAlreadyStartedAsyn(id))
+        {
+            return BadRequest();
+        }
+
+        await eventService.JoinEventAsync(id, userId);
+
+        return View("Index"); //TODO change to MyEvents
+    }
 
 }

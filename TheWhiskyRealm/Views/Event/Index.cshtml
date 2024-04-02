@@ -1,8 +1,11 @@
-﻿@using TheWhiskyRealm.Core.Models.Event
+﻿@using System.Security.Claims
+@using TheWhiskyRealm.Core.Contracts
+@using TheWhiskyRealm.Core.Models.Event
+@inject IEventService eventService
 @model IEnumerable<AllEventViewModel>
 
 @{
-
+    var userId = User.Id();
 }
 
 
@@ -60,6 +63,10 @@
     <div class="row">
         @foreach (var eventItem in Model)
         {
+            var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(eventItem.Id, userId);
+            var alreadyStarted = await eventService.HasAlreadyStartedAsyn(eventItem.Id);
+            var isOrganiser = await eventService.GetOrganiserIdAsync(eventItem.Id);
+
             <div class="col-lg-4 col-md-6">
                 <div class="card event-card">
                     <div class="card-body">
@@ -80,6 +87,13 @@
                         <p class="card-text">Venue: @eventItem.VenueName</p>
                         <p class="card-text">Available Spots: <span class="spots">@eventItem.AvailableSpots</span></p>
                         <a href="@Url.Action("Details", "Event", new { id = eventItem.Id })" class="btn btn-primary">More</a>
+                        @if (!alreadyJoined && !alreadyStarted && isOrganiser != userId)
+                        {
+                            <form asp-controller="Event" asp-action="Join" method="post">
+                                <input type="hidden" name="id" value="@eventItem.Id" />
+                            <button type="submit" class="btn btn-success">Join Event</button>
+                        </form>
+                        }
                     </div>
                 </div>
             </div>

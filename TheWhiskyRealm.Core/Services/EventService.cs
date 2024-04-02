@@ -9,13 +9,13 @@ namespace TheWhiskyRealm.Core.Services;
 public class EventService : IEventService
 {
     private readonly IRepository repo;
-    
+
     public EventService(IRepository repo)
     {
         this.repo = repo;
     }
 
-    public async Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId  )
+    public async Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId)
     {
         var venue = await repo.GetByIdAsync<Venue>(model.VenueId);
 
@@ -53,7 +53,7 @@ public class EventService : IEventService
     {
         return await repo
             .AllReadOnly<Event>()
-            .AnyAsync(e=>e.Id == id);
+            .AnyAsync(e => e.Id == id);
     }
 
     public async Task<ICollection<AllEventViewModel>> GetAllEventsAsync()
@@ -138,5 +138,49 @@ public class EventService : IEventService
             return string.Empty;
         }
         return ev.OrganiserId;
+    }
+
+    public async Task<bool> HasAlreadyStartedAsyn(int id)
+    {
+        var ev = await repo.GetByIdAsync<Event>(id);
+        if (ev == null)
+        {
+            return true;
+        }
+
+        return DateTime.Now >= ev.StartDate.AddHours(-2) ? true : false;
+    }
+
+    public async Task<bool> HasAvaialbleSpotsAsync(int id)
+    {
+        var ev = await repo.GetByIdAsync<Event>(id);
+        if (ev == null)
+        {
+            return false;
+        }
+        return ev.AvailableSpots > 0 ? true : false;
+    }
+
+    public Task<bool> IsUserAlreadyJoinedAsync(int id, string userId)
+    {
+        return repo
+            .AllReadOnly<UserEvent>()
+            .AnyAsync(ue => ue.UserId == userId && id == ue.EventId);
+    }
+
+    public async Task JoinEventAsync(int id, string userId)
+    {
+        var userEvent = new UserEvent
+        {
+            UserId = userId,
+            EventId = id
+        };
+
+        await repo.AddAsync(userEvent);
+
+        var ev = await repo.GetByIdAsync<Event>(id);
+        ev.AvailableSpots -= 1;
+
+        await repo.SaveChangesAsync();
     }
 }

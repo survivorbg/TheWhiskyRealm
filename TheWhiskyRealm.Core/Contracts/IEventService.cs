@@ -12,4 +12,8 @@ public interface IEventService
     Task<bool> EventExistAsync(int id);
     Task EditEventAsync(EventEditViewModel model,DateTime startDate, DateTime endDate);
     Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId);
+    Task<bool> HasAvaialbleSpotsAsync(int id);
+    Task<bool> IsUserAlreadyJoinedAsync(int id, string userId);
+    Task JoinEventAsync(int id, string userId);
+    Task<bool> HasAlreadyStartedAsyn(int id);
 }
