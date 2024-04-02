@@ -1,0 +1,52 @@
+﻿@using Ganss.Xss
+@using TheWhiskyRealm.Core.Models.Article
+@model ArticleDetailsViewModel
+@{
+    var sanitizer = new HtmlSanitizer();
+    sanitizer.AllowedTags.Add("br");
+    var sanitizedContent = sanitizer.Sanitize(Model.FormattedContent);
+}
+<style>
+    .article-details-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .article-details-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .article-details-title {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .article-details-info {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .article-details-content {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+</style>
+
+<div class="article-details-container">
+    <img src="@Model.ImageUrl" alt="@Model.Title" class="article-details-image">
+    <h2 class="article-details-title">@Model.Title</h2>
+    <div class="article-details-info">
+        <p>Author: @Model.AuthorName</p>
+        <p>Date Created: @Model.DateCreated</p>
+        <p>Article Type: @Model.ArticleType</p>
+    </div>
+    <div class="article-details-content">
+        @Html.Raw(sanitizedContent)
+    </div>
+</div>

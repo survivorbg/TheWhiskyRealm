@@ -58,6 +58,7 @@
 <div class="container">
     @foreach (var article in Model)
     {
+        <a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">
         <div class="article-container">
             <img src="@article.ImageUrl" alt="@article.Title" class="article-image">
             <div class="article-content">
@@ -65,5 +66,6 @@
                 <p class="article-type">Type: @article.ArticleType</p>
             </div>
         </div>
+        </a>
     }
 </div>

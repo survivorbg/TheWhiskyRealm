@@ -18,4 +18,17 @@ public class ArticleController : BaseController
 
         return View(model);
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        if(await articleService.ArticleExistsAsync(id) == false)
+        {
+            return NotFound();
+        }
+
+        var model = await articleService.GetArticleDetailsAsync(id);
+
+        return View(model);
+    }
 }

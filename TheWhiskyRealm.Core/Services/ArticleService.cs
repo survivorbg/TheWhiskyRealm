@@ -15,6 +15,13 @@ public class ArticleService : IArticleService
         this.repo = repo;
     }
 
+    public async Task<bool> ArticleExistsAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Article>()
+            .AnyAsync(a=>a.Id == id);
+    }
+
     public async Task<ICollection<ArticleAllViewModel>> GetAllArticlesAsync()
     {
         return await repo
@@ -28,5 +35,24 @@ public class ArticleService : IArticleService
             })
             .ToListAsync();
             
+    }
+
+    public async Task<ArticleDetailsViewModel?> GetArticleDetailsAsync(int id)
+    {
+        return await repo
+            .AllReadOnly<Article>()
+            .Where(a=>a.Id == id)
+            .Select(a => new ArticleDetailsViewModel
+            {
+                Id = a.Id,
+                ArticleType = a.Type.ToString(),
+                AuthorId = a.PublisherUser.Id,
+                AuthorName = a.PublisherUser.UserName,
+                Content = a.Content,
+                DateCreated = a.DateCreated.ToString(),
+                ImageUrl = a.ImageUrl,
+                Title = a.Title
+            })
+            .FirstOrDefaultAsync();
     }
 }
