@@ -60,7 +60,7 @@ public class EventService : IEventService
     {
         return await repo
             .AllReadOnly<Event>()
-            .Where(e => e.StartDate > DateTime.UtcNow)
+            .Where(e => e.StartDate > DateTime.Now)
             .Select(e => new AllEventViewModel
             {
                 Id = e.Id,
@@ -77,7 +77,7 @@ public class EventService : IEventService
     {
         return await repo
             .AllReadOnly<Event>()
-            .Where(e => e.StartDate < DateTime.UtcNow)
+            .Where(e => e.StartDate < DateTime.Now)
             .Select(e => new AllEventViewModel
             {
                 Id = e.Id,
@@ -128,6 +128,29 @@ public class EventService : IEventService
                 VenueId = e.Venue.Id,
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<ICollection<EventDetailsViewModel>> GetEventsOrganisedByUserAsync(string organiserId)
+    {
+        return await repo
+            .AllReadOnly<Event>()
+            .Where(e => e.OrganiserId == organiserId)
+            .Select(e => new EventDetailsViewModel
+            {
+                Id = e.Id,
+                Price = e.Price,
+                AvailableSpots = e.AvailableSpots,
+                Description = e.Description,
+                EndDate = e.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                OrganiserName = e.Organiser.UserName,
+                StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                Title = e.Title,
+                VenueName = e.Venue.Name
+            })
+            .ToListAsync();
+
+
+
     }
 
     public async Task<string> GetOrganiserIdAsync(int id)

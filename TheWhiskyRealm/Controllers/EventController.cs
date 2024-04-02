@@ -58,6 +58,11 @@ public class EventController : BaseController
             return Unauthorized();
         }
 
+        if(await eventService.HasAlreadyStartedAsync(id))
+        {
+            return BadRequest();
+        }
+
         var model = await eventService.GetEventForEditAsync(id);
         model!.Venues = await venueService.GetVenuesAsync();
 
@@ -71,6 +76,11 @@ public class EventController : BaseController
         if (ev == null)
         {
             return NotFound();
+        }
+
+        if (await eventService.HasAlreadyStartedAsync(model.Id))
+        {
+            return BadRequest();
         }
 
         if (User.Id() != await eventService.GetOrganiserIdAsync(model.Id))
@@ -219,7 +229,7 @@ public class EventController : BaseController
 
         await eventService.JoinEventAsync(id, userId);
 
-        return RedirectToAction("MyEvents"); //TODO change to MyEvents
+        return RedirectToAction("MyEvents"); 
     }
     [HttpPost]
     public async Task<IActionResult> Leave(int id)
@@ -247,7 +257,7 @@ public class EventController : BaseController
 
         await eventService.LeaveEventAsync(id, userId);
 
-        return RedirectToAction("MyEvents"); //TODO change to MyEvents
+        return RedirectToAction("MyEvents");
     }
 
     [HttpGet]
@@ -260,4 +270,12 @@ public class EventController : BaseController
         return View(model);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OrganisedEvents()
+    {
+        var userId = User.Id();
+        var model = await eventService.GetEventsOrganisedByUserAsync(userId);
+
+        return View(model);
+    }
 }

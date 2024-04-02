@@ -5,7 +5,7 @@
 @model ICollection<EventDetailsViewModel>
 @{
 }
-
+<a class="btn btn-primary" asp-controller="Event" asp-action="OrganisedEvents">Events you organise</a>
 @foreach (var e in Model)
 {
     var organiserID = await eventService.GetOrganiserIdAsync(e.Id);

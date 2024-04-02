@@ -5,10 +5,12 @@
 @model EventDetailsViewModel
 @{
     var organiserID = await eventService.GetOrganiserIdAsync(Model.Id);
+    var expired = await eventService.HasAlreadyStartedAsync(Model.Id);
 }
 
 <partial name="_EventDetailsPartial" model="@Model" />
-@if (User.Id() == organiserID || User.IsInRole("Administrator"))
+@if ((User.Id() == organiserID || User.IsInRole("Administrator")) &&
+    !expired)
 {
     <a asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
 }
