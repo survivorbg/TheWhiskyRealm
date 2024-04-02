@@ -140,7 +140,7 @@ public class EventService : IEventService
         return ev.OrganiserId;
     }
 
-    public async Task<bool> HasAlreadyStartedAsyn(int id)
+    public async Task<bool> HasAlreadyStartedAsync(int id)
     {
         var ev = await repo.GetByIdAsync<Event>(id);
         if (ev == null)
@@ -179,7 +179,30 @@ public class EventService : IEventService
         await repo.AddAsync(userEvent);
 
         var ev = await repo.GetByIdAsync<Event>(id);
-        ev.AvailableSpots -= 1;
+        if (ev != null)
+        {
+            ev.AvailableSpots -= 1;
+        }
+
+        await repo.SaveChangesAsync();
+    }
+
+    public async Task LeaveEventAsync(int id, string userId)
+    {
+        var ue = await repo
+            .All<UserEvent>()
+            .FirstOrDefaultAsync(ue => ue.EventId == id && userId == ue.UserId);
+
+        if (ue != null)
+        {
+            repo.Delete(ue);
+        }
+
+        var ev = await repo.GetByIdAsync<Event>(id);
+        if (ev != null)
+        {
+            ev.AvailableSpots += 1;
+        }
 
         await repo.SaveChangesAsync();
     }

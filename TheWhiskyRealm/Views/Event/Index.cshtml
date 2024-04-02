@@ -64,7 +64,7 @@
         @foreach (var eventItem in Model)
         {
             var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(eventItem.Id, userId);
-            var alreadyStarted = await eventService.HasAlreadyStartedAsyn(eventItem.Id);
+            var alreadyStarted = await eventService.HasAlreadyStartedAsync(eventItem.Id);
             var isOrganiser = await eventService.GetOrganiserIdAsync(eventItem.Id);
 
             <div class="col-lg-4 col-md-6">
@@ -91,8 +91,15 @@
                         {
                             <form asp-controller="Event" asp-action="Join" method="post">
                                 <input type="hidden" name="id" value="@eventItem.Id" />
-                            <button type="submit" class="btn btn-success">Join Event</button>
-                        </form>
+                                <button type="submit" class="btn btn-success">Join Event</button>
+                            </form>
+                        }
+                        @if (alreadyJoined && !alreadyStarted)
+                        {
+                            <form asp-controller="Event" asp-action="Leave" method="post">
+                                <input type="hidden" name="id" value="@eventItem.Id" />
+                                <button type="submit" class="btn btn-success">Leave Event</button>
+                            </form>
                         }
                     </div>
                 </div>

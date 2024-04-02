@@ -15,5 +15,6 @@ public interface IEventService
     Task<bool> HasAvaialbleSpotsAsync(int id);
     Task<bool> IsUserAlreadyJoinedAsync(int id, string userId);
     Task JoinEventAsync(int id, string userId);
-    Task<bool> HasAlreadyStartedAsyn(int id);
+    Task<bool> HasAlreadyStartedAsync(int id);
+    Task LeaveEventAsync(int id, string userId);
 }

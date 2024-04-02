@@ -212,12 +212,40 @@ public class EventController : BaseController
             return BadRequest();
         }
 
-        if(await eventService.HasAvaialbleSpotsAsync(id) == false || await eventService.HasAlreadyStartedAsyn(id))
+        if(await eventService.HasAvaialbleSpotsAsync(id) == false || await eventService.HasAlreadyStartedAsync(id))
         {
             return BadRequest();
         }
 
         await eventService.JoinEventAsync(id, userId);
+
+        return View("Index"); //TODO change to MyEvents
+    }
+    [HttpPost]
+    public async Task<IActionResult> Leave(int id)
+    {
+        if (await eventService.EventExistAsync(id) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+        if (userId == null)
+        {
+            return RedirectToPage("/Identity/Login"); //TODO Check 
+        }
+
+        if (await eventService.IsUserAlreadyJoinedAsync(id, userId) == false)
+        {
+            return BadRequest();
+        }
+
+        if (await eventService.HasAlreadyStartedAsync(id))
+        {
+            return BadRequest();
+        }
+
+        await eventService.LeaveEventAsync(id, userId);
 
         return View("Index"); //TODO change to MyEvents
     }
