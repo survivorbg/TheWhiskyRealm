@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function showWhiskyDropdownMenu() {
+    document.getElementById("whiskyDropdownMenu").style.display = "block";
+}
 
-// Write your JavaScript code.
+function hideWhiskyDropdownMenu() {
+    document.getElementById("whiskyDropdownMenu").style.display = "none";
+}
+
+function showEventDropdownMenu() {
+    document.getElementById("eventDropdownMenu").style.display = "block";
+}
+
+function hideEventDropdownMenu() {
+    document.getElementById("eventDropdownMenu").style.display = "none";
+}
+
+function showDropdownMenu() {
+    document.getElementById("profileDropdownMenu").style.display = "block";
+}
+
+function hideDropdownMenu() {
+    document.getElementById("profileDropdownMenu").style.display = "none";
+}
