@@ -17,4 +17,5 @@ public interface IEventService
     Task JoinEventAsync(int id, string userId);
     Task<bool> HasAlreadyStartedAsync(int id);
     Task LeaveEventAsync(int id, string userId);
+    Task<ICollection<EventDetailsViewModel>> GetUserEventsAsync(string userId);
 }

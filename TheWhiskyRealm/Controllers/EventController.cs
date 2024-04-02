@@ -219,7 +219,7 @@ public class EventController : BaseController
 
         await eventService.JoinEventAsync(id, userId);
 
-        return View("Index"); //TODO change to MyEvents
+        return RedirectToAction("MyEvents"); //TODO change to MyEvents
     }
     [HttpPost]
     public async Task<IActionResult> Leave(int id)
@@ -247,7 +247,17 @@ public class EventController : BaseController
 
         await eventService.LeaveEventAsync(id, userId);
 
-        return View("Index"); //TODO change to MyEvents
+        return RedirectToAction("MyEvents"); //TODO change to MyEvents
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MyEvents()
+    {
+        var userId = User.Id();
+        var model = await eventService.GetUserEventsAsync(userId);
+
+
+        return View(model);
     }
 
 }

@@ -140,6 +140,26 @@ public class EventService : IEventService
         return ev.OrganiserId;
     }
 
+    public async Task<ICollection<EventDetailsViewModel>> GetUserEventsAsync(string userId)
+    {
+        return await repo
+            .AllReadOnly<UserEvent>()
+            .Where(ue => ue.UserId == userId)
+            .Select(ue => new EventDetailsViewModel
+            {
+                Id = ue.Event.Id,
+                Price = ue.Event.Price,
+                AvailableSpots = ue.Event.AvailableSpots,
+                Description = ue.Event.Description,
+                EndDate = ue.Event.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                OrganiserName = ue.Event.Organiser.UserName,
+                StartDate = ue.Event.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
+                Title = ue.Event.Title,
+                VenueName = ue.Event.Venue.Name
+            })
+            .ToListAsync();
+    }
+
     public async Task<bool> HasAlreadyStartedAsync(int id)
     {
         var ev = await repo.GetByIdAsync<Event>(id);

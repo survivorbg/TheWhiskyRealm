@@ -1,0 +1,50 @@
+﻿@using TheWhiskyRealm.Core.Models.Event
+@model EventDetailsViewModel
+@{
+    
+}
+<style>
+    .event-details-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+        .event-details-card .card-title {
+            color: #333;
+        }
+
+        .event-details-card p {
+            margin-bottom: 10px;
+        }
+
+        .event-details-card strong {
+            font-weight: bold;
+        }
+</style>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card event-details-card">
+                <div class="card-body">
+                    <h1 class="card-title text-center">@Model.Title</h1>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Start Date:</strong> @Model.StartDate</p>
+                            <p><strong>Organiser:</strong> @Model.OrganiserName</p>
+                            <p><strong>Venue Name:</strong> @Model.VenueName</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>End Date:</strong> @Model.EndDate</p>
+                            <p><strong>Price:</strong> @(Model.Price.HasValue ? Model.Price.Value.ToString("C2") : "Free")</p>
+                            <p><strong>Available Spots:</strong> @Model.AvailableSpots</p>
+                        </div>
+                    </div>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@inject IEventService eventService
+@using System.Security.Claims
+@using TheWhiskyRealm.Core.Contracts
+@using TheWhiskyRealm.Core.Models.Event
+@model ICollection<EventDetailsViewModel>
+@{
+}
+
+@foreach (var e in Model)
+{
+    var organiserID = await eventService.GetOrganiserIdAsync(e.Id);
+    <partial name="_EventDetailsPartial" model="@e" />
+    @if (User.Id() == organiserID || User.IsInRole("Administrator"))
+    {
+        <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
+    }
+}
