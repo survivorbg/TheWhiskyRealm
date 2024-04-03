@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Article;
+using TheWhiskyRealm.Core.Services;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
 
 namespace TheWhiskyRealm.Controllers;
@@ -81,5 +82,32 @@ public class ArticleController : BaseController
         await articleService.EditArticleAsync(model);
 
         return RedirectToAction("Details", new {id=model.Id});
+    }
+
+
+    [HttpGet]
+    public IActionResult Add()
+    {
+        var model = new ArticleAddViewModel();
+        model.ArticleTypeOptions = Enum.GetNames(typeof(ArticleType));
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(ArticleAddViewModel model)
+    {
+
+        if (!ModelState.IsValid)
+        {
+            model.ArticleTypeOptions = Enum.GetNames(typeof(ArticleType));
+            return View(model);
+        }
+
+        var userId = User.Id();
+
+        var newArticleId = await articleService.AddArticleAsync(model, userId); //TODO check other Add action methods
+
+        return RedirectToAction("Details", "Article", new { id = newArticleId });
     }
 }

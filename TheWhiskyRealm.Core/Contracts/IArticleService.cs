@@ -10,4 +10,5 @@ public interface IArticleService
     Task<bool> IsTheArticleAuthorAsync(string userId, int id);
     Task<ArticleEditViewModel?> GetArticleEditAsync(int id);
     Task EditArticleAsync(ArticleEditViewModel model);
+    Task<int> AddArticleAsync(ArticleAddViewModel model, string userId);
 }

@@ -16,6 +16,25 @@ public class ArticleService : IArticleService
         this.repo = repo;
     }
 
+    public async Task<int> AddArticleAsync(ArticleAddViewModel model, string userId)
+    {
+        var article = new Article()
+        {
+            DateCreated = DateTime.Now,
+            Content = model.Content,
+            ImageUrl = model.ImageUrl,
+            PublisherUserId = userId,
+            Title = model.Title,
+            Type = (ArticleType)Enum.Parse(typeof(ArticleType), model.ArticleType)
+        };
+
+        await repo.AddAsync(article);
+        await repo.SaveChangesAsync();
+
+        return article.Id;
+    }
+
+
     public async Task<bool> ArticleExistsAsync(int id)
     {
         return await repo
@@ -81,7 +100,7 @@ public class ArticleService : IArticleService
                 ArticleType = a.Type.GetDisplayName(), //TODO Fix other enum extracting
                 Content = a.Content,
                 Id = a.Id,
-                ImageUrl= a.ImageUrl,
+                ImageUrl = a.ImageUrl,
                 Title = a.Title
             })
             .FirstOrDefaultAsync();
