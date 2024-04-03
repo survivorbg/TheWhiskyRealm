@@ -21,3 +21,10 @@ function showDropdownMenu() {
 function hideDropdownMenu() {
     document.getElementById("profileDropdownMenu").style.display = "none";
 }
+function showArticleDropdownMenu() {
+    document.getElementById("articleDropdownMenu").style.display = "block";
+}
+
+function hideArticleDropdownMenu() {
+    document.getElementById("articleDropdownMenu").style.display = "none";
+}
