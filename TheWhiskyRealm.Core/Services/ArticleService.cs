@@ -116,6 +116,21 @@ public class ArticleService : IArticleService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<ICollection<ArticleAllViewModel>> GetUserArticlesAsync(string userId)
+    {
+        return await repo
+            .AllReadOnly<Article>()
+            .Where(a=>a.PublisherUserId == userId)
+            .Select(a => new ArticleAllViewModel
+            {
+                ArticleType = a.Type.ToString(),
+                Id = a.Id,
+                ImageUrl = a.ImageUrl,
+                Title = a.Title
+            })
+            .ToListAsync();
+    }
+
     public async Task<bool> IsTheArticleAuthorAsync(string userId, int id)
     {
         return await repo

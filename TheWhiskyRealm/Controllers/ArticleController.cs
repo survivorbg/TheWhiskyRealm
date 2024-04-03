@@ -16,6 +16,7 @@ public class ArticleController : BaseController
         this.articleService = articleService;
     }
 
+    [HttpGet]
     public async Task<IActionResult> Index()
     {
         var model = await  articleService.GetAllArticlesAsync();
@@ -129,5 +130,14 @@ public class ArticleController : BaseController
         await articleService.DeleteArticleAsync(id);
 
         return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> MyArticles()
+    {
+        var userId = User.Id();
+        var model = await articleService.GetUserArticlesAsync(userId);
+
+        return View(model);
     }
 }

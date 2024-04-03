@@ -5,6 +5,7 @@ namespace TheWhiskyRealm.Core.Contracts;
 public interface IArticleService
 {
     Task<ICollection<ArticleAllViewModel>> GetAllArticlesAsync();
+    Task<ICollection<ArticleAllViewModel>> GetUserArticlesAsync(string userId);
     Task<bool> ArticleExistsAsync(int id);
     Task<ArticleDetailsViewModel?> GetArticleDetailsAsync(int id);
     Task<bool> IsTheArticleAuthorAsync(string userId, int id);

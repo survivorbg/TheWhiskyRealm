@@ -1,0 +1,82 @@
+﻿@using TheWhiskyRealm.Core.Models.Article
+@model ICollection<ArticleAllViewModel>
+<style>
+    .article-container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .article-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        transition: transform 0.5s ease;
+    }
+
+    .article-container:hover .article-image {
+        transform: scale(1.2);
+    }
+
+    .article-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: #ffffff;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 10px;
+        transition: scale 0.3s ease;
+    }
+
+    .article-container:hover .article-content {
+        scale: 1.1;
+    }
+
+    .article-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .article-type {
+        font-size: 14px;
+    }
+
+    div.first-article{
+        display:flex;
+        justify-content:center;
+        align-content:center;
+    }
+
+</style>
+@if (Model.Any())
+{
+    <div class="container">
+        @foreach (var article in Model)
+        {
+            <a asp-controller="Article" asp-action="Details" asp-route-id="@article.Id">
+                <div class="article-container">
+                    <img src="@article.ImageUrl" alt="@article.Title" class="article-image">
+                    <div class="article-content">
+                        <h2 class="article-title">@article.Title</h2>
+                        <p class="article-type">Type: @article.ArticleType</p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+}
+else
+{
+    <h2 class="text-center mt-5">Nothing to see here. Do you want to write your first article?</h2>
+    <div class="first-article">
+        <a class="btn btn-outline-primary" asp-controller="Article" asp-action="Add">Write an article</a>
+    </div>
+
+}
