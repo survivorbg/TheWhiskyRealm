@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.Article;
+using TheWhiskyRealm.Infrastructure.Data.Enums;
 
 namespace TheWhiskyRealm.Controllers;
 
@@ -30,5 +33,53 @@ public class ArticleController : BaseController
         var model = await articleService.GetArticleDetailsAsync(id);
 
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        if (await articleService.ArticleExistsAsync(id) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+
+        if(await articleService.IsTheArticleAuthorAsync(userId,id) == false)
+        {
+            return Unauthorized();
+        }
+
+        var model = await articleService.GetArticleEditAsync(id);
+
+        model.ArticleTypeOptions = Enum.GetNames(typeof(ArticleType));
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(ArticleEditViewModel model)
+    {
+        if (await articleService.ArticleExistsAsync(model.Id) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+
+        if (await articleService.IsTheArticleAuthorAsync(userId, model.Id) == false)
+        {
+            return Unauthorized();
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.ArticleTypeOptions = Enum.GetNames(typeof(ArticleType));
+            return View(model); 
+        }
+
+        await articleService.EditArticleAsync(model);
+
+        return RedirectToAction("Details", new {id=model.Id});
     }
 }

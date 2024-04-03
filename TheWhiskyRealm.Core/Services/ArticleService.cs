@@ -2,6 +2,7 @@
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Article;
 using TheWhiskyRealm.Infrastructure.Data.Common;
+using TheWhiskyRealm.Infrastructure.Data.Enums;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Core.Services;
@@ -19,7 +20,21 @@ public class ArticleService : IArticleService
     {
         return await repo
             .AllReadOnly<Article>()
-            .AnyAsync(a=>a.Id == id);
+            .AnyAsync(a => a.Id == id);
+    }
+
+    public async Task EditArticleAsync(ArticleEditViewModel model)
+    {
+        var article = await repo.GetByIdAsync<Article>(model.Id);
+
+        if (model != null)
+        {
+            article.Title = model.Title;
+            article.Content = model.Content;
+            article.ImageUrl = model.ImageUrl;
+            article.Type = (ArticleType)Enum.Parse(typeof(ArticleType), model.ArticleType);
+        }
+        await repo.SaveChangesAsync();
     }
 
     public async Task<ICollection<ArticleAllViewModel>> GetAllArticlesAsync()
@@ -34,14 +49,14 @@ public class ArticleService : IArticleService
                 Title = a.Title
             })
             .ToListAsync();
-            
+
     }
 
     public async Task<ArticleDetailsViewModel?> GetArticleDetailsAsync(int id)
     {
         return await repo
             .AllReadOnly<Article>()
-            .Where(a=>a.Id == id)
+            .Where(a => a.Id == id)
             .Select(a => new ArticleDetailsViewModel
             {
                 Id = a.Id,
@@ -49,10 +64,33 @@ public class ArticleService : IArticleService
                 AuthorId = a.PublisherUser.Id,
                 AuthorName = a.PublisherUser.UserName,
                 Content = a.Content,
-                DateCreated = a.DateCreated.ToString(),
+                DateCreated = a.DateCreated.ToString("g"),
                 ImageUrl = a.ImageUrl,
                 Title = a.Title
             })
             .FirstOrDefaultAsync();
+    }
+
+    public async Task<ArticleEditViewModel?> GetArticleEditAsync(int id)
+    {
+        return await repo
+            .All<Article>()
+            .Where(a => a.Id == id)
+            .Select(a => new ArticleEditViewModel
+            {
+                ArticleType = a.Type.GetDisplayName(), //TODO Fix other enum extracting
+                Content = a.Content,
+                Id = a.Id,
+                ImageUrl= a.ImageUrl,
+                Title = a.Title
+            })
+            .FirstOrDefaultAsync();
+    }
+
+    public async Task<bool> IsTheArticleAuthorAsync(string userId, int id)
+    {
+        return await repo
+            .AllReadOnly<Article>()
+            .AnyAsync(a => a.Id == id && a.PublisherUserId == userId);
     }
 }

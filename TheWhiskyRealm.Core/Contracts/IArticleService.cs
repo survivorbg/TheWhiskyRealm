@@ -7,4 +7,7 @@ public interface IArticleService
     Task<ICollection<ArticleAllViewModel>> GetAllArticlesAsync();
     Task<bool> ArticleExistsAsync(int id);
     Task<ArticleDetailsViewModel?> GetArticleDetailsAsync(int id);
+    Task<bool> IsTheArticleAuthorAsync(string userId, int id);
+    Task<ArticleEditViewModel?> GetArticleEditAsync(int id);
+    Task EditArticleAsync(ArticleEditViewModel model);
 }
