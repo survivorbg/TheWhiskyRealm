@@ -10,6 +10,7 @@ builder.Services.AddApplicationService();
 builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DoubleModelBinderProvider());
+    options.ModelBinderProviders.Insert(1, new DecimalModelBinderProvider());
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
