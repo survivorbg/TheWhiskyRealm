@@ -1,10 +1,14 @@
 ﻿@using Ganss.Xss
+@inject IArticleService articleService
+@using System.Security.Claims
+@using TheWhiskyRealm.Core.Contracts
 @using TheWhiskyRealm.Core.Models.Article
 @model ArticleDetailsViewModel
 @{
     var sanitizer = new HtmlSanitizer();
     sanitizer.AllowedTags.Add("br");
     var sanitizedContent = sanitizer.Sanitize(Model.FormattedContent);
+    var isAuthor = await articleService.IsTheArticleAuthorAsync(User.Id(), Model.Id);
 }
 <style>
     .article-details-container {
@@ -35,6 +39,12 @@
     .article-details-content {
         font-size: 18px;
         line-height: 1.6;
+        word-wrap: break-word;
+    }
+
+    div.btn-container{
+        display:flex;
+        justify-content:space-around;
     }
 </style>
 
@@ -49,4 +59,19 @@
     <div class="article-details-content">
         @Html.Raw(sanitizedContent)
     </div>
+    @if (isAuthor)
+    {
+        <div class="mt-3 btn-container">
+            <a class="btn-primary btn" asp-controller="Article" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+            <button class="btn-danger btn" onclick="confirmDelete()">Delete</button>
+        </div>
+    }
 </div>
+<script>
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this article?")) {
+            // If the user confirms deletion, redirect to the delete action
+            window.location.href = '@Url.Action("Delete", "Article", new { id = Model.Id })';
+        }
+    }
+</script>

@@ -110,4 +110,24 @@ public class ArticleController : BaseController
 
         return RedirectToAction("Details", "Article", new { id = newArticleId });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        if (await articleService.ArticleExistsAsync(id) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+
+        if (await articleService.IsTheArticleAuthorAsync(userId, id) == false)
+        {
+            return Unauthorized();
+        }
+
+        await articleService.DeleteArticleAsync(id);
+
+        return RedirectToAction("Index");
+    }
 }

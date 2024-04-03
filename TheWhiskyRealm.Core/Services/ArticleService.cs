@@ -42,6 +42,16 @@ public class ArticleService : IArticleService
             .AnyAsync(a => a.Id == id);
     }
 
+    public async Task DeleteArticleAsync(int id)
+    {
+        var article = await repo.GetByIdAsync<Article>(id);
+        if(article != null)
+        {
+            repo.Delete(article);
+        }
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditArticleAsync(ArticleEditViewModel model)
     {
         var article = await repo.GetByIdAsync<Article>(model.Id);

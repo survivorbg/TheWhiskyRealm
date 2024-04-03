@@ -11,4 +11,5 @@ public interface IArticleService
     Task<ArticleEditViewModel?> GetArticleEditAsync(int id);
     Task EditArticleAsync(ArticleEditViewModel model);
     Task<int> AddArticleAsync(ArticleAddViewModel model, string userId);
+    Task DeleteArticleAsync(int id);
 }
