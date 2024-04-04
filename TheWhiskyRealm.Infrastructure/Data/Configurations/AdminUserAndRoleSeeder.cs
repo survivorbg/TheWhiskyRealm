@@ -33,8 +33,7 @@ public class AdminUserAndRoleSeeder
         {
             Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
             UserName = "admin@gmail.com",
-            Email = "admin@gmail.com",
-            Age = 29
+            Email = "admin@gmail.com"
         };
 
         if (await userManager.FindByNameAsync(adminUser.UserName) == null)
@@ -47,8 +46,7 @@ public class AdminUserAndRoleSeeder
         {
             Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
             UserName = "test@gmail.com",
-            Email = "test@gmail.com",
-            Age = 18
+            Email = "test@gmail.com"
         };
 
         if (await userManager.FindByNameAsync(userOne.UserName) == null)
@@ -62,8 +60,7 @@ public class AdminUserAndRoleSeeder
         {
             Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
             UserName = "sober@gmail.com",
-            Email = "sober@gmail.com",
-            Age = 24
+            Email = "sober@gmail.com"
         };
 
         if (await userManager.FindByNameAsync(userTwo.UserName) == null)
@@ -77,8 +74,7 @@ public class AdminUserAndRoleSeeder
         {
             Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
             UserName = "noToAlcohol@gmail.com",
-            Email = "noToAlcohol@gmail.com",
-            Age = 64
+            Email = "noToAlcohol@gmail.com"
         };
 
         if (await userManager.FindByNameAsync(userThree.UserName) == null)

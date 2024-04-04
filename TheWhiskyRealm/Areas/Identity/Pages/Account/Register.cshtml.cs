@@ -69,7 +69,6 @@ public class RegisterModel : PageModel
             {
                 UserName = Input.Email,
                 Email = Input.Email,
-                Age = Input.Age,
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
