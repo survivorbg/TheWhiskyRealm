@@ -49,4 +49,11 @@ public interface IRepository
     /// </summary>
     /// <returns>Returns the number of affected rows.</returns>
     Task<int> SaveChangesAsync();
+
+    /// <summary>
+    /// Deletes multiple entities from the database.
+    /// </summary>
+    /// <typeparam name="T">The type of entities to delete.</typeparam>
+    /// <param name="entities">The list of entities to delete.</param>
+    void DeleteRange<T>(IEnumerable<T> entities) where T : class;
 }

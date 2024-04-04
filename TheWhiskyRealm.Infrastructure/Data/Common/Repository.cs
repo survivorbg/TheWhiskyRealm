@@ -96,4 +96,13 @@ public class Repository : IRepository
             DbSet<T>().Remove(entity);
         }
     }
+    /// <summary>
+    /// Deletes multiple entities from the database.
+    /// </summary>
+    /// <typeparam name="T">The type of entities to delete.</typeparam>
+    /// <param name="entities">The list of entities to delete.</param>
+    public void DeleteRange<T>(IEnumerable<T> entities) where T : class
+    {
+        DbSet<T>().RemoveRange(entities);
+    }
 }
