@@ -71,6 +71,7 @@
         padding: 10px;
         margin-bottom: 10px;
         width:100%;
+        word-wrap: break-word;
     }
 
     .comment-info {
@@ -78,6 +79,10 @@
         color: #777;
         display:flex;
         justify-content:space-between;
+    }
+
+    textarea {
+        resize: none;
     }
 </style>
 
@@ -121,15 +126,18 @@
                 <div class="comment-info">
                     <span>@comment.AuthorName</span>
                     <span>@comment.DatePosted</span>
+                    @if (User.Identity.Name == comment.AuthorName)
+                    {
+                        <div class="btn-group">
+                            <a asp-controller="Comment" asp-action="Edit" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a asp-controller="Comment" asp-action="Delete" asp-route-id="@comment.Id" class="btn btn-sm btn-outline-secondary">Delete</a>
+                        </div>
+                    }
                 </div>
             </div>
         }
     </div>
 </div>
-
-
-
-
 
 <script>
     function confirmDelete() {
@@ -138,6 +146,7 @@
         }
     }
 </script>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
