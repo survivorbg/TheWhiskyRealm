@@ -10,4 +10,5 @@ public interface ICommentService
     Task<bool> CommentExistsAsync(int id);
     Task<string> GetCommentAuthorIdAsync(int id);
     Task EditCommentAsync(CommentEditViewModel model);
+    Task DeleteCommentAsync(int id);
 }

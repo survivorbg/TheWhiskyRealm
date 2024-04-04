@@ -98,4 +98,28 @@ public class CommentController : BaseController
 
         return RedirectToAction("Details", "Article", new { id = model.ArticleId });
     }
+    public async Task<IActionResult> Delete(int id)
+    {
+        var comment = await commentService.GetCommentByIdAsync(id);
+        if (comment == null)
+        {
+            return NotFound();
+        }
+        
+        if (await articleService.ArticleExistsAsync(comment.ArticleId) == false)
+        {
+            return NotFound();
+        }
+
+        var userId = User.Id();
+
+        if (await commentService.GetCommentAuthorIdAsync(id) != userId)
+        {
+            return Unauthorized();
+        }
+
+        await commentService.DeleteCommentAsync(id);
+
+        return RedirectToAction("Details", "Article", new { id = comment.ArticleId });
+    }
 }

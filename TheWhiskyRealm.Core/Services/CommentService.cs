@@ -38,6 +38,16 @@ public class CommentService : ICommentService
             .AnyAsync(c=>c.Id== id);
     }
 
+    public async Task DeleteCommentAsync(int id)
+    {
+        var comment = await repo.GetByIdAsync<Comment>(id);
+        if (comment != null)
+        {
+            await repo.DeleteById<Comment>(id);
+        }
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditCommentAsync(CommentEditViewModel model)
     {
         var comment = await repo.GetByIdAsync<Comment>(model.Id);
