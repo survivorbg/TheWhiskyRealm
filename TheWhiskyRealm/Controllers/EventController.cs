@@ -278,4 +278,27 @@ public class EventController : BaseController
 
         return View(model);
     }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        var ev = await eventService.GetEventAsync(id);
+        if (ev == null)
+        {
+            return NotFound();
+        }
+
+        if (await eventService.HasAlreadyStartedAsync(id))
+        {
+            return BadRequest();
+        }
+
+        if (User.Id() != await eventService.GetOrganiserIdAsync(id))
+        {
+            return Unauthorized();
+        }
+
+        await eventService.DeleteEventAsync(id);
+
+        return RedirectToAction("Index");
+    }
 }

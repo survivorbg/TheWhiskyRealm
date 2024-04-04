@@ -5,11 +5,12 @@
 @model ICollection<EventDetailsViewModel>
 @{
 }
-<a class ="btn btn-primary" asp-controller="Event" asp-action="MyEvents">Joined events</a>
+<script src="~/js/Event/event.js"></script>
+<a class="btn btn-primary" asp-controller="Event" asp-action="MyEvents">Joined events</a>
 @foreach (var e in Model)
 {
-    
+
     <partial name="_EventDetailsPartial" model="@e" />
     <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
-    
+    <button class="btn-danger btn" onclick="confirmDeleteEvent(@e.Id)">Delete</button>
 }

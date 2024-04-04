@@ -34,6 +34,23 @@ public class EventService : IEventService
         await repo.SaveChangesAsync();
     }
 
+    public async Task DeleteEventAsync(int id)
+    {
+        var ev = repo.GetByIdAsync<Event>(id);
+        if (ev != null)
+        {
+            var userEvents = await repo
+                .All<UserEvent>()
+                .Where(uv => uv.EventId == id)
+                .ToListAsync();
+
+            repo.DeleteRange(userEvents);
+            await repo.DeleteById<Event>(id);
+        }
+
+        await repo.SaveChangesAsync();
+    }
+
     public async Task EditEventAsync(EventEditViewModel model, DateTime startDate, DateTime endDate)
     {
         Event ev = await repo.GetByIdAsync<Event>(model.Id);
