@@ -23,6 +23,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IVenueService, VenueService>();
         services.AddScoped<IArticleService, ArticleService>();
+        services.AddScoped<ICommentService, CommentService>();
 
         return services;
     }

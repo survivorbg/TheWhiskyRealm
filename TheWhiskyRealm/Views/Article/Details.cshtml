@@ -10,6 +10,7 @@
     var sanitizedContent = sanitizer.Sanitize(Model.FormattedContent);
     var isAuthor = await articleService.IsTheArticleAuthorAsync(User.Id(), Model.Id);
 }
+
 <style>
     .article-details-container {
         max-width: 800px;
@@ -42,9 +43,41 @@
         word-wrap: break-word;
     }
 
-    div.btn-container{
+    div.btn-container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .comment-container {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+    }
+
+        .comment-container button#submit-comment {
+            all:unset;
+            cursor:pointer;
+            padding:12px 24px;
+            background: lightblue;
+            border-radius:15px;
+        }
+
+    .comment-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        width:100%;
+    }
+
+    .comment-info {
+        font-size: 14px;
+        color: #777;
         display:flex;
-        justify-content:space-around;
+        justify-content:space-between;
     }
 </style>
 
@@ -66,12 +99,45 @@
             <button class="btn-danger btn" onclick="confirmDelete()">Delete</button>
         </div>
     }
+
+    <div class="comment-container">
+        <h3 class="text-center">Add Comment</h3>
+        <form asp-controller="Comment" asp-action="Add" method="post">
+            <input type="hidden" name="articleId" value="@Model.Id" />
+            <label asp-for="Comment.Content">Content</label>
+            <textarea asp-for="Comment.Content" class="form-control" rows="4" cols="71" name="Content"></textarea>
+            <span asp-validation-for="Comment.Content" class="text-danger"></span>
+            <br />
+            <button id="submit-comment" type="submit">Submit</button>
+        </form>
+    </div>
+    <hr />
+    <div class="comment-container">
+        <h3>Comments</h3>
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="comment-card">
+                <p>@comment.Content</p>
+                <div class="comment-info">
+                    <span>@comment.AuthorName</span>
+                    <span>@comment.DatePosted</span>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+
+
+
+
 <script>
     function confirmDelete() {
         if (confirm("Are you sure you want to delete this article?")) {
-            // If the user confirms deletion, redirect to the delete action
             window.location.href = '@Url.Action("Delete", "Article", new { id = Model.Id })';
         }
     }
 </script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

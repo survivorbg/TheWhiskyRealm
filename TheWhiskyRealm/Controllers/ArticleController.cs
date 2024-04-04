@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Article;
-using TheWhiskyRealm.Core.Services;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
 
 namespace TheWhiskyRealm.Controllers;
@@ -10,10 +9,12 @@ namespace TheWhiskyRealm.Controllers;
 public class ArticleController : BaseController
 {
     private readonly IArticleService articleService;
+    private readonly ICommentService commentService;
 
-    public ArticleController(IArticleService articleService)
+    public ArticleController(IArticleService articleService, ICommentService commentService)
     {
         this.articleService = articleService;
+        this.commentService = commentService;
     }
 
     [HttpGet]
@@ -33,7 +34,7 @@ public class ArticleController : BaseController
         }
 
         var model = await articleService.GetArticleDetailsAsync(id);
-
+        model.Comments = await  commentService.GetCommentsForArticleAsync(id);
         return View(model);
     }
 

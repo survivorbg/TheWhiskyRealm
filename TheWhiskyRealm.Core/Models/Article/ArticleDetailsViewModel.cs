@@ -12,4 +12,6 @@ public class ArticleDetailsViewModel
     public string AuthorName { get; set; } = string.Empty;
     public string AuthorId { get; set; } = string.Empty;
     public string ArticleType { get; set; } = string.Empty;
+    public CommentAddViewModel Comment { get; set; } = null!;
+    public ICollection<CommentViewModel> Comments = new List<CommentViewModel>();
 }

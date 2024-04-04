@@ -87,7 +87,7 @@
                         <p class="card-text">Venue: @eventItem.VenueName</p>
                         <p class="card-text">Available Spots: <span class="spots">@eventItem.AvailableSpots</span></p>
                         <a href="@Url.Action("Details", "Event", new { id = eventItem.Id })" class="btn btn-primary">More</a>
-                        @if (!alreadyJoined && !alreadyStarted && isOrganiser != userId)
+                        @if (!alreadyJoined && !alreadyStarted && isOrganiser != userId && eventItem.AvailableSpots > 0)
                         {
                             <form asp-controller="Event" asp-action="Join" method="post">
                                 <input type="hidden" name="id" value="@eventItem.Id" />
