@@ -50,6 +50,13 @@ public class Whisky
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the The URL of the whisky image.
+    /// </summary>
+    [Required]
+    [Comment("The URL of the whisky image.")]
+    public string ImageURL { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the identifier of the distillery that produced the whisky.
     /// </summary>
     [Required]
