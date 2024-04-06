@@ -125,6 +125,65 @@ public class RatingConfiguration : IEntityTypeConfiguration<Rating>
             UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
         });
 
+        ratings.Add(new Rating
+        {
+            Id = 11,
+            Nose = 47,
+            Taste = 54,
+            Finish = 45,
+            WhiskyId = 1,
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
+        });
+
+        ratings.Add(new Rating
+        {
+            Id = 12,
+            Nose = 39,
+            Taste = 87,
+            Finish = 43,
+            WhiskyId = 1,
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
+        });
+
+        ratings.Add(new Rating
+        {
+            Id = 13,
+            Nose = 87,
+            Taste = 77,
+            Finish = 88,
+            WhiskyId = 1,
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+        });
+
+        ratings.Add(new Rating
+        {
+            Id = 14,
+            Nose = 37,
+            Taste = 84,
+            Finish = 45,
+            WhiskyId = 2,
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
+        });
+
+        ratings.Add(new Rating
+        {
+            Id = 15,
+            Nose = 45,
+            Taste = 87,
+            Finish = 43,
+            WhiskyId = 2,
+            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
+        });
+
+        ratings.Add(new Rating
+        {
+            Id = 16,
+            Nose = 87,
+            Taste = 45,
+            Finish = 37,
+            WhiskyId = 2,
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+        });
 
         return ratings.ToArray();
     }
