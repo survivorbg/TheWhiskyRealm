@@ -54,15 +54,15 @@ public static class ServiceCollectionExtension
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<TheWhiskyRealmDbContext>();
 
-        services.AddScoped<AdminUserAndRoleSeeder>();
+        services.AddScoped<UserRoleSeeder>();
 
         return services;
     }
 
-    public static void SeedUserData(this IApplicationBuilder app)
+    public static void SeedUserRoles(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();
-        var seeder = scope.ServiceProvider.GetRequiredService<AdminUserAndRoleSeeder>();
-        seeder.SeedAsync().Wait();
+        var seeder = scope.ServiceProvider.GetRequiredService<UserRoleSeeder>();
+        seeder.AssignRolesAsync().Wait();
     }
 }
