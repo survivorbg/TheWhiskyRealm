@@ -31,7 +31,8 @@ public class WhiskyService : IWhiskyService
                 Age = x.Age,
                 AlcoholPercentage = x.AlcoholPercentage,
                 WhiskyType = x.WhiskyType.Name,
-                Reviews = x.Reviews.Count()
+                Reviews = x.Reviews.Count(),
+                ImageURL = x.ImageURL
             })
             .ToListAsync();
     }
@@ -50,7 +51,8 @@ public class WhiskyService : IWhiskyService
                 Age = x.Age,
                 AlcoholPercentage = x.AlcoholPercentage,
                 WhiskyType = x.WhiskyType.Name,
-                Reviews = x.Reviews.Count()
+                Reviews = x.Reviews.Count(),
+                ImageURL = x.ImageURL
             })
             .ToListAsync();
     }
@@ -80,7 +82,8 @@ public class WhiskyService : IWhiskyService
                 DistilleryName = w.Distillery.Name,
                 CountryName = w.Distillery.Region.Country.Name,
                 RegionName = w.Distillery.Region.Name,
-                AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet"
+                AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet",
+                ImageURL = w.ImageURL,
             })
             .FirstAsync();
     }
@@ -189,7 +192,8 @@ public class WhiskyService : IWhiskyService
             Age = x.Age,
             AlcoholPercentage = x.AlcoholPercentage,
             WhiskyType = x.WhiskyType.Name,
-            Reviews = x.Reviews.Count()
+            Reviews = x.Reviews.Count(),
+            ImageURL = x.ImageURL,
         });
 
         

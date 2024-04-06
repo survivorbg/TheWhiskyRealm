@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TheWhiskyRealm.Infrastructure.Data;
-
-namespace TheWhiskyRealm.Core.Models.Whisky;
+﻿namespace TheWhiskyRealm.Core.Models.Whisky;
 
 public class AllWhiskyModel
 {
@@ -35,4 +32,5 @@ public class AllWhiskyModel
     public int Reviews { get; set; }
 
     public double AverageRating { get; set; }
+    public string ImageURL { get; set; } = string.Empty;
 }

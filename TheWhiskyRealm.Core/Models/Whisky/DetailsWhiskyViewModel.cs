@@ -14,6 +14,7 @@ public class DetailsWhiskyViewModel
     public string AlcoholPercentage { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
+    public string ImageURL { get; set; } = string.Empty;
 
     public string DistilleryName { get; set; } = string.Empty;
     public string WhiskyType { get; set; } = string.Empty;
