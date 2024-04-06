@@ -3,9 +3,16 @@ using System.Globalization;
 
 namespace TheWhiskyRealm.ModelBinders;
 
+/// <summary>
+/// Мodel binder that binds decimal values from the request.
+/// </summary>
 public class DecimalModelBinder : IModelBinder
 {
-
+    /// <summary>
+    /// Asynchronously attempts to bind a model.
+    /// </summary>
+    /// <param name="bindingContext">The binding context.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
         ValueProviderResult valueResult = bindingContext.ValueProvider.GetValue(bindingContext.ModelName);

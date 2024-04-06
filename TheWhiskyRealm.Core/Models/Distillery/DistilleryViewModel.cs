@@ -1,4 +1,4 @@
-﻿namespace TheWhiskyRealm.Core.Models.Whisky;
+﻿namespace TheWhiskyRealm.Core.Models.Distillery;
 
 public class DistilleryViewModel
 {

@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Award;
-using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
 
 namespace TheWhiskyRealm.Controllers;

@@ -9,8 +9,18 @@ using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+
+/// <summary>
+/// Provides extension methods for IServiceCollection to add application services, DbContext and Identity.
+/// </summary>
 public static class ServiceCollectionExtension
 {
+
+    /// <summary>
+    /// Adds application services to the IServiceCollection.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to add services to.</param>
+    /// <returns>The same service collection so that multiple calls can be chained.</returns>
     public static IServiceCollection AddApplicationService(this IServiceCollection services)
     {
         services.AddScoped<IWhiskyService, WhiskyService>();
@@ -28,6 +38,13 @@ public static class ServiceCollectionExtension
         return services;
     }
 
+
+    /// <summary>
+    /// Adds the application's DbContext to the IServiceCollection.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to add the DbContext to.</param>
+    /// <param name="config">The application configuration, which includes the connection string.</param>
+    /// <returns>The same service collection so that multiple calls can be chained.</returns>
     public static IServiceCollection AddApplicationDbContext(this IServiceCollection services, IConfiguration config)
     {
         var connectionString = config.GetConnectionString("DefaultConnection");
@@ -40,6 +57,12 @@ public static class ServiceCollectionExtension
         return services;
     }
 
+    /// <summary>
+    /// Adds the application's Identity to the IServiceCollection.
+    /// </summary>
+    /// <param name="services">The IServiceCollection to add the Identity to.</param>
+    /// <param name="config">The application configuration, which includes the Identity settings.</param>
+    /// <returns>The same service collection so that multiple calls can be chained.</returns>
     public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
     {
         services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -59,6 +82,10 @@ public static class ServiceCollectionExtension
         return services;
     }
 
+    /// <summary>
+    /// Seeds the user roles into the application's Identity.
+    /// </summary>
+    /// <param name="app">The application builder.</param>
     public static void SeedUserRoles(this IApplicationBuilder app)
     {
         using var scope = app.ApplicationServices.CreateScope();

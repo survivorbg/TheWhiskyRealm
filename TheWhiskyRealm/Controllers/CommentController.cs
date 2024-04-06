@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
-using TheWhiskyRealm.Core.Models.Article;
+using TheWhiskyRealm.Core.Models.Comment;
 using TheWhiskyRealm.Core.Services;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 

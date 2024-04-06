@@ -1,4 +1,4 @@
-﻿using TheWhiskyRealm.Core.Models.Event;
+﻿using TheWhiskyRealm.Core.Models.Venue;
 
 namespace TheWhiskyRealm.Core.Contracts;
 

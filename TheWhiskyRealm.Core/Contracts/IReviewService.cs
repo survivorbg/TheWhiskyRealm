@@ -1,5 +1,4 @@
 ﻿using TheWhiskyRealm.Core.Models.Review;
-using TheWhiskyRealm.Core.Models.Whisky;
 
 namespace TheWhiskyRealm.Core.Contracts;
 

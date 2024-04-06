@@ -2,7 +2,7 @@
 using static TheWhiskyRealm.Infrastructure.Constants.AwardDataConstants;
 using static TheWhiskyRealm.Core.Constants.MessageConstants;
 
-namespace TheWhiskyRealm.Core.Models.Whisky;
+namespace TheWhiskyRealm.Core.Models.Award;
 
 public class AwardViewModel
 {

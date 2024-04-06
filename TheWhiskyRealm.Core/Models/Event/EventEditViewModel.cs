@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TheWhiskyRealm.Core.Models.Venue;
 using static TheWhiskyRealm.Core.Constants.MessageConstants;
 using static TheWhiskyRealm.Infrastructure.Constants.EventDataConstants;
 

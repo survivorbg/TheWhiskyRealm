@@ -1,4 +1,4 @@
-﻿namespace TheWhiskyRealm.Core.Models.Event;
+﻿namespace TheWhiskyRealm.Core.Models.Venue;
 
 public class VenueViewModel
 {

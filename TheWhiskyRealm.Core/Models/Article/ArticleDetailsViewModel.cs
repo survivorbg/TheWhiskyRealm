@@ -1,4 +1,6 @@
-﻿namespace TheWhiskyRealm.Core.Models.Article;
+﻿using TheWhiskyRealm.Core.Models.Comment;
+
+namespace TheWhiskyRealm.Core.Models.Article;
 
 public class ArticleDetailsViewModel
 {
