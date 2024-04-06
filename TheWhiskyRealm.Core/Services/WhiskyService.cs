@@ -243,6 +243,7 @@ public class WhiskyService : IWhiskyService
                 ABV = uw.Whisky.AlcoholPercentage.ToString("F1"),
                 Age = uw.Whisky.Age,
                 Description = uw.Whisky.Description,
+                ImageURL = uw.Whisky.ImageURL
             })
             .ToListAsync();
     }

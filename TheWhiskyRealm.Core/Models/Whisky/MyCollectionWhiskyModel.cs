@@ -9,5 +9,6 @@ public class MyCollectionWhiskyModel
     public int? Age { get; set; }
     public string DistilleryName { get; set; } = string.Empty;
     public string Description {  get; set; } = string.Empty;
+    public string ImageURL {  get; set; } = string.Empty;
 
 }
