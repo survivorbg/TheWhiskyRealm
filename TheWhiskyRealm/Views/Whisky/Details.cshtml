@@ -1,6 +1,4 @@
-﻿@using System.Security.Claims
-@using TheWhiskyRealm.Core.Contracts
-@model DetailsWhiskyViewModel
+﻿@model DetailsWhiskyViewModel
 @inject IRatingService ratingService
 @inject IReviewService reviewService
 
@@ -11,7 +9,7 @@
     var userRating = await ratingService.GetRatingAsync(User.Id(), Model.Id);
     var userReviewed = await reviewService.UserAlreadyReviewedWhiskyAsync(User.Id(), Model.Id);
 }
-<link rel="stylesheet" type="text/css" href="~/css/whiskyDetails.css">
+<link rel="stylesheet" type="text/css" href="~/css/Whisky/whisky-details.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/site.js"></script>
 

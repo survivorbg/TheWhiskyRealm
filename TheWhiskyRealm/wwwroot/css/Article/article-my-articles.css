@@ -1,0 +1,52 @@
+﻿.article-container {
+	background-color: #ffffff;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+	margin-bottom: 20px;
+	overflow: hidden;
+	position: relative;
+}
+
+.article-image {
+	width: 100%;
+	height: auto;
+	border-radius: 10px;
+	transition: transform 0.5s ease;
+}
+
+.article-container:hover .article-image {
+	transform: scale(1.2);
+}
+
+.article-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #ffffff;
+	padding: 20px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border-radius: 10px;
+	transition: scale 0.3s ease;
+}
+
+.article-container:hover .article-content {
+	scale: 1.1;
+}
+
+.article-title {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.article-type {
+	font-size: 14px;
+}
+
+div.first-article {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}

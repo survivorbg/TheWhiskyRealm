@@ -1,7 +1,5 @@
 ﻿@inject IEventService eventService
-@using System.Security.Claims
-@using TheWhiskyRealm.Core.Contracts
-@using TheWhiskyRealm.Core.Models.Event
+
 @model EventDetailsViewModel
 @{
     var organiserID = await eventService.GetOrganiserIdAsync(Model.Id);

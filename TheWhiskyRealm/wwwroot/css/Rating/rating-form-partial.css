@@ -1,0 +1,35 @@
+﻿input[type=range] {
+    -webkit-appearance: none;
+    background: linear-gradient(to right, purple, orange);
+    width: 600px;
+    height: 20px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: linear-gradient(red,blue);
+    opacity: 0.5;
+    width: 10px;
+    height: 26px;
+}
+
+div.rating-container .form-group {
+    margin-bottom: 15px;
+}
+
+    div.rating-container .form-group label {
+        font-size: 20px;
+        line-height: 1;
+        font-style: italic;
+        color: darkgray;
+        ;
+    }
+
+    div.rating-container .form-group .rating-btn {
+        all: unset;
+        cursor: pointer;
+        padding: 12px 38px;
+        border-radius: 24px;
+        background: linear-gradient(to right, purple, orange);
+        color: white;
+    }

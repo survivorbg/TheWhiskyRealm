@@ -1,7 +1,17 @@
-﻿@using TheWhiskyRealm
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Identity
+@using Ganss.Xss
+@using TheWhiskyRealm
 @using TheWhiskyRealm.Models
+@using TheWhiskyRealm.Core.Contracts
 @using TheWhiskyRealm.Core.Models
+@using TheWhiskyRealm.Core.Models.Article
+@using TheWhiskyRealm.Core.Models.Award
+@using TheWhiskyRealm.Core.Models.Comment
+@using TheWhiskyRealm.Core.Models.Event
+@using TheWhiskyRealm.Core.Models.Rating
+@using TheWhiskyRealm.Core.Models.Review
 @using TheWhiskyRealm.Core.Models.Whisky
 @using TheWhiskyRealm.Core.Models.Whisky.Add
-@using TheWhiskyRealm.Core.Models.Review
+@using TheWhiskyRealm.Infrastructure.Data.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

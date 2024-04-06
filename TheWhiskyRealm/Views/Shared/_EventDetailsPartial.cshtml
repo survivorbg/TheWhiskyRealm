@@ -1,38 +1,9 @@
-﻿@using TheWhiskyRealm.Core.Models.Event
-@model EventDetailsViewModel
+﻿@model EventDetailsViewModel
 @{
 
 }
-<style>
-    .event-details-card {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-bottom: 20px;
-    }
 
-        .event-details-card .card-title {
-            color: #333;
-        }
-
-        .event-details-card p {
-            margin-bottom: 10px;
-        }
-
-        .event-details-card strong {
-            font-weight: bold;
-        }
-
-    p.expired-label {
-        margin: 0px;
-    }
-
-    span.expired{
-        font-size:14px;
-        color:lightgray;
-        font-style:italic;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="~/css/Event/event-details-partial.css">
 @{
     var expired = DateTime.Parse(Model.StartDate) <= DateTime.Now ? " (expired)" : "";
 }
