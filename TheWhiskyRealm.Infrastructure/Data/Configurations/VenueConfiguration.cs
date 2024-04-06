@@ -57,7 +57,7 @@ public class VenueConfiguration : IEntityTypeConfiguration<Venue>
             Id = 6,
             Name = "The Whisky Library",
             CityId = 2,
-            Capacity = 10,
+            Capacity = 5,
         });
 
         venues.Add(new Venue

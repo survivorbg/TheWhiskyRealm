@@ -115,6 +115,36 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
             });
 
+            reviews.Add(new Review
+            {
+                Id = 11,
+                Title = "Very good!",
+                Content = "The whisky of my dreams!",
+                Recommend = true,
+                WhiskyId = 1,
+                UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+            });
+
+            reviews.Add(new Review
+            {
+                Id = 12,
+                Title = "Nothing special",
+                Content = "Honestly I dont't know what is to like about it.",
+                Recommend = false,
+                WhiskyId = 1,
+                UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
+            });
+
+            reviews.Add(new Review
+            {
+                Id = 13,
+                Title = "Yep , yep good",
+                Content = "Like it! A lot!",
+                Recommend = true,
+                WhiskyId = 2,
+                UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+            });
+
             return reviews.ToArray();
         }
     }
