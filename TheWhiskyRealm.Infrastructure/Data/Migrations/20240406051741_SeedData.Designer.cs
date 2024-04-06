@@ -12,8 +12,8 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    [Migration("20240321052456_SeedComments")]
-    partial class SeedComments
+    [Migration("20240406051741_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -169,12 +169,12 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -228,9 +228,77 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasCheckConstraint("CK_Age_Max", "[Age] <= 119");
+                    b.HasCheckConstraint("CheckDateOfBirth", "DateOfBirth >= '1900-01-01' AND DateOfBirth <= DATEADD(YEAR, -18, GETDATE())");
 
-                    b.HasCheckConstraint("CK_Age_Min", "[Age] >= 18");
+                    b.HasData(
+                        new
+                        {
+                            Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "376bcaa1-286a-4694-9174-01eac5576c83",
+                            DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHfxC9CIKtjVe9fyceYVKudr9GCmuwrryH5keAFiR0RE3xipjPCoylayS/hggCrMbg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "cd7b6a5c-0a1b-4c08-a5cf-618b077344f0",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "74571395-9a6a-45ed-8c48-bd92fcb89d71",
+                            DateOfBirth = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "test@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "TEST@GMAIL.COM",
+                            NormalizedUserName = "TEST@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI934Fmok8sYMqeqOp19SnQGraqTEWMiLVROhKrp7f5kBfLdfsl/dmQ2WXX99hvgrg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "63ef3377-71d0-44f4-b5f6-850f0178d668",
+                            TwoFactorEnabled = false,
+                            UserName = "test@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9fe5a7ed-8ed1-4f55-afb6-d416653dcb06",
+                            DateOfBirth = new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "sober@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SOBER@GMAIL.COM",
+                            NormalizedUserName = "SOBER@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECq71RlyG494h2sX2Kb7tSNUgzUx+H+a0a2+CNaKkbom9l+evz05dYq/W2Pu6k30iQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f55db157-4998-472b-b389-ee3b2858f9bb",
+                            TwoFactorEnabled = false,
+                            UserName = "sober@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9f683785-82cc-43e5-b4e3-b87584437d05",
+                            DateOfBirth = new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "noToAlcohol@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "NOTOALCOHOL@GMAIL.COM",
+                            NormalizedUserName = "NOTOALCOHOL@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECmIyC+4mduVSVgLcEy6vUxOJXbahaztikT1/85ZjCXJDrN8Eo8oKyPlQU5gnm6PkA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d96b9420-e2d0-4b4e-8074-b5984a7dbb57",
+                            TwoFactorEnabled = false,
+                            UserName = "noToAlcohol@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Article", b =>
@@ -287,9 +355,29 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Content = "Know your bourbon from your scotch (and much more!) in this beginner's guide to the most popular types of whiskey.\r\n\r\nThe sheer number of types of whiskey in the liquor store might have you stumped. What’s the difference between Irish whiskey and Scotch whisky? Is all bourbon whiskey? What whiskey is best for your favorite mixed drinks?\r\n\r\nYou’ll find everything you need to know in the guide below!\r\n\r\nBy the way, is it whiskey or whisky?\r\nThat depends where it’s made. Yes, whisk(e)y can be spelled both with an “e” and without, which does confuse even the most seasoned drinkers. But, it turns out the letter is very important to the story of the spirit. The Irish use the “e,” a tradition that carried over to American-made whiskeys. The Scots do not use the “e,” and distillers in Canada and Japan follow their lead. Hence, whisky or whiskies.\r\n\r\nSo now, without further ado, here are the types of whiskey you need to know:\r\n\r\nIrish Whiskey\r\nIrish whiskey has a smoother flavor than other types of whiskey. It’s made from a mash of malt, can only be distilled using water and caramel coloring, and must be distilled in wooden casks for at least three years. The result is a whiskey that’s easy to sip neat or on the rocks, though you can use Irish whiskey to make cocktails.\r\n\r\nScotch Whisky\r\nScotch whisky (aka just scotch) is made in Scotland with either malt or grain. The Scots take their whisky-making seriously and have laws in place that distillers must follow. The spirit must age in an oak barrel for at least three years. Plus, each bottle must have an age statement which reflects the youngest aged whisky used to make that blend. This is a whisky to sip neat—it makes an excellent after-dinner drink.\r\n\r\nJapanese Whisky\r\nA little later to the game than Irish and scotch, Japanese whisky has made its mark on the spirits world for its high standards. Japanese whisky was created to taste as close to the scotch style as possible and uses similar distilling methods. It is mostly imbibed in mixed drinks or with a splash of soda.\r\n\r\nCanadian Whisky\r\nLike scotch, Canadian whisky must be barrel-aged for at least three years. It’s lighter and smoother than other types of whiskey because it contains a high percentage of corn. You will find that most Canadian whiskies are made from corn and rye, but other may feature wheat or barley.\r\n\r\nBourbon Whiskey\r\nAn American-style whiskey, bourbon is made from corn. In fact, to be called bourbon whiskey, the spirit needs to be made from at least 51% corn, aged in a new oak barrel and produced in America. It has no minimum aging period and needs to be bottled at 80 proof or more.\r\n\r\nBourbon is the star ingredient in mint juleps—and you don’t have to wait for the Kentucky Derby to learn how to make one.\r\n\r\nTennessee Whiskey\r\nWhile Tennessee whiskey is technically classified as bourbon, some distillers in the state aren’t too keen on that. Instead, they use Tennessee whiskey to define their style. All current Tennessee whiskey producers are required by state law to produce their whiskeys in Tennessee and to use a filtering step known as the Lincoln County Process prior to aging the whiskey.\r\n\r\nRye Whiskey\r\nRye whiskey is made in America with at least 51% rye, while other ingredients include corn and barley. It follows the distilling process of bourbon. Rye that has been aged for two or more years and has not been blended is dubbed “straight rye whiskey.” Rye tends to have a spicier flavor than sweeter, smoother bourbon.\r\n\r\nBlended Whiskey\r\nBlended whiskey is exactly what the name highlights—it’s a mixture of different types of whiskey, as well as colorings, flavors and even other grains. These types of whiskeys are ideal for cocktails, as the process allows for the flavor to come through but keeps the spirit at a lower price point.\r\n\r\nSingle Malt Whisky\r\nSingle malt whisky needs to be made from one batch of scotch at a single distillery. Additionally, it must be aged for three years in oak before being bottled. The term “single malt” comes from the ingredients, as the main ingredient is malted barley. However, these rules did not make their way to U.S. distilleries. For example, in America, single malt is sometimes made from rye and not barley.",
                             DateCreated = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "https://www.tasteofhome.com/wp-content/uploads/2019/08/bottles-of-scotch-whiskey-on-shelf-shutterstock_283026071.jpg?fit=1024,640",
-                            PublisherUserId = "bca5356a-d5d8-47d7-b314-e74901211b99",
+                            PublisherUserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
                             Title = "Types of Whiskey",
                             Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "\r\n\r\nBushmills is home to the world’s oldest licensed whiskey distillery with official records dating back to 1608, when the area was granted its license to distil. Over 400 years later, whiskey is still being made in Bushmills, thanks to experience and craft passed down from generation to generation. \r\n\r\n \r\n\r\nBushmills is more than just a whiskey, they believe it is a village, where family, friends and neighbours work side by side at the distillery. The team often say, “without the village there would be no whiskey, and without the whiskey there would be no village”. Therefore, Bushmills is named for the mills that dotted the town all along the River Bush where they get the water that flows over beds of basalt rock for their whiskys.  \r\n\r\n1850s\r\n\r\nThe Crown imposed a tax on those distilling in Ireland through a tax on barley. Even then, malted barley was known throughout the world to make the finest whiskey, known as “pure malt” whiskey. When only malted barley is used in distillation, and made at a single distillery, you have the very definition of “single malt” whiskey. That tax, however, forever changed Irish whiskey, as almost every Irish whiskey distillery began substituting corn or other inferior grains for barley. However, not Bushmills. To this day, Bushmills continues to distil single malt whiskey at the world’s oldest licensed whiskey distillery.\r\n1885\r\n\r\nA disastrous fire destroyed The Old Bushmills Distillery but they pulled together and soon rebuilt the distillery and went back in full production to meet soaring US demand. \r\n\r\n \r\n\r\nBushmills’ celebrated malt whiskey won numerous prizes in international spirits competitions, including the only gold medal for whiskey at the Paris 1889 Expo.\r\n1920s\r\n\r\nWhen Prohibition hit, it brought US shipments to a screeching halt. Hundreds of distilleries were reduced to a mere handful. They had a feeling this dry spell wouldn’t last forever, and, like the fires, famines or wars that came before, so they kept the whiskey flowing. \r\n\r\n \r\n\r\nWith the repeal of prohibition, Bushmills reportedly set sail for Chicago with the biggest shipment of whiskey ever to leave an Irish port.\r\n\r\n1950s\r\n\r\nBushmills’ fame grew, making it a fixture in popular culture, appearing in classic films and memorable advertising campaigns. This success has continued into today. \r\n",
+                            DateCreated = new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://bayviewhotelni.com/app/uploads/2021/09/tourism_slide__0013_Layer-2.jpg",
+                            PublisherUserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            Title = "Bushmills: Oldest Distillery in the World",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "I recently popped by Auchentoshan distillery whilst I was passing through the region. It’s a charming if curious place. Charming because it is a white-washed, manicured lawn, well-kept picture book of a distillery. Curious because such a picturesque place is wedged within the confines of a housing estate in Clydebank, on the outskirts of Glasgow. I’m sure back in 1825, when this Lowland distillery was founded by Irish refugees, there weren’t too many houses around and the location seemed like a good idea at the time.\r\n\r\nAuchentoshan Distillery\r\n\r\nWhilst I was there I had a look around – it’s got a nice distillery shop, with a decent tour to cater for the many passing tourists, and that tour finishes up in a stylish bar. As I was driving there was no sampling involved, but I did come away with a couple of dram samples to try later. One of those was a distillery-only wine cask Auchentoshan, which was far more interesting. In fact, if you ever head there then I reckon the most interesting thing you’ll find will be whatever special cask they have lined up, and which you can’t get anywhere else.\r\n\r\nI also came away with a sample of the Auchentoshan Three Wood, which was one of the core releases I hadn’t actually tried. Now, most of Auchentoshan’s core range is incredibly dull so I was prepared to fall asleep whilst drinking it. The Auchentoshan Three Wood is bottled at 43% ABV after being matured in a mixture of Pedro Ximénez sherry casks, bourbon casks and Oloroso sherry casks.\r\n\r\nAuchentoshan Three Wood\r\nAuchentoshan Three Wood Tasting Notes\r\n\r\nColour: tawny.\r\n\r\nOn the nose: very handsome aromas. Turkish delight. Sauternes or fino sherry. Maple syrup on pancakes. Raisins, figs, sultanas. Touch of cinnamon. Stem ginger. Mixed peel. Pastry – almost a mince-pie quality. Marzipan.\r\n\r\nIn the mouth: much of the same as the nose, with plenty of the dried fruits and maple syrup. There’s a bit of wood bitterness that doesn’t exactly balance the sweeter notes, but certainly contrasts with it. A bit of stewed apple, barley sugar. Cinnamon. Warming ginger and pepper. Grassy. Blood oranges, and quite tart at times. Plums. Chocolate. Nice, but not complex.\r\nConclusions\r\n\r\nThe underlying spirit doesn’t quite cut the mustard for the strong sherry influence. It’s not dense enough, in my books, to really make the most of the more robust sherry cask flavours, but it does at least make Auchentoshan Three Wood perhaps the most interesting of a dull core range. At £45 a bottle, I can imagine this being a very pleasant to have on the shelf as an everyday drinker.",
+                            DateCreated = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageUrl = "https://www.bourbonbanter.com/content/images/wp-content/uploads/2019/03/auchentoshan-3-wood-single-malt-scotch-whisky-review-header.jpg",
+                            PublisherUserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            Title = "Review: Auchentoshan Three Wood",
+                            Type = 3
                         });
                 });
 
@@ -1127,7 +1215,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             ArticleId = 1,
                             Content = "Great article! I learned a lot about the whisky types.",
                             PostedDate = new DateTime(2024, 3, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "a8909756-a101-47c5-8d52-085322ffa6e6"
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
                         },
                         new
                         {
@@ -1135,7 +1223,23 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             ArticleId = 1,
                             Content = "I completely agree with your list! Can't wait to try these whiskies.",
                             PostedDate = new DateTime(2024, 3, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "2d730ec7-1b14-4bf5-9265-3522e35c06d5"
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ArticleId = 3,
+                            Content = "Auchentoshan Three Wood is one of the my favourite whiskies!",
+                            PostedDate = new DateTime(2024, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ArticleId = 3,
+                            Content = "In some aspect i agree with you, but overall i don't!",
+                            PostedDate = new DateTime(2024, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
                         });
                 });
 
@@ -1228,7 +1332,6 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasComment("The URL address of the image of the distillery.");
 
@@ -1258,6 +1361,104 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         new
                         {
                             Id = 1,
+                            Name = "Aberargie",
+                            RegionId = 1,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Aberfeldy",
+                            RegionId = 2,
+                            YearFounded = 1896
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Aberlour",
+                            RegionId = 3,
+                            YearFounded = 1879
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Abhainn Dearg",
+                            RegionId = 4,
+                            YearFounded = 2008
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Ailsa Bay",
+                            RegionId = 1,
+                            YearFounded = 2009
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Allt-A-Bhainne",
+                            RegionId = 3,
+                            YearFounded = 1975
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Annandale",
+                            RegionId = 1,
+                            YearFounded = 1836
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Arbikie",
+                            RegionId = 2,
+                            YearFounded = 2013
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Ardbeg",
+                            RegionId = 6,
+                            YearFounded = 1815
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Ardmore",
+                            RegionId = 2,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Ardnahoe",
+                            RegionId = 6,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Ardnamurchan",
+                            RegionId = 2,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Ardross",
+                            RegionId = 2,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Arran",
+                            RegionId = 4,
+                            YearFounded = 1995
+                        },
+                        new
+                        {
+                            Id = 15,
                             ImageUrl = "https://keyassets.timeincuk.net/inspirewp/live/wp-content/uploads/sites/34/2022/06/Auchentoshan-Distillery-920x609.jpg",
                             Name = "Auchentoshan",
                             RegionId = 1,
@@ -1265,7 +1466,423 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         },
                         new
                         {
-                            Id = 2,
+                            Id = 16,
+                            Name = "Auchroisk",
+                            RegionId = 3,
+                            YearFounded = 1972
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Aultmore",
+                            RegionId = 3,
+                            YearFounded = 1895
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Balblair",
+                            RegionId = 2,
+                            YearFounded = 1790
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Ballindalloch",
+                            RegionId = 3,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Balmenach",
+                            RegionId = 3,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Balvenie",
+                            RegionId = 3,
+                            YearFounded = 1892
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Ben Nevis",
+                            RegionId = 2,
+                            YearFounded = 1825
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "BenRiach",
+                            RegionId = 3,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "Benrinnes",
+                            RegionId = 3,
+                            YearFounded = 1826
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "Benromach",
+                            RegionId = 3,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "Bladnoch",
+                            RegionId = 1,
+                            YearFounded = 1817
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "Blair Athol",
+                            RegionId = 2,
+                            YearFounded = 1798
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Name = "Bonnington",
+                            RegionId = 1,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Name = "Borders",
+                            RegionId = 1,
+                            YearFounded = 2018
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Name = "Bowmore",
+                            RegionId = 6,
+                            YearFounded = 1779
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "Braeval",
+                            RegionId = 3,
+                            YearFounded = 1973
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "Brora",
+                            RegionId = 2,
+                            YearFounded = 1819
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "Bruichladdich",
+                            RegionId = 6,
+                            YearFounded = 1881
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "Bunnahabhain",
+                            RegionId = 6,
+                            YearFounded = 1881
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "Burn O Bennie",
+                            RegionId = 2,
+                            YearFounded = 2021
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "Cairn",
+                            RegionId = 3,
+                            YearFounded = 2022
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "Caol Ila",
+                            RegionId = 6,
+                            YearFounded = 1846
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "Cardhu",
+                            RegionId = 3,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Name = "Clydeside",
+                            RegionId = 1,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Name = "Clynelish",
+                            RegionId = 2,
+                            YearFounded = 1967
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Name = "Crafty",
+                            RegionId = 1,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Name = "Cragganmore",
+                            RegionId = 3,
+                            YearFounded = 1869
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Name = "Craigellachie",
+                            RegionId = 3,
+                            YearFounded = 1891
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Name = "Daftmill",
+                            RegionId = 1,
+                            YearFounded = 2005
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Name = "Dailuaine",
+                            RegionId = 3,
+                            YearFounded = 1852
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Name = "Dalmore",
+                            RegionId = 2,
+                            YearFounded = 1839
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Name = "Dalmunach",
+                            RegionId = 3,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Name = "Dalwhinnie",
+                            RegionId = 2,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Name = "Deanston",
+                            RegionId = 2,
+                            YearFounded = 1965
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Name = "Dornoch",
+                            RegionId = 2,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Name = "Dufftown",
+                            RegionId = 3,
+                            YearFounded = 1895
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Name = "Dunphail",
+                            RegionId = 3,
+                            YearFounded = 2023
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Name = "Eden Mill",
+                            RegionId = 1,
+                            YearFounded = 2012
+                        },
+                        new
+                        {
+                            Id = 54,
+                            ImageUrl = "https://thewhiskyphiles.files.wordpress.com/2018/11/edradour-distillery.jpg",
+                            Name = "Edradour",
+                            RegionId = 2,
+                            YearFounded = 1825
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Name = "Falkirk",
+                            RegionId = 1,
+                            YearFounded = 2020
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Name = "Fettercairn",
+                            RegionId = 2,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Name = "Glasgow",
+                            RegionId = 1,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Name = "Glenallachie",
+                            RegionId = 3,
+                            YearFounded = 1967
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Name = "Glenburgie",
+                            RegionId = 3,
+                            YearFounded = 1810
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Name = "Glencadam",
+                            RegionId = 2,
+                            YearFounded = 1825
+                        },
+                        new
+                        {
+                            Id = 61,
+                            ImageUrl = "https://www.thespiritsbusiness.com/content/uploads/2022/07/GlenDronach.jpg",
+                            Name = "Glendronach",
+                            RegionId = 2,
+                            YearFounded = 1826
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Name = "Glendullan",
+                            RegionId = 3,
+                            YearFounded = 1897
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Name = "Glen Elgin",
+                            RegionId = 3,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Name = "Glenfarclas",
+                            RegionId = 3,
+                            YearFounded = 1836
+                        },
+                        new
+                        {
+                            Id = 65,
+                            ImageUrl = "https://www.distillerytours.scot/uploads/store/mediaupload/1601/image/xl_limit-20210807_Glenfiddich_0391.jpg",
+                            Name = "Glenfiddich",
+                            RegionId = 3,
+                            YearFounded = 1886
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Name = "Glen Garioch",
+                            RegionId = 2,
+                            YearFounded = 1797
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Name = "Glenglassaugh",
+                            RegionId = 2,
+                            YearFounded = 1875
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Name = "Glengoyne",
+                            RegionId = 2,
+                            YearFounded = 1833
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Name = "Glen Grant",
+                            RegionId = 3,
+                            YearFounded = 1840
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Name = "Glengyle",
+                            RegionId = 5,
+                            YearFounded = 1872
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Name = "Glen Keith",
+                            RegionId = 3,
+                            YearFounded = 1957
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Name = "Glenkinchie",
+                            RegionId = 1,
+                            YearFounded = 1837
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Name = "Glenlivet",
+                            RegionId = 3,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Name = "Glenlossie",
+                            RegionId = 3,
+                            YearFounded = 1876
+                        },
+                        new
+                        {
+                            Id = 75,
                             ImageUrl = "https://www.secret-scotland.com/datafiles/uploaded/cmsRefImage/popularPlaces/additional/main/main_110_Glenmorangie.jpg",
                             Name = "Glenmorangie",
                             RegionId = 2,
@@ -1273,31 +1890,71 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         },
                         new
                         {
-                            Id = 3,
-                            ImageUrl = "https://www.robertson.co.uk/sites/default/files/styles/news_header/public/news_images/Macallan%20press%20image%20POM2018124G0800208003.jpg?itok=wyUPa5o2",
-                            Name = "The Macallan",
+                            Id = 76,
+                            ImageUrl = "https://www.distillerytours.scot/uploads/store/mediaupload/1315/image/xl_limit-Still_House.jpg",
+                            Name = "Glen Moray",
                             RegionId = 3,
-                            YearFounded = 2017
+                            YearFounded = 1897
                         },
                         new
                         {
-                            Id = 4,
-                            ImageUrl = "https://www.laphroaig.com/sites/default/files/styles/style_20_9/public/2022-06/Laphroaig_Distillery_banner_DT.jpg.webp?itok=k-vrPwBD",
-                            Name = "Laphroaig",
-                            RegionId = 6,
-                            YearFounded = 1815
+                            Id = 77,
+                            Name = "Glen Ord",
+                            RegionId = 2,
+                            YearFounded = 1838
                         },
                         new
                         {
-                            Id = 5,
-                            ImageUrl = "https://www.whisky.com/fileadmin/_processed_/4/5/csm__MG_5906_732d67d3b250e58ad3dcdcddda309e7a_f491af0c94.jpg",
-                            Name = "Springbank",
+                            Id = 78,
+                            Name = "Glenrothes",
+                            RegionId = 3,
+                            YearFounded = 1879
+                        },
+                        new
+                        {
+                            Id = 79,
+                            Name = "Glen Scotia",
                             RegionId = 5,
-                            YearFounded = 1828
+                            YearFounded = 1832
                         },
                         new
                         {
-                            Id = 6,
+                            Id = 80,
+                            Name = "Glen Spey",
+                            RegionId = 3,
+                            YearFounded = 1878
+                        },
+                        new
+                        {
+                            Id = 81,
+                            Name = "Glentauchers",
+                            RegionId = 3,
+                            YearFounded = 1897
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Name = "Glenturret",
+                            RegionId = 2,
+                            YearFounded = 1763
+                        },
+                        new
+                        {
+                            Id = 83,
+                            Name = "GlenWyvis",
+                            RegionId = 2,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 84,
+                            Name = "Harris",
+                            RegionId = 4,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 85,
                             ImageUrl = "https://www.highlandparkwhisky.com/sites/g/files/jrulke331/files/styles/text_structured_image/public/Highland%20Park%20Distillery.jpg?itok=OxqQUxKL",
                             Name = "Highland Park",
                             RegionId = 4,
@@ -1305,66 +1962,807 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         },
                         new
                         {
-                            Id = 7,
-                            ImageUrl = "https://www.discoveringireland.com/contentFiles/productImages/Medium/Bushmills_Distillery.jpg",
-                            Name = "Bushmills",
-                            RegionId = 7,
-                            YearFounded = 1784
+                            Id = 86,
+                            Name = "Holyrood",
+                            RegionId = 1,
+                            YearFounded = 2019
                         },
                         new
                         {
-                            Id = 8,
-                            ImageUrl = "https://static.wixstatic.com/media/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg/v1/fill/w_598,h_390,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg",
-                            Name = "Jameson",
-                            RegionId = 9,
-                            YearFounded = 1780
+                            Id = 87,
+                            Name = "Inchdairnie",
+                            RegionId = 1,
+                            YearFounded = 2016
                         },
                         new
                         {
-                            Id = 9,
-                            ImageUrl = "https://americanwhiskeytrail.distilledspirits.org/sites/default/files/styles/flexslider_full/public/distillery/field_slides/Jack%20Daniels%20Visitor%27s%20Center_opt.jpg?itok=vpZAEgVu",
-                            Name = "Jack Daniel's",
-                            RegionId = 12,
-                            YearFounded = 1866
+                            Id = 88,
+                            Name = "Inchgower",
+                            RegionId = 3,
+                            YearFounded = 1871
                         },
                         new
                         {
-                            Id = 10,
-                            ImageUrl = "https://www.foodandwine.com/thmb/rVUUWewQYYdDzAQMPOQTZH06nzQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/James-Beam-Distillery-FT-BLOG1021-28072a663ffe4cf8ac3adeb05b843143.jpg",
-                            Name = "Jim Beam",
-                            RegionId = 11,
-                            YearFounded = 1795
+                            Id = 89,
+                            Name = "Jackton",
+                            RegionId = 1,
+                            YearFounded = 2020
                         },
                         new
                         {
-                            Id = 12,
-                            ImageUrl = "https://www.nikka.com/eng/img/distilleries/topmenu_miyagikyo.jpg",
-                            Name = "Nikka",
-                            RegionId = 13,
-                            YearFounded = 1934
+                            Id = 90,
+                            Name = "Jura",
+                            RegionId = 4,
+                            YearFounded = 1810
                         },
                         new
                         {
-                            Id = 13,
-                            ImageUrl = "https://whiskyetc.files.wordpress.com/2019/05/kavalan-distillery-03-1.jpg",
-                            Name = "Kavalan",
-                            RegionId = 14,
+                            Id = 91,
+                            Name = "Kilchoman",
+                            RegionId = 6,
                             YearFounded = 2005
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 92,
+                            Name = "Kimbland",
+                            RegionId = 4,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 93,
+                            Name = "Kingsbarns",
+                            RegionId = 1,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 94,
+                            Name = "Kininvie",
+                            RegionId = 3,
+                            YearFounded = 1990
+                        },
+                        new
+                        {
+                            Id = 95,
+                            Name = "Knockando",
+                            RegionId = 3,
+                            YearFounded = 1898
+                        },
+                        new
+                        {
+                            Id = 96,
+                            Name = "Knockdhu",
+                            RegionId = 3,
+                            YearFounded = 1894
+                        },
+                        new
+                        {
+                            Id = 97,
+                            Name = "Lagg",
+                            RegionId = 4,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 98,
+                            Name = "Lagavulin",
+                            RegionId = 6,
+                            YearFounded = 1816
+                        },
+                        new
+                        {
+                            Id = 99,
+                            ImageUrl = "https://www.laphroaig.com/sites/default/files/styles/style_20_9/public/2022-06/Laphroaig_Distillery_banner_DT.jpg.webp?itok=k-vrPwBD",
+                            Name = "Laphroaig",
+                            RegionId = 6,
+                            YearFounded = 1815
+                        },
+                        new
+                        {
+                            Id = 100,
+                            Name = "Leven",
+                            RegionId = 1,
+                            YearFounded = 2013
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Name = "Lindores Abbey",
+                            RegionId = 1,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Name = "Linkwood",
+                            RegionId = 3,
+                            YearFounded = 1821
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Name = "Lochlea",
+                            RegionId = 1,
+                            YearFounded = 2018
+                        },
+                        new
+                        {
+                            Id = 104,
+                            Name = "Loch Lomond",
+                            RegionId = 2,
+                            YearFounded = 1964
+                        },
+                        new
+                        {
+                            Id = 105,
+                            Name = "Lone Wolf",
+                            RegionId = 2,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 106,
+                            Name = "Longmorn",
+                            RegionId = 3,
+                            YearFounded = 1893
+                        },
+                        new
+                        {
+                            Id = 107,
+                            ImageUrl = "https://www.robertson.co.uk/sites/default/files/styles/news_header/public/news_images/Macallan%20press%20image%20POM2018124G0800208003.jpg?itok=wyUPa5o2",
+                            Name = "The Macallan",
+                            RegionId = 3,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 108,
+                            Name = "Macduff",
+                            RegionId = 2,
+                            YearFounded = 1960
+                        },
+                        new
+                        {
+                            Id = 109,
+                            Name = "Mannochmore",
+                            RegionId = 3,
+                            YearFounded = 1971
+                        },
+                        new
+                        {
+                            Id = 110,
+                            Name = "Miltonduff",
+                            RegionId = 3,
+                            YearFounded = 1824
+                        },
+                        new
+                        {
+                            Id = 111,
+                            Name = "Mortlach",
+                            RegionId = 3,
+                            YearFounded = 1823
+                        },
+                        new
+                        {
+                            Id = 112,
+                            Name = "Nc nean",
+                            RegionId = 2,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 113,
+                            Name = "Oban",
+                            RegionId = 2,
+                            YearFounded = 1794
+                        },
+                        new
+                        {
+                            Id = 114,
+                            Name = "Port Ellen",
+                            RegionId = 6,
+                            YearFounded = 1825
+                        },
+                        new
+                        {
+                            Id = 115,
+                            Name = "Port of Leith",
+                            RegionId = 1,
+                            YearFounded = 2023
+                        },
+                        new
+                        {
+                            Id = 116,
+                            Name = "Pulteney",
+                            RegionId = 2,
+                            YearFounded = 1826
+                        },
+                        new
+                        {
+                            Id = 117,
+                            Name = "Raasay",
+                            RegionId = 4,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 118,
+                            Name = "Rosebank",
+                            RegionId = 1,
+                            YearFounded = 1798
+                        },
+                        new
+                        {
+                            Id = 119,
+                            Name = "Roseisle",
+                            RegionId = 3,
+                            YearFounded = 2010
+                        },
+                        new
+                        {
+                            Id = 120,
+                            Name = "Royal Brackla",
+                            RegionId = 2,
+                            YearFounded = 1812
+                        },
+                        new
+                        {
+                            Id = 121,
+                            Name = "Royal Lochnagar",
+                            RegionId = 2,
+                            YearFounded = 1845
+                        },
+                        new
+                        {
+                            Id = 122,
+                            Name = "Saxa Vord",
+                            RegionId = 4,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 123,
+                            Name = "Scapa",
+                            RegionId = 4,
+                            YearFounded = 1885
+                        },
+                        new
+                        {
+                            Id = 124,
+                            Name = "Speyburn",
+                            RegionId = 3,
+                            YearFounded = 1897
+                        },
+                        new
+                        {
+                            Id = 125,
+                            Name = "Speyside",
+                            RegionId = 3,
+                            YearFounded = 1990
+                        },
+                        new
+                        {
+                            Id = 126,
+                            ImageUrl = "https://www.whisky.com/fileadmin/_processed_/4/5/csm__MG_5906_732d67d3b250e58ad3dcdcddda309e7a_f491af0c94.jpg",
+                            Name = "Springbank",
+                            RegionId = 5,
+                            YearFounded = 1828
+                        },
+                        new
+                        {
+                            Id = 127,
+                            Name = "Strathearn",
+                            RegionId = 2,
+                            YearFounded = 2013
+                        },
+                        new
+                        {
+                            Id = 128,
+                            Name = "Strathisla",
+                            RegionId = 3,
+                            YearFounded = 1786
+                        },
+                        new
+                        {
+                            Id = 129,
+                            Name = "Strathmill",
+                            RegionId = 3,
+                            YearFounded = 1891
+                        },
+                        new
+                        {
+                            Id = 130,
+                            Name = "Talisker",
+                            RegionId = 4,
+                            YearFounded = 1830
+                        },
+                        new
+                        {
+                            Id = 131,
+                            Name = "Tamdhu",
+                            RegionId = 3,
+                            YearFounded = 1897
+                        },
+                        new
+                        {
+                            Id = 132,
+                            Name = "Tamnavulin",
+                            RegionId = 3,
+                            YearFounded = 1966
+                        },
+                        new
+                        {
+                            Id = 133,
+                            Name = "Teaninich",
+                            RegionId = 2,
+                            YearFounded = 1817
+                        },
+                        new
+                        {
+                            Id = 134,
+                            Name = "Tobermory",
+                            RegionId = 4,
+                            YearFounded = 1798
+                        },
+                        new
+                        {
+                            Id = 135,
+                            Name = "Tomatin",
+                            RegionId = 2,
+                            YearFounded = 1897
+                        },
+                        new
+                        {
+                            Id = 136,
+                            Name = "Tomintoul",
+                            RegionId = 3,
+                            YearFounded = 1964
+                        },
+                        new
+                        {
+                            Id = 137,
+                            Name = "Torabhaig",
+                            RegionId = 4,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 138,
+                            Name = "Tormore",
+                            RegionId = 3,
+                            YearFounded = 1958
+                        },
+                        new
+                        {
+                            Id = 139,
+                            Name = "Tullibardine",
+                            RegionId = 2,
+                            YearFounded = 1949
+                        },
+                        new
+                        {
+                            Id = 140,
+                            Name = "Uile-bheist",
+                            RegionId = 2,
+                            YearFounded = 2023
+                        },
+                        new
+                        {
+                            Id = 141,
+                            Name = "Wolfburn",
+                            RegionId = 2,
+                            YearFounded = 1822
+                        },
+                        new
+                        {
+                            Id = 142,
+                            Name = "8 Doors",
+                            RegionId = 2,
+                            YearFounded = 2022
+                        },
+                        new
+                        {
+                            Id = 143,
+                            Name = "Chichibu",
+                            RegionId = 28,
+                            YearFounded = 2008
+                        },
+                        new
+                        {
+                            Id = 144,
+                            Name = "Eigashima Shuzo",
+                            RegionId = 29,
+                            YearFounded = 1919
+                        },
+                        new
+                        {
+                            Id = 145,
+                            Name = "Fuji Gotemba",
+                            RegionId = 30,
+                            YearFounded = 1971
+                        },
+                        new
+                        {
+                            Id = 146,
+                            ImageUrl = "https://www.suntory.co.jp/factory/ogp/hakushu_top.jpg",
+                            Name = "Hakushu",
+                            RegionId = 31,
+                            YearFounded = 1973
+                        },
+                        new
+                        {
+                            Id = 147,
+                            Name = "Hanyu",
+                            RegionId = 28,
+                            YearFounded = 1946
+                        },
+                        new
+                        {
+                            Id = 148,
+                            ImageUrl = "https://sp-ao.shortpixel.ai/client/q_lossless,ret_img/https://dekanta.com/wp-content/uploads/revslider/karuizawa-distillery/Untitled-2.jpg",
+                            Name = "Karuizawa",
+                            RegionId = 32,
+                            YearFounded = 2022
+                        },
+                        new
+                        {
+                            Id = 149,
+                            ImageUrl = "https://150102931.v2.pressablecdn.com/wp-content/uploads/2019/11/brick-distillery-Nikka-byJwolfson-1024x768.jpeg",
+                            Name = "Miyagikyo",
+                            RegionId = 33,
+                            YearFounded = 1969
+                        },
+                        new
+                        {
+                            Id = 150,
+                            Name = "Shizuoka",
+                            RegionId = 30,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 151,
+                            Name = "The Mars Shinshu Distillery",
+                            RegionId = 32,
+                            YearFounded = 1985
+                        },
+                        new
+                        {
+                            Id = 152,
+                            ImageUrl = "https://cdn.osaka-info.jp/page_translation/content/16abce82-04c2-11e8-8efc-06326e701dd4.jpeg",
+                            Name = "Yamazaki",
+                            RegionId = 34,
+                            YearFounded = 1923
+                        },
+                        new
+                        {
+                            Id = 153,
+                            ImageUrl = "https://www.nikka.com/eng/img/distilleries/topmenu_yoichi.jpg",
+                            Name = "Yoichi",
+                            RegionId = 35,
+                            YearFounded = 1934
+                        },
+                        new
+                        {
+                            Id = 154,
+                            Name = "Achill Island",
+                            RegionId = 7,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 155,
+                            Name = "Ballykeefe",
+                            RegionId = 8,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 156,
+                            Name = "Baoilleach",
+                            RegionId = 9,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 157,
+                            Name = "Blackwater",
+                            RegionId = 10,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 158,
+                            Name = "Boann",
+                            RegionId = 11,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 159,
+                            Name = "Boatyard",
+                            RegionId = 12,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Name = "Burren Whiskey",
+                            RegionId = 13,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 161,
+                            Name = "Clonakilty",
+                            RegionId = 14,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 162,
+                            Name = "Cooley",
+                            RegionId = 15,
+                            YearFounded = 1987
+                        },
+                        new
+                        {
+                            Id = 163,
+                            Name = "Copeland",
+                            RegionId = 16,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 164,
+                            Name = "Crolly",
+                            RegionId = 9,
+                            YearFounded = 2020
+                        },
+                        new
+                        {
+                            Id = 165,
+                            Name = "Dingle",
+                            RegionId = 17,
+                            YearFounded = 2012
+                        },
+                        new
+                        {
+                            Id = 166,
+                            Name = "Echlinville",
+                            RegionId = 16,
+                            YearFounded = 2013
+                        },
+                        new
+                        {
+                            Id = 167,
+                            Name = "Glendalough",
+                            RegionId = 18,
+                            YearFounded = 2013
+                        },
+                        new
+                        {
+                            Id = 168,
+                            Name = "Glendree",
+                            RegionId = 13,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 169,
+                            Name = "Great Northern",
+                            RegionId = 15,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 170,
+                            Name = "Hinch",
+                            RegionId = 16,
+                            YearFounded = 2020
+                        },
+                        new
+                        {
+                            Id = 171,
+                            ImageUrl = "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/af/82/f4/situated-on-the-brosna.jpg?w=1200&h=1200&s=1",
+                            Name = "Kilbeggan",
+                            RegionId = 19,
+                            YearFounded = 1757
+                        },
+                        new
+                        {
+                            Id = 172,
+                            Name = "Killowen",
+                            RegionId = 16,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 173,
+                            Name = "Lough Gill",
+                            RegionId = 20,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 174,
+                            Name = "Lough Mask",
+                            RegionId = 7,
+                            YearFounded = 2019
+                        },
+                        new
+                        {
+                            Id = 175,
+                            ImageUrl = "https://static.wixstatic.com/media/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg/v1/fill/w_598,h_390,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/ea720f_24a89e7c992347e68f452dbcc114dee1~mv2.jpg",
+                            Name = "New Midleton",
+                            RegionId = 14,
+                            YearFounded = 1975
+                        },
+                        new
+                        {
+                            Id = 176,
+                            ImageUrl = "https://www.discoveringireland.com/contentFiles/productImages/Medium/Bushmills_Distillery.jpg",
+                            Name = "Old Bushmills",
+                            RegionId = 21,
+                            YearFounded = 1784
+                        },
+                        new
+                        {
+                            Id = 177,
+                            Name = "Powerscourt",
+                            RegionId = 18,
+                            YearFounded = 2018
+                        },
+                        new
+                        {
+                            Id = 178,
+                            Name = "Rademon Estate",
+                            RegionId = 16,
+                            YearFounded = 2015
+                        },
+                        new
+                        {
+                            Id = 179,
+                            Name = "Royal Oak",
+                            RegionId = 22,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 180,
+                            Name = "Shed",
+                            RegionId = 23,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 181,
+                            Name = "Slane",
+                            RegionId = 11,
+                            YearFounded = 2018
+                        },
+                        new
+                        {
+                            Id = 182,
+                            Name = "Sliabh Liag",
+                            RegionId = 9,
+                            YearFounded = 2016
+                        },
+                        new
+                        {
+                            Id = 183,
+                            Name = "Tipperary",
+                            RegionId = 24,
+                            YearFounded = 2020
+                        },
+                        new
+                        {
+                            Id = 184,
+                            ImageUrl = "https://www.whisky.com/fileadmin/_processed_/2/3/csm_Tullamore_distillery_e0fc2d6310.jpg",
+                            Name = "Tullamore",
+                            RegionId = 25,
+                            YearFounded = 2014
+                        },
+                        new
+                        {
+                            Id = 185,
+                            Name = "Buffalo Trace Distillery",
+                            RegionId = 26,
+                            YearFounded = 1775
+                        },
+                        new
+                        {
+                            Id = 186,
+                            ImageUrl = "https://bourbontowntours.com/wp-content/uploads/2023/09/four.jpg",
+                            Name = "Four Roses Distillery",
+                            RegionId = 26,
+                            YearFounded = 1888
+                        },
+                        new
+                        {
+                            Id = 187,
+                            Name = "Heaven Hill Distilleries, Inc.",
+                            RegionId = 26,
+                            YearFounded = 1934
+                        },
+                        new
+                        {
+                            Id = 188,
+                            ImageUrl = "https://americanwhiskeytrail.distilledspirits.org/sites/default/files/styles/flexslider_full/public/distillery/field_slides/Jack%20Daniels%20Visitor%27s%20Center_opt.jpg?itok=vpZAEgVu",
+                            Name = "Jack Daniels",
+                            RegionId = 27,
+                            YearFounded = 1866
+                        },
+                        new
+                        {
+                            Id = 189,
+                            ImageUrl = "https://www.foodandwine.com/thmb/rVUUWewQYYdDzAQMPOQTZH06nzQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/James-Beam-Distillery-FT-BLOG1021-28072a663ffe4cf8ac3adeb05b843143.jpg",
+                            Name = "Jim Beam Distillery",
+                            RegionId = 26,
+                            YearFounded = 1795
+                        },
+                        new
+                        {
+                            Id = 190,
+                            ImageUrl = "https://d36tnp772eyphs.cloudfront.net/blogs/1/2018/12/Castle-and-Key-distillery-interior-in-Kentucky.jpg",
+                            Name = "Kentucky Bourbon Distillers",
+                            RegionId = 26,
+                            YearFounded = 1935
+                        },
+                        new
+                        {
+                            Id = 191,
+                            ImageUrl = "https://i0.wp.com/cocktailwonk.com/wp-content/uploads/2014/11/Header.jpg?fit=1200%2C800&ssl=1",
+                            Name = "Makers Mark Distillery, Inc.",
+                            RegionId = 26,
+                            YearFounded = 1953
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Name = "Michters Distillery",
+                            RegionId = 26,
+                            YearFounded = 1847
+                        },
+                        new
+                        {
+                            Id = 193,
+                            Name = "Willett Distillery",
+                            RegionId = 26,
+                            YearFounded = 1936
+                        },
+                        new
+                        {
+                            Id = 194,
+                            ImageUrl = "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg",
+                            Name = "Bulleit",
+                            RegionId = 26,
+                            YearFounded = 2017
+                        },
+                        new
+                        {
+                            Id = 195,
+                            ImageUrl = "https://hips.hearstapps.com/amv-prod-gp.s3.amazonaws.com/gearpatrol/wp-content/uploads/2019/10/Sponsored-Post-Bulleit-Bourbon-gear-patrol-lead-feature.jpg",
+                            Name = "Kavalan",
+                            RegionId = 36,
+                            YearFounded = 2005
+                        },
+                        new
+                        {
+                            Id = 196,
                             ImageUrl = "https://www.whisky.com/fileadmin/_processed_/1/5/csm_IMG_0402_718cec422ff28f51b8654e744519f5ec_1fb068e7c2.jpg",
                             Name = "Amrut",
-                            RegionId = 15,
+                            RegionId = 37,
                             YearFounded = 1948
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 197,
                             ImageUrl = "https://smartcdn.gprod.postmedia.digital/windsorstar/wp-content/uploads/2021/02/hiram-walker-sons-distillery-1.jpg",
                             Name = "Hiram-Walker & Sons distillery",
-                            RegionId = 16,
+                            RegionId = 38,
                             YearFounded = 1858
                         });
                 });
@@ -1378,15 +2776,14 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AvailableSpots")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1500)
                         .HasColumnType("nvarchar(1500)")
                         .HasComment("The description of the event.");
-
-                    b.Property<int>("DurationInHours")
-                        .HasColumnType("int")
-                        .HasComment("The duration of the event in hours.");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
@@ -1425,6 +2822,71 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.ToTable("Events");
 
                     b.HasComment("Represents an event entity.");
+
+                    b.HasCheckConstraint("CK_Event_EndDate", "[EndDate] > [StartDate]");
+
+                    b.HasCheckConstraint("CK_Event_StartDate", "[StartDate] < [EndDate]");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailableSpots = 0,
+                            Description = "Join us for an evening of whisky tasting and discovery.",
+                            EndDate = new DateTime(2024, 3, 25, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            Price = 25.99m,
+                            StartDate = new DateTime(2024, 3, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Whisky Tasting Evening",
+                            VenueId = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailableSpots = 2,
+                            Description = "Time for whiskey!\r\n\r\nThe 10th anniversary edition of Whisky Fest Sofia will feature over 35 whiskies, rums, and brandies at the stand. Over 250 different brands will be available for tasting over three days.\r\n\r\nWe'll turn back the hands of time to journey through the various years of whisky history from brands originating from Scotland, Ireland, America, Japan, Taiwan, France, Wales, Sweden, and over 10 other countries.",
+                            EndDate = new DateTime(2024, 5, 27, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            StartDate = new DateTime(2024, 5, 25, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Whisky Fest Plovdiv",
+                            VenueId = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvailableSpots = 7,
+                            Description = "Whisky Show Bulgaria is the only festival event in Bulgaria and the region that is totally focused on pur favorite aged spirit – the Whisky. Once a year and in three days only the Whisky meets the local whisky community of enthusiasts, fans, aficionados, collectors, specialists, journalist, bar and restaurant owners, bloggers and whisky lovers. Whisky Show Bulgaria is an event created by and for whisky enthusiasts. A show where hundreds of exceptional whiskies that are usually described as special, independent, family-owned, exotic, limited, rare, old, single cask, small batch, produced by ghost distilleries, are to be tasted.",
+                            EndDate = new DateTime(2024, 6, 3, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganiserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            Price = 15.00m,
+                            StartDate = new DateTime(2024, 6, 3, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Whisky Show Sofia",
+                            VenueId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvailableSpots = 6,
+                            Description = "The old & rare selection will be quite large and pleasing, thanks to the support of local collectors and partnering whisky bars like Caldo and Local.",
+                            EndDate = new DateTime(2024, 5, 23, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganiserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            Price = 35.00m,
+                            StartDate = new DateTime(2024, 5, 23, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Irish Whiskey of things",
+                            VenueId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AvailableSpots = 6,
+                            Description = "You will be able to taste Kavalan Solist Sherry, Kaval Solist Ex-Bourbon and Kavalan Concertmaster!",
+                            EndDate = new DateTime(2024, 3, 23, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            Price = 20.00m,
+                            StartDate = new DateTime(2024, 3, 23, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Kavalan Masterclass",
+                            VenueId = 2
+                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Rating", b =>
@@ -1478,6 +2940,152 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.HasCheckConstraint("CK_Taste_Max", "[Taste] <= 100");
 
                     b.HasCheckConstraint("CK_Taste_Min", "[Taste] >= 1");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Finish = 45,
+                            Nose = 47,
+                            Taste = 54,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Finish = 43,
+                            Nose = 39,
+                            Taste = 87,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 11
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Finish = 88,
+                            Nose = 78,
+                            Taste = 77,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 12
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Finish = 59,
+                            Nose = 59,
+                            Taste = 59,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 13
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Finish = 87,
+                            Nose = 99,
+                            Taste = 78,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 14
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Finish = 31,
+                            Nose = 54,
+                            Taste = 42,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 15
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Finish = 51,
+                            Nose = 44,
+                            Taste = 55,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 16
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Finish = 81,
+                            Nose = 77,
+                            Taste = 63,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 17
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Finish = 45,
+                            Nose = 12,
+                            Taste = 18,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 18
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Finish = 49,
+                            Nose = 49,
+                            Taste = 59,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 19
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Finish = 45,
+                            Nose = 47,
+                            Taste = 54,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Finish = 43,
+                            Nose = 39,
+                            Taste = 87,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Finish = 88,
+                            Nose = 87,
+                            Taste = 77,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Finish = 45,
+                            Nose = 37,
+                            Taste = 84,
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Finish = 43,
+                            Nose = 45,
+                            Taste = 87,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Finish = 37,
+                            Nose = 87,
+                            Taste = 45,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 2
+                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Region", b =>
@@ -1530,7 +3138,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = 4,
                             CountryId = 1,
-                            Name = "Islands"
+                            Name = "Island"
                         },
                         new
                         {
@@ -1548,59 +3156,191 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = 7,
                             CountryId = 2,
-                            Name = "Antrim County"
+                            Name = "County Mayo"
                         },
                         new
                         {
                             Id = 8,
                             CountryId = 2,
-                            Name = "Cork County "
+                            Name = "County Kilkenny"
                         },
                         new
                         {
                             Id = 9,
                             CountryId = 2,
-                            Name = "Dublin County "
+                            Name = "County Donegal"
                         },
                         new
                         {
                             Id = 10,
                             CountryId = 2,
-                            Name = "Offaly County "
+                            Name = "County Waterford"
                         },
                         new
                         {
                             Id = 11,
+                            CountryId = 2,
+                            Name = "County Meath"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CountryId = 2,
+                            Name = "County Fermanagh"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CountryId = 2,
+                            Name = "County Clare"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CountryId = 2,
+                            Name = "County Cork"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CountryId = 2,
+                            Name = "County Louth"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CountryId = 2,
+                            Name = "County Down"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CountryId = 2,
+                            Name = "County Kerry"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CountryId = 2,
+                            Name = "County Wicklow"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CountryId = 2,
+                            Name = "County Westmeath"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CountryId = 2,
+                            Name = "County Sligo"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CountryId = 2,
+                            Name = "County Antrim"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CountryId = 2,
+                            Name = "County Carlow"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CountryId = 2,
+                            Name = "County Leitrim"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CountryId = 2,
+                            Name = "County Tipperary"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CountryId = 2,
+                            Name = "County Offaly"
+                        },
+                        new
+                        {
+                            Id = 26,
                             CountryId = 3,
                             Name = "Kentucky"
                         },
                         new
                         {
-                            Id = 12,
+                            Id = 27,
                             CountryId = 3,
                             Name = "Tennessee"
                         },
                         new
                         {
-                            Id = 13,
+                            Id = 28,
                             CountryId = 4,
-                            Name = "Osaka Prefecture"
+                            Name = "Saitama"
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 29,
+                            CountryId = 4,
+                            Name = "Hyogo"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            CountryId = 4,
+                            Name = "Shizuoka"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            CountryId = 4,
+                            Name = "Yamanashi"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            CountryId = 4,
+                            Name = "Nagano"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            CountryId = 4,
+                            Name = "Miyagi"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            CountryId = 4,
+                            Name = "Osaka"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            CountryId = 4,
+                            Name = "Hokkaido"
+                        },
+                        new
+                        {
+                            Id = 36,
                             CountryId = 5,
                             Name = "Yilan County"
                         },
                         new
                         {
-                            Id = 15,
+                            Id = 37,
                             CountryId = 6,
                             Name = "Karnataka"
                         },
                         new
                         {
-                            Id = 16,
+                            Id = 38,
                             CountryId = 7,
                             Name = "Ontario"
                         });
@@ -1649,6 +3389,125 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.ToTable("Reviews");
 
                     b.HasComment("Represents a review entity.");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "This whisky has an amazing taste profile, rich and complex.",
+                            Recommend = true,
+                            Title = "Fantastic flavor!",
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "Really enjoyed sipping on this whisky, smooth with a nice finish.",
+                            Recommend = true,
+                            Title = "Smooth and enjoyable",
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 2
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "This whisky is unbeatable. Smooth and easy to drink.",
+                            Recommend = true,
+                            Title = "Great!",
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "Expected more from this whisky. Found it lacking in flavor.",
+                            Recommend = false,
+                            Title = "Disappointing",
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "This whisky is a real treat for the senses. Highly recommended.",
+                            Recommend = true,
+                            Title = "A real treat",
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "Smooth and elegant, with a lovely finish. A delightful whisky.",
+                            Recommend = true,
+                            Title = "Smooth and elegant",
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "Decent whisky, but nothing extraordinary. Would drink again though.",
+                            Recommend = true,
+                            Title = "Not bad",
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "Really enjoyed the complexity of flavors in this whisky. A must-try.",
+                            Recommend = true,
+                            Title = "Complex flavors",
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 8
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "Save this one for special occasions. Truly a special whisky.",
+                            Recommend = true,
+                            Title = "Perfect for special occasions",
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 9
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Content = "Was not impressed with this whisky. Expected more.",
+                            Recommend = false,
+                            Title = "Not impressed",
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            WhiskyId = 10
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Content = "The whisky of my dreams!",
+                            Recommend = true,
+                            Title = "Very good!",
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Content = "Honestly I dont't know what is to like about it.",
+                            Recommend = false,
+                            Title = "Nothing special",
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            WhiskyId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Content = "Like it! A lot!",
+                            Recommend = true,
+                            Title = "Yep , yep good",
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            WhiskyId = 2
+                        });
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.UserEvent", b =>
@@ -1668,6 +3527,43 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.ToTable("UsersEvents");
 
                     b.HasComment("Represents a mapping entity between a user and an event.");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f"
+                        },
+                        new
+                        {
+                            EventId = 1,
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+                        },
+                        new
+                        {
+                            EventId = 1,
+                            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3"
+                        });
+                });
+
+            modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.UserWhisky", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WhiskyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "WhiskyId");
+
+                    b.HasIndex("WhiskyId");
+
+                    b.ToTable("UsersWhiskies");
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Venue", b =>
@@ -1737,7 +3633,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         new
                         {
                             Id = 6,
-                            Capacity = 10,
+                            Capacity = 5,
                             CityId = 2,
                             Name = "The Whisky Library"
                         },
@@ -1784,6 +3680,11 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .HasColumnType("int")
                         .HasComment("The identifier of the distillery that produced the whisky.");
 
+                    b.Property<string>("ImageURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("The URL of the whisky image.");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -1819,7 +3720,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 12,
                             AlcoholPercentage = 40.0,
                             Description = "Triple distilled single malt whiskey. It has a tempting aroma of roasted almonds, caramel and the characteristic soft and delicate taste of Auchentoshan. It is aged in oak barrels, in which the Spanish \"Oloroso\" sherry and bourbon were previously aged.\r\nThe Auchentoshan Distillery is one of three in the Lowland area that continues to operate to this day. It is located north of Glasgow and was founded in 1800. The name of the excellent brand comes from Celtic and means \"The corner of the field\".",
-                            DistilleryId = 1,
+                            DistilleryId = 15,
+                            ImageURL = "https://www.gourmetencasa-tcm.com/20487/auchentoshan-12-year-old-single-malt-scoth-whisky-70cl.jpg",
                             Name = "Auchentoshan 12 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1829,7 +3731,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 10,
                             AlcoholPercentage = 40.0,
                             Description = "Glenmorangie whiskeys are produced in the Highlands, the northernmost part of Scotland. They are distilled in the highest copper cauldrons in Scotland and aged in the highest quality oak barrels, which are used only twice to produce the purest and most elegant whiskeys. The distillery is known as an innovator in the production of whiskey, combining tradition with innovation, resulting in malt whiskey with \"unnecessarily\" high quality. A symbol of Glenmorangie whiskey, the ten-year-old Glenmorangie The Original is the most delicate single malt whiskey in the world, with the most complex taste and seductive aroma. It has an exceptional fruity elegance, exquisite finesse and a seductive complex taste. The delicate floral notes in the whiskey are combined with the softness and sweetness acquired from the premium bourbon oak barrels.",
-                            DistilleryId = 2,
+                            DistilleryId = 75,
+                            ImageURL = "https://vida.bg/wp-content/uploads/2020/08/Glenmorangie201020YO.png",
                             Name = "Glenmorangie 10 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1839,7 +3742,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 18,
                             AlcoholPercentage = 43.0,
                             Description = "The Sherry Oak Collection is a timeless sensorial journey. Beautifully led by European Oak, sherry seasoned in Jerez de la Frontera, Spain. Photographer Erik Madigan Heck has captured his visual interpretation of The Macallan Sherry Oak 18 Years Old through the lens of his unique, signature style.",
-                            DistilleryId = 3,
+                            DistilleryId = 107,
+                            ImageURL = "https://vintagecellarswineandspirits.com/wp-content/uploads/2023/11/The-Macallan-18-Years-Sherry-Oak-Cask-750mL.png",
                             Name = "The Macallan 18 Year Old Sherry Oak",
                             WhiskyTypeId = 1
                         },
@@ -1849,7 +3753,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 10,
                             AlcoholPercentage = 40.0,
                             Description = "The famous 10-year-old Laphroaig whisky has an extremely smoky flavour with a hint of seaweed and the sea. It is one of the most intense Islay malts. You either hate it or you love it.",
-                            DistilleryId = 4,
+                            DistilleryId = 99,
+                            ImageURL = "https://www.canadianliquorstore.ca/cdn/shop/products/739119_1024x1024.jpg?v=1709579050",
                             Name = "Laphroaig 10 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1859,7 +3764,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 15,
                             AlcoholPercentage = 46.0,
                             Description = "A 15-year-old single malt from the Springbank distillery with plenty of sherry notes and spice, dried fruits, and nuts.",
-                            DistilleryId = 5,
+                            DistilleryId = 126,
+                            ImageURL = "https://mldq.store/cdn/shop/files/SB21009.jpg?v=1709563871&width=1080",
                             Name = "Springbank 15 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1869,7 +3775,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 18,
                             AlcoholPercentage = 43.0,
                             Description = "Highland Park's 18 Year Old enjoyed a redesign in 2017, receiving livery inspired by the wood carvings from Urnes Stave Church and a new sub-name, \"Viking Pride\". The Orkney single malt remains the same as before - rich, complex and supremely delicious.",
-                            DistilleryId = 6,
+                            DistilleryId = 85,
+                            ImageURL = "https://www.highlandparkwhisky.com/sites/g/files/jrulke331/files/styles/image_card/public/HP-2023-18YO-Bottle-Front%5B1%5D.png?itok=oxFBsSxT",
                             Name = "Highland Park 18 Year Old Viking Pride",
                             WhiskyTypeId = 1
                         },
@@ -1878,7 +3785,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 7,
                             AlcoholPercentage = 40.0,
                             Description = "Bushmill's original whisky is a smooth, easy-drinking whiskey that has been produced in Ireland for centuries.\r\nBushmills Original is made up of grain whiskey matured for five years before blending with malt whiskeys. Bushmill's Irish whiskey is triple distilled and very supple.\r\nBushmills Original is a consistent, great value-for-money, triple-distilled blend made with a core of flavoursome malt and grain whiskies",
-                            DistilleryId = 7,
+                            DistilleryId = 176,
+                            ImageURL = "https://drinklink.bg/media/catalog/product/cache/15aafd85a633527ad024236a2302dda5/image/262b2e/bushmills-original.jpg",
                             Name = "Bushmills Original",
                             WhiskyTypeId = 5
                         },
@@ -1887,7 +3795,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 8,
                             AlcoholPercentage = 40.0,
                             Description = "Produced at the Midleton Distillery, Jameson is Ireland's quintessential Irish blend – a classic whiskey. Jim Murray even awarded it an incredible 95 points!",
-                            DistilleryId = 8,
+                            DistilleryId = 175,
+                            ImageURL = "https://www.gourmetencasa-tcm.com/21056/jameson-1l.jpg",
                             Name = "Jameson",
                             WhiskyTypeId = 5
                         },
@@ -1896,7 +3805,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 9,
                             AlcoholPercentage = 40.0,
                             Description = "Jack Daniel's Tennessee Whiskey has been made at its Lynchburg distillery since 1875. The branding and original label, sometimes referred to as No. 7 or Black Label; has made its way into pop culture, with merchandise sold the world over and a history of association with music. Frank Sinatra was even buried with a bottle. The Tennessee whiskey makers use a mash bill made up of 80% corn, 12% rye, and 8% malt to create Jack Daniels whiskey, which is then filtered through 10 feet of sugar maple charcoal to produce a mellow, slightly smoky character. A method known as the Lincoln County Process, it means this is not a bourbon, but instead meets the legal definition of a Tennessee whiskey. Jasper Newton \"Jack\" Daniel ( c. January 1849 – October 9, 1911) was an American distiller and businessman, best known as the founder of the Jack Daniel's Tennessee whiskey distillery.",
-                            DistilleryId = 9,
+                            DistilleryId = 188,
+                            ImageURL = "https://vida.bg/wp-content/uploads/2022/03/Jack-Daniels-Old-Number-7-1L-1000x1000-1.png",
                             Name = "Jack Daniel's Old No. 7",
                             WhiskyTypeId = 3
                         },
@@ -1905,7 +3815,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 10,
                             AlcoholPercentage = 40.0,
                             Description = "Jim Beam bourbon undergoes distillation at lower temperatures and is distilled to no more than 62.5%, the White label is aged for four years and has quite a high percentage of rye in the mashbill.",
-                            DistilleryId = 10,
+                            DistilleryId = 189,
+                            ImageURL = "https://alcoprostir.com/5220-large_default/burbon-jim-beam-white-label-07l-.jpg",
                             Name = "Jim Beam White Label",
                             WhiskyTypeId = 3
                         },
@@ -1914,7 +3825,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 11,
                             AlcoholPercentage = 45.0,
                             Description = "Using the two Coffey stills at the Miyagikyo distillery, which were imported from Scotland to Japan in 1963, Nikka have produced a number of single cask single grain whiskies from time to time over the years. This, however, is their larger release of wonderfully exotic grain whisky. Now in a 70cl bottle! Hooray!",
-                            DistilleryId = 12,
+                            DistilleryId = 149,
+                            ImageURL = "https://whiskeycaviar.com/cdn/shop/products/Nikka-Coffey-Grain-Whisky_6a5f73be-e145-4e0f-b045-0f361d586941_800x.jpg?v=1697132728",
                             Name = "Nikka Coffey Grain",
                             WhiskyTypeId = 6
                         },
@@ -1923,7 +3835,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 12,
                             AlcoholPercentage = 59.399999999999999,
                             Description = "A single cask, cask strength single malt from Taiwan's Kavalan, released for the Solist series. Matured in a single sherry cask (#S081217042 to be exact), this one was bottled without colouring at a generous 59.4% ABV. If you like sherry bombs and award-winning whisky, look no further!",
-                            DistilleryId = 13,
+                            DistilleryId = 195,
+                            ImageURL = "https://drinklink.bg/media/catalog/product/cache/15aafd85a633527ad024236a2302dda5/image/5285dfbf/kavalan-solist-sherry.jpg",
                             Name = "Kavalan Solist Sherry",
                             WhiskyTypeId = 1
                         },
@@ -1932,7 +3845,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 13,
                             AlcoholPercentage = 50.0,
                             Description = "Fusion is a particularly apt name for this fantastic single malt whisky from Amrut. Y'see, it's made with barley grown in India, where the Amrut Distillery can be found, as well as peated barley from Scotland! Makes sense, right? Not just a clever name, it's also a cracking whisky, offering up generous helpings of fresh fruit, honey, spice and a good whiff of smoke.",
-                            DistilleryId = 14,
+                            DistilleryId = 196,
+                            ImageURL = "https://cdncloudcart.com/16474/products/images/2094/amrut-fusion-700ml-image_5f42d27040c9c_1280x1280.jpeg?1598214826",
                             Name = "Amrut Fusion",
                             WhiskyTypeId = 1
                         },
@@ -1941,7 +3855,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 14,
                             AlcoholPercentage = 43.399999999999999,
                             Description = "A smooth amber rye whiskey with complex notes of caramel, toffee and spice with subtle undertones of green apple and pear. Enjoy the roasted rye spices that complement the soft toffee and vanilla flavors, neatly sipped on its own for a lingering green apple finish.",
-                            DistilleryId = 15,
+                            DistilleryId = 197,
+                            ImageURL = "https://shopliquoryxe.ca/cdn/shop/products/Wiser_s-Triple-Barrel.jpg?v=1587749528",
                             Name = "JP Wiser's Triple Barrel Rye",
                             WhiskyTypeId = 4
                         },
@@ -1950,7 +3865,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 15,
                             AlcoholPercentage = 40.0,
                             Description = "A pure expression of rye whisky; more complex and characterful, this pours medium gold. Aromas of sweet fruit, herb and spice, with vanilla, toffee, pepper, cedar smoke and banana on the nose. The sweet, creamy and warm palate is balanced by rye spice flavours followed by a long finish showing dried fruit, honey and ginger.",
-                            DistilleryId = 15,
+                            DistilleryId = 197,
+                            ImageURL = "https://aem.lcbo.com/content/dam/lcbo/products/3/9/0/5/390583.jpg.thumb.1280.1280.jpg",
                             Name = "Canadian Club 100% Rye",
                             WhiskyTypeId = 4
                         },
@@ -1959,7 +3875,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 16,
                             AlcoholPercentage = 43.0,
                             Description = "A Lowland single malt matured in 3 different casks, namely: Pedro Ximénez Sherry casks, bourbon casks and Oloroso Sherry casks. A distinctive triple distilled whisky from Auchentoshan.",
-                            DistilleryId = 1,
+                            DistilleryId = 15,
+                            ImageURL = "https://nomu.asia/wp-content/uploads/2022/06/Auchentoshan-Three-Wood-700ML.png",
                             Name = "Auchentoshan Three Wood",
                             WhiskyTypeId = 1
                         },
@@ -1969,7 +3886,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 12,
                             AlcoholPercentage = 43.0,
                             Description = "A rich and fruity single malt Scotch whisky finished in sherry casks.",
-                            DistilleryId = 2,
+                            DistilleryId = 75,
+                            ImageURL = "https://vida.bg/wp-content/uploads/2020/08/Glenmorangie20Lasanta.png",
                             Name = "Glenmorangie Lasanta 12 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1979,7 +3897,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 12,
                             AlcoholPercentage = 40.0,
                             Description = "An exciting new age statement single malt Scotch whisky from Macallan that's matured in a combination of American and European Sherry oak for a minimum of 12 years.",
-                            DistilleryId = 3,
+                            DistilleryId = 107,
+                            ImageURL = "https://curiada.com/cdn/shop/files/Macallan12DoubleCaskScotchTransp.png?v=1701109353",
                             Name = "The Macallan Double Cask 12 Year Old",
                             WhiskyTypeId = 1
                         },
@@ -1988,7 +3907,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 19,
                             AlcoholPercentage = 48.0,
                             Description = "Released in 2004, this bottling was aged for around five years before being finished in a quarter cask for several months, the size of the cask is quite small, thus does not require such a long maturation. This remains a truly great achievement from Laphroaig.",
-                            DistilleryId = 4,
+                            DistilleryId = 99,
+                            ImageURL = "https://cdncloudcart.com/25930/products/images/6955/sotlandsko-uiski-laphroaig-quarter-cask-0-7-l-62b5c379957d7_800x800.jpeg?1656079943",
                             Name = "Laphroaig Quarter Cask",
                             WhiskyTypeId = 1
                         },
@@ -1998,7 +3918,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 18,
                             AlcoholPercentage = 46.0,
                             Description = "The 2021 release of the 18-year-old from Springbank. Matured in a combination of 50% ex-bourbon and 50% ex-sherry casks then bottled at 46% abv.",
-                            DistilleryId = 5,
+                            DistilleryId = 126,
+                            ImageURL = "https://www.kuccagnamarket.it/7027-large_default/springbank-18-years-old-2021.jpg",
                             Name = "Springbank 18 Year Old 2021 Release",
                             WhiskyTypeId = 1
                         },
@@ -2008,7 +3929,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 12,
                             AlcoholPercentage = 40.0,
                             Description = "With a sub-name like Viking Honour, you can expect a lot from this Orcadian single malt Scotch whisky – and it delivers! A great introduction to Highland Park's famed heathery peat smoke, the 12 Year Old is matured predominantly in sherry-seasoned European and American oak casks, so it's spicy, citrusy, and full of smoky aromatics.",
-                            DistilleryId = 6,
+                            DistilleryId = 85,
+                            ImageURL = "https://www.highlandparkwhisky.com/sites/g/files/jrulke331/files/styles/product_page_image/public/Dig_Commercial_ecomm_flat_small-HP-2017-12YO-Bottle-Shot-700ml-5000px-300dpi.jpg?itok=K8Midv04",
                             Name = "Highland Park 12 Year Old Viking Honour",
                             WhiskyTypeId = 1
                         },
@@ -2017,7 +3939,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 22,
                             AlcoholPercentage = 40.0,
                             Description = "If you've been in a bar (any bar, really), you've more than likely seen a bottle of this on the shelf. One of the most well-known Irish blends, Bushmills Black Bush features a lot of sherried malt in its recipe, alongside classically caramel-y grain whiskey. Suitable for enjoying neat, but it can also be used in whiskey cocktails that call for dark fruit sweetness...",
-                            DistilleryId = 7,
+                            DistilleryId = 176,
+                            ImageURL = "https://cdncloudcart.com/25930/products/images/6188/irlandsko-uiski-bushmills-black-bush-0-7-lit-image_615d80145ee28_800x800.jpeg?1633521502",
                             Name = "Bushmills Black Bush",
                             WhiskyTypeId = 5
                         },
@@ -2026,7 +3949,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 23,
                             AlcoholPercentage = 40.0,
                             Description = "Jameson Caskmates is an intriguing release. Having sent some of their casks to the local craft stout brewers at Franciscan Well, the casks were returned to Midleton where they were subsequently used to give a stout finish to Jameson!",
-                            DistilleryId = 8,
+                            DistilleryId = 175,
+                            ImageURL = "https://drinklink.bg/media/catalog/product/cache/15aafd85a633527ad024236a2302dda5/image/627c125/jameson-caskmates-stout-edition.png",
                             Name = "Jameson Caskmates Stout Edition",
                             WhiskyTypeId = 5
                         },
@@ -2035,7 +3959,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 24,
                             AlcoholPercentage = 45.0,
                             Description = "You all know Jack Daniel’s and have no doubt seen its classic whiskey in bars and shops all over the world. But the Tennessee-based distillery is also home to lots of premium expressions, like the single barrel bottling you see before you. A premium version of Jack Daniel's, each of these comes from a cask specially selected by the master distiller. These are chosen for their suitability as standalone spirits, resulting in a whiskey full of richness and complexity.",
-                            DistilleryId = 9,
+                            DistilleryId = 188,
+                            ImageURL = "https://cdncloudcart.com/25930/products/images/6227/uiski-jack-daniels-single-barrel-select-0-7-l-image_61825a979479f_800x800.jpeg?1635933067",
                             Name = "Jack Daniel's Single Barrel",
                             WhiskyTypeId = 3
                         },
@@ -2045,7 +3970,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 8,
                             AlcoholPercentage = 43.0,
                             Description = "There's an old axiom that claims \"Two heads are better than one\". Can that theory be transferred to whiskey barrels? Jim Beam's Double Oak might answer that question. You see, they initially mature this bourbon in freshly charred American oak barrels, and then move the whiskey over to a fresh set of freshly charred American oak barrels for the second part of its maturation!\r\n\r\nA worthy replacement for the now discontinued Jim Beam Black.",
-                            DistilleryId = 10,
+                            DistilleryId = 189,
+                            ImageURL = "https://winepig.co.uk/cdn/shop/products/Jim-Beam-Double-Oak-31.jpg?v=1643221336",
                             Name = "Jim Beam Double",
                             WhiskyTypeId = 3
                         },
@@ -2054,7 +3980,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 26,
                             AlcoholPercentage = 51.399999999999999,
                             Description = "The award-winning Nikka Whisky From The Barrel blend is absolutely full of flavour. Bottled at 51.4% ABV. The blend combines both single malt and grain whisky from the Miyagikyo and Yoichi distilleries, which are then married in a huge variety of casks, including bourbon barrels, sherry butts and refill hogsheads. A huge depth of flavour in this stunning Japanese whisky. We can't recommend this enough.",
-                            DistilleryId = 12,
+                            DistilleryId = 149,
+                            ImageURL = "https://theworldofwhisky.com/images/detailed/8/65567.png",
                             Name = "Nikka From the Barrel",
                             WhiskyTypeId = 6
                         },
@@ -2063,7 +3990,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 27,
                             AlcoholPercentage = 40.0,
                             Description = "Taiwanese whisky has been a 'thing' for a while now, since 2008 in fact, but the highly-regarded Kavalan whiskies are now finally available in Europe! This single malt whisky utilises Ruby Port, Tawny Port and Vintage Port casks from Portugal to finish whiskies that were initially matured in American oak. Kavalan Concertmaster was named Best in Class at the 2011 International Wine & Spirit Competition.",
-                            DistilleryId = 13,
+                            DistilleryId = 195,
+                            ImageURL = "https://cdncloudcart.com/25930/products/images/7001/tajvansko-uiski-kavalan-concertmaster-0-7l-62c3f9d5232cc_1280x1280.png?1657010703",
                             Name = "Kavalan Concertmaster Port Cask Finish",
                             WhiskyTypeId = 1
                         },
@@ -2072,7 +4000,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Id = 28,
                             AlcoholPercentage = 46.0,
                             Description = "From one of India's most famous whisky producers, this smoky single malt is made from barley peated to 24ppm. It’s punchy but still fruity and malty, with the ABV increased after its initial release to 46% to add more weight and texture.",
-                            DistilleryId = 14,
+                            DistilleryId = 196,
+                            ImageURL = "https://images.squarespace-cdn.com/content/v1/5bf41e2c70e8026f5a08ac41/1583017596415-0H17J3KA865FIKD1O41C/amrut-peated.jpg",
                             Name = "Amrut Peated Single Malt",
                             WhiskyTypeId = 1
                         },
@@ -2082,7 +4011,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 18,
                             AlcoholPercentage = 40.0,
                             Description = "A single grain whisky that is dominated by aromas of green apple in part due to the unique aging conditions in Southern Ontario. It pours a medium golden amber with additional aromas of caramel, orange peel and spice; the palate is round and medium-bodied with a silky texture and a smooth vanilla driven, finish.",
-                            DistilleryId = 15,
+                            DistilleryId = 197,
+                            ImageURL = "https://internetwines.com/cdn/shop/products/JPWisers18yr_2021_900x.jpg?v=1622129622",
                             Name = "JP Wiser's 18 Year Old",
                             WhiskyTypeId = 4
                         },
@@ -2092,7 +4022,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 12,
                             AlcoholPercentage = 40.0,
                             Description = "The Canadian Club Classic matured for 12 years, which is a long age for a Canadian whisky. With age comes perfection. Selected whiskies mature together to create a mild and naturally smooth Blend.",
-                            DistilleryId = 15,
+                            DistilleryId = 197,
+                            ImageURL = "https://aem.lcbo.com/content/dam/lcbo/products/3/1/1/9/311944.jpg.thumb.1280.1280.jpg",
                             Name = "Canadian Club Classic 12 Year Old",
                             WhiskyTypeId = 2
                         },
@@ -2102,7 +4033,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 18,
                             AlcoholPercentage = 40.0,
                             Description = "This 10-year-old single malt from The Macallan Fine Oak Range was matured in a mix of bourbon and sherry casks.",
-                            DistilleryId = 3,
+                            DistilleryId = 107,
+                            ImageURL = "https://www.connosr.com/image/2/1000/1000/2/images/products/macallan-10-year-old-fine-oak-8829.jpg",
                             Name = "The Macallan 10 Year Old Fine Oak",
                             WhiskyTypeId = 1
                         },
@@ -2112,7 +4044,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 21,
                             AlcoholPercentage = 46.5,
                             Description = "Those clever clogs over at Darkness got their hands on a sought-after drop of whisky here. This 21-year-old Springbank single malt was given the Darkness treatment with a finish in one of its custom-made octave casks, that previously held oloroso sherry. The coastal malt and sherried sweetness make a perfect partnership.",
-                            DistilleryId = 5,
+                            DistilleryId = 126,
+                            ImageURL = "https://www.whiskyshop.com/media/catalog/product/d/a/darkness_springbank_21yo_oloroso_34670_ss.jpg?width=2500&store=whiskyshop&image-type=image",
                             Name = "Springbank 21 Year Old Oloroso Cask Finish (Darkness)",
                             WhiskyTypeId = 1
                         },
@@ -2122,7 +4055,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Age = 25,
                             AlcoholPercentage = 58.399999999999999,
                             Description = "Highland Park Bulgaria 681 is one of the three whiskies in limited edition series specially dedicated to Bulgaria, as it celebrates legendary moments from our history.\r\nThe concept includes a series of 3 collector's bottles, which will commemorate 3 key victories of the First Bulgarian Empire. Highland Park Bulgaria 681 marks the year when the Byzantine Empire recognized the existence of the Bulgarian state by signing a peace treaty after the victory of the Proto-Bulgarians, led by Khan Asparuh. ",
-                            DistilleryId = 6,
+                            DistilleryId = 75,
+                            ImageURL = "https://adm.thewhiskylibrary.club/assets/content/products/images/681-681.png",
                             Name = "Highland Park Bulgaria 681",
                             WhiskyTypeId = 1
                         });
@@ -2401,6 +4335,25 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.UserWhisky", b =>
+                {
+                    b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.Whisky", "Whisky")
+                        .WithMany("UsersWhiskies")
+                        .HasForeignKey("WhiskyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("Whisky");
+                });
+
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Venue", b =>
                 {
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.City", "City")
@@ -2465,6 +4418,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.Navigation("Ratings");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("UsersWhiskies");
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.WhiskyType", b =>

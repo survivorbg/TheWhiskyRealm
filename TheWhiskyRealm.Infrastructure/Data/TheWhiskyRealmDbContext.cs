@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+using TheWhiskyRealm.Infrastructure.Data.Configurations;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Infrastructure.Data;
@@ -31,10 +31,22 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        Assembly cfg = Assembly.GetAssembly(typeof(TheWhiskyRealmDbContext)) ?? Assembly.GetExecutingAssembly();
-
-        builder.ApplyConfigurationsFromAssembly(cfg);
-
         base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new ApplicationUserConfiguration());
+        builder.ApplyConfiguration(new CountryConfiguration());
+        builder.ApplyConfiguration(new RegionConfiguration());
+        builder.ApplyConfiguration(new DistilleryConfiguration());
+        builder.ApplyConfiguration(new WhiskyConfiguration());
+        builder.ApplyConfiguration(new WhiskyTypeConfiguration());
+        builder.ApplyConfiguration(new AwardConfiguration());
+        builder.ApplyConfiguration(new CityConfiguration());
+        builder.ApplyConfiguration(new VenueConfiguration());
+        builder.ApplyConfiguration(new EventConfiguration());
+        builder.ApplyConfiguration(new UserEventConfiguration());
+        builder.ApplyConfiguration(new ReviewConfiguration());
+        builder.ApplyConfiguration(new RatingConfiguration());
+        builder.ApplyConfiguration(new ArticleConfiguration());
+        builder.ApplyConfiguration(new CommentConfiguration());
+        builder.ApplyConfiguration(new UserWhiskyConfiguration());
     }
 }
