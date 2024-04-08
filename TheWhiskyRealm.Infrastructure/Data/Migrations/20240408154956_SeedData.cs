@@ -14,7 +14,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                 table: "AspNetUsers",
                 type: "datetime2",
                 nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                comment: "The user birth date.");
 
             migrationBuilder.CreateTable(
                 name: "Articles",
@@ -402,14 +403,23 @@ namespace TheWhiskyRealm.Infrastructure.Data
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "44a539b2-223a-4c1b-9d1c-954ef8d889ff", "eb8f0668-2e21-4903-81a3-b858513bb59c", "Administrator", "ADMINISTRATOR" },
+                    { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "1c72eeac-aa45-4a8e-8606-6bbd1dca9a73", "User", "USER" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1cf4a321-6128-459e-8e4e-e4615c85d30f", 0, "9f683785-82cc-43e5-b4e3-b87584437d05", new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "noToAlcohol@gmail.com", true, false, null, "NOTOALCOHOL@GMAIL.COM", "NOTOALCOHOL@GMAIL.COM", "AQAAAAEAACcQAAAAECmIyC+4mduVSVgLcEy6vUxOJXbahaztikT1/85ZjCXJDrN8Eo8oKyPlQU5gnm6PkA==", null, false, "d96b9420-e2d0-4b4e-8074-b5984a7dbb57", false, "noToAlcohol@gmail.com" },
-                    { "7dfb241e-f8a5-4ba4-a5aa-5becf035c442", 0, "9fe5a7ed-8ed1-4f55-afb6-d416653dcb06", new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "sober@gmail.com", true, false, null, "SOBER@GMAIL.COM", "SOBER@GMAIL.COM", "AQAAAAEAACcQAAAAECq71RlyG494h2sX2Kb7tSNUgzUx+H+a0a2+CNaKkbom9l+evz05dYq/W2Pu6k30iQ==", null, false, "f55db157-4998-472b-b389-ee3b2858f9bb", false, "sober@gmail.com" },
-                    { "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4", 0, "74571395-9a6a-45ed-8c48-bd92fcb89d71", new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "test@gmail.com", true, false, null, "TEST@GMAIL.COM", "TEST@GMAIL.COM", "AQAAAAEAACcQAAAAEI934Fmok8sYMqeqOp19SnQGraqTEWMiLVROhKrp7f5kBfLdfsl/dmQ2WXX99hvgrg==", null, false, "63ef3377-71d0-44f4-b5f6-850f0178d668", false, "test@gmail.com" },
-                    { "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3", 0, "376bcaa1-286a-4694-9174-01eac5576c83", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEHfxC9CIKtjVe9fyceYVKudr9GCmuwrryH5keAFiR0RE3xipjPCoylayS/hggCrMbg==", null, false, "cd7b6a5c-0a1b-4c08-a5cf-618b077344f0", false, "admin@gmail.com" }
+                    { "1cf4a321-6128-459e-8e4e-e4615c85d30f", 0, "8a8c50c8-2b0d-4e48-bc7b-7bb80bfe5beb", new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "noToAlcohol@gmail.com", true, false, null, "NOTOALCOHOL@GMAIL.COM", "NOTOALCOHOL@GMAIL.COM", "AQAAAAEAACcQAAAAELEOsQxCJad9eCUlOPh0MEYnOYlWdu6SKhGPSEk0ApBl7fsZ/OXCbM7wINX/gN+y+g==", null, false, "0cd08015-2e94-4d55-8842-0ca9bd737963", false, "noToAlcohol@gmail.com" },
+                    { "7dfb241e-f8a5-4ba4-a5aa-5becf035c442", 0, "c8c39a5e-2bff-41e8-8677-91ee847b2277", new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "sober@gmail.com", true, false, null, "SOBER@GMAIL.COM", "SOBER@GMAIL.COM", "AQAAAAEAACcQAAAAEMWwiPCblJPUP4zZ0iXYJ+WItKj6UHpW4n9HK4R8/L7OUL6ZBHdlHfr9LBpW5FnrsA==", null, false, "9e0bdb17-422c-41bd-8c9b-ffa0da906a7f", false, "sober@gmail.com" },
+                    { "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4", 0, "28d7a589-90a0-4b19-ae77-a5bbf4cf03a3", new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), "test@gmail.com", true, false, null, "TEST@GMAIL.COM", "TEST@GMAIL.COM", "AQAAAAEAACcQAAAAELRoJHXj1Nq11Wu/+qxY3MbH7jjlfjKjhyPEMZqXU6ZOdTj7TGXmPFf5CyMsw3AgRQ==", null, false, "c620b951-ebf4-4f61-bdd9-e16c9111ec31", false, "test@gmail.com" },
+                    { "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3", 0, "52fa13cb-1c80-4ce5-90e4-e9a87c3f9188", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEBqDsXqDrtpbEjg0cvAcxI/Ix8F85kh0j88sJJWT6oQiUuUqbUC8/UwMvC1EkMtypQ==", null, false, "50ad8254-31f2-4c70-a87a-c13a7ae3667f", false, "admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -452,6 +462,17 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     { 1, "Know your bourbon from your scotch (and much more!) in this beginner's guide to the most popular types of whiskey.\r\n\r\nThe sheer number of types of whiskey in the liquor store might have you stumped. What’s the difference between Irish whiskey and Scotch whisky? Is all bourbon whiskey? What whiskey is best for your favorite mixed drinks?\r\n\r\nYou’ll find everything you need to know in the guide below!\r\n\r\nBy the way, is it whiskey or whisky?\r\nThat depends where it’s made. Yes, whisk(e)y can be spelled both with an “e” and without, which does confuse even the most seasoned drinkers. But, it turns out the letter is very important to the story of the spirit. The Irish use the “e,” a tradition that carried over to American-made whiskeys. The Scots do not use the “e,” and distillers in Canada and Japan follow their lead. Hence, whisky or whiskies.\r\n\r\nSo now, without further ado, here are the types of whiskey you need to know:\r\n\r\nIrish Whiskey\r\nIrish whiskey has a smoother flavor than other types of whiskey. It’s made from a mash of malt, can only be distilled using water and caramel coloring, and must be distilled in wooden casks for at least three years. The result is a whiskey that’s easy to sip neat or on the rocks, though you can use Irish whiskey to make cocktails.\r\n\r\nScotch Whisky\r\nScotch whisky (aka just scotch) is made in Scotland with either malt or grain. The Scots take their whisky-making seriously and have laws in place that distillers must follow. The spirit must age in an oak barrel for at least three years. Plus, each bottle must have an age statement which reflects the youngest aged whisky used to make that blend. This is a whisky to sip neat—it makes an excellent after-dinner drink.\r\n\r\nJapanese Whisky\r\nA little later to the game than Irish and scotch, Japanese whisky has made its mark on the spirits world for its high standards. Japanese whisky was created to taste as close to the scotch style as possible and uses similar distilling methods. It is mostly imbibed in mixed drinks or with a splash of soda.\r\n\r\nCanadian Whisky\r\nLike scotch, Canadian whisky must be barrel-aged for at least three years. It’s lighter and smoother than other types of whiskey because it contains a high percentage of corn. You will find that most Canadian whiskies are made from corn and rye, but other may feature wheat or barley.\r\n\r\nBourbon Whiskey\r\nAn American-style whiskey, bourbon is made from corn. In fact, to be called bourbon whiskey, the spirit needs to be made from at least 51% corn, aged in a new oak barrel and produced in America. It has no minimum aging period and needs to be bottled at 80 proof or more.\r\n\r\nBourbon is the star ingredient in mint juleps—and you don’t have to wait for the Kentucky Derby to learn how to make one.\r\n\r\nTennessee Whiskey\r\nWhile Tennessee whiskey is technically classified as bourbon, some distillers in the state aren’t too keen on that. Instead, they use Tennessee whiskey to define their style. All current Tennessee whiskey producers are required by state law to produce their whiskeys in Tennessee and to use a filtering step known as the Lincoln County Process prior to aging the whiskey.\r\n\r\nRye Whiskey\r\nRye whiskey is made in America with at least 51% rye, while other ingredients include corn and barley. It follows the distilling process of bourbon. Rye that has been aged for two or more years and has not been blended is dubbed “straight rye whiskey.” Rye tends to have a spicier flavor than sweeter, smoother bourbon.\r\n\r\nBlended Whiskey\r\nBlended whiskey is exactly what the name highlights—it’s a mixture of different types of whiskey, as well as colorings, flavors and even other grains. These types of whiskeys are ideal for cocktails, as the process allows for the flavor to come through but keeps the spirit at a lower price point.\r\n\r\nSingle Malt Whisky\r\nSingle malt whisky needs to be made from one batch of scotch at a single distillery. Additionally, it must be aged for three years in oak before being bottled. The term “single malt” comes from the ingredients, as the main ingredient is malted barley. However, these rules did not make their way to U.S. distilleries. For example, in America, single malt is sometimes made from rye and not barley.", new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://www.tasteofhome.com/wp-content/uploads/2019/08/bottles-of-scotch-whiskey-on-shelf-shutterstock_283026071.jpg?fit=1024,640", "7dfb241e-f8a5-4ba4-a5aa-5becf035c442", "Types of Whiskey", 1 },
                     { 2, "\r\n\r\nBushmills is home to the world’s oldest licensed whiskey distillery with official records dating back to 1608, when the area was granted its license to distil. Over 400 years later, whiskey is still being made in Bushmills, thanks to experience and craft passed down from generation to generation. \r\n\r\n \r\n\r\nBushmills is more than just a whiskey, they believe it is a village, where family, friends and neighbours work side by side at the distillery. The team often say, “without the village there would be no whiskey, and without the whiskey there would be no village”. Therefore, Bushmills is named for the mills that dotted the town all along the River Bush where they get the water that flows over beds of basalt rock for their whiskys.  \r\n\r\n1850s\r\n\r\nThe Crown imposed a tax on those distilling in Ireland through a tax on barley. Even then, malted barley was known throughout the world to make the finest whiskey, known as “pure malt” whiskey. When only malted barley is used in distillation, and made at a single distillery, you have the very definition of “single malt” whiskey. That tax, however, forever changed Irish whiskey, as almost every Irish whiskey distillery began substituting corn or other inferior grains for barley. However, not Bushmills. To this day, Bushmills continues to distil single malt whiskey at the world’s oldest licensed whiskey distillery.\r\n1885\r\n\r\nA disastrous fire destroyed The Old Bushmills Distillery but they pulled together and soon rebuilt the distillery and went back in full production to meet soaring US demand. \r\n\r\n \r\n\r\nBushmills’ celebrated malt whiskey won numerous prizes in international spirits competitions, including the only gold medal for whiskey at the Paris 1889 Expo.\r\n1920s\r\n\r\nWhen Prohibition hit, it brought US shipments to a screeching halt. Hundreds of distilleries were reduced to a mere handful. They had a feeling this dry spell wouldn’t last forever, and, like the fires, famines or wars that came before, so they kept the whiskey flowing. \r\n\r\n \r\n\r\nWith the repeal of prohibition, Bushmills reportedly set sail for Chicago with the biggest shipment of whiskey ever to leave an Irish port.\r\n\r\n1950s\r\n\r\nBushmills’ fame grew, making it a fixture in popular culture, appearing in classic films and memorable advertising campaigns. This success has continued into today. \r\n", new DateTime(2024, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://bayviewhotelni.com/app/uploads/2021/09/tourism_slide__0013_Layer-2.jpg", "7dfb241e-f8a5-4ba4-a5aa-5becf035c442", "Bushmills: Oldest Distillery in the World", 1 },
                     { 3, "I recently popped by Auchentoshan distillery whilst I was passing through the region. It’s a charming if curious place. Charming because it is a white-washed, manicured lawn, well-kept picture book of a distillery. Curious because such a picturesque place is wedged within the confines of a housing estate in Clydebank, on the outskirts of Glasgow. I’m sure back in 1825, when this Lowland distillery was founded by Irish refugees, there weren’t too many houses around and the location seemed like a good idea at the time.\r\n\r\nAuchentoshan Distillery\r\n\r\nWhilst I was there I had a look around – it’s got a nice distillery shop, with a decent tour to cater for the many passing tourists, and that tour finishes up in a stylish bar. As I was driving there was no sampling involved, but I did come away with a couple of dram samples to try later. One of those was a distillery-only wine cask Auchentoshan, which was far more interesting. In fact, if you ever head there then I reckon the most interesting thing you’ll find will be whatever special cask they have lined up, and which you can’t get anywhere else.\r\n\r\nI also came away with a sample of the Auchentoshan Three Wood, which was one of the core releases I hadn’t actually tried. Now, most of Auchentoshan’s core range is incredibly dull so I was prepared to fall asleep whilst drinking it. The Auchentoshan Three Wood is bottled at 43% ABV after being matured in a mixture of Pedro Ximénez sherry casks, bourbon casks and Oloroso sherry casks.\r\n\r\nAuchentoshan Three Wood\r\nAuchentoshan Three Wood Tasting Notes\r\n\r\nColour: tawny.\r\n\r\nOn the nose: very handsome aromas. Turkish delight. Sauternes or fino sherry. Maple syrup on pancakes. Raisins, figs, sultanas. Touch of cinnamon. Stem ginger. Mixed peel. Pastry – almost a mince-pie quality. Marzipan.\r\n\r\nIn the mouth: much of the same as the nose, with plenty of the dried fruits and maple syrup. There’s a bit of wood bitterness that doesn’t exactly balance the sweeter notes, but certainly contrasts with it. A bit of stewed apple, barley sugar. Cinnamon. Warming ginger and pepper. Grassy. Blood oranges, and quite tart at times. Plums. Chocolate. Nice, but not complex.\r\nConclusions\r\n\r\nThe underlying spirit doesn’t quite cut the mustard for the strong sherry influence. It’s not dense enough, in my books, to really make the most of the more robust sherry cask flavours, but it does at least make Auchentoshan Three Wood perhaps the most interesting of a dull core range. At £45 a bottle, I can imagine this being a very pleasant to have on the shelf as an everyday drinker.", new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "https://www.bourbonbanter.com/content/images/wp-content/uploads/2019/03/auchentoshan-3-wood-single-malt-scotch-whisky-review-header.jpg", "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4", "Review: Auchentoshan Three Wood", 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "1cf4a321-6128-459e-8e4e-e4615c85d30f" },
+                    { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "7dfb241e-f8a5-4ba4-a5aa-5becf035c442" },
+                    { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4" },
+                    { "44a539b2-223a-4c1b-9d1c-954ef8d889ff", "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3" }
                 });
 
             migrationBuilder.InsertData(
@@ -500,22 +521,21 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     { 29, 4, "Hyogo" },
                     { 30, 4, "Shizuoka" },
                     { 31, 4, "Yamanashi" },
-                    { 32, 4, "Nagano" },
-                    { 33, 4, "Miyagi" },
-                    { 34, 4, "Osaka" },
-                    { 35, 4, "Hokkaido" },
-                    { 36, 5, "Yilan County" }
+                    { 32, 4, "Nagano" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Regions",
                 columns: new[] { "Id", "CountryId", "Name" },
-                values: new object[] { 37, 6, "Karnataka" });
-
-            migrationBuilder.InsertData(
-                table: "Regions",
-                columns: new[] { "Id", "CountryId", "Name" },
-                values: new object[] { 38, 7, "Ontario" });
+                values: new object[,]
+                {
+                    { 33, 4, "Miyagi" },
+                    { 34, 4, "Osaka" },
+                    { 35, 4, "Hokkaido" },
+                    { 36, 5, "Yilan County" },
+                    { 37, 6, "Karnataka" },
+                    { 38, 7, "Ontario" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Comments",
@@ -1123,6 +1143,36 @@ namespace TheWhiskyRealm.Infrastructure.Data
             migrationBuilder.DropCheckConstraint(
                 name: "CheckDateOfBirth",
                 table: "AspNetUsers");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "1cf4a321-6128-459e-8e4e-e4615c85d30f" });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "7dfb241e-f8a5-4ba4-a5aa-5becf035c442" });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "dc3cf4ec-f90c-4915-b749-4ab01863fdf6", "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4" });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "44a539b2-223a-4c1b-9d1c-954ef8d889ff", "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3" });
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "44a539b2-223a-4c1b-9d1c-954ef8d889ff");
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "dc3cf4ec-f90c-4915-b749-4ab01863fdf6");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",

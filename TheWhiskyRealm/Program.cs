@@ -37,8 +37,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-await app.SeedUserRoles();
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(

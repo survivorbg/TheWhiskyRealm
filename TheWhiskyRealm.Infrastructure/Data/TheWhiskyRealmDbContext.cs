@@ -32,6 +32,8 @@ public class TheWhiskyRealmDbContext : IdentityDbContext<ApplicationUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new RoleConfiguration());
+        builder.ApplyConfiguration(new UserRoleConfiguration());
         builder.ApplyConfiguration(new ApplicationUserConfiguration());
         builder.ApplyConfiguration(new CountryConfiguration());
         builder.ApplyConfiguration(new RegionConfiguration());

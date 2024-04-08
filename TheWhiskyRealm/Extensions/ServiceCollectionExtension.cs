@@ -78,8 +78,6 @@ public static class ServiceCollectionExtension
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<TheWhiskyRealmDbContext>();
 
-        services.AddScoped<UserRoleSeeder>();
-
         return services;
     }
 }

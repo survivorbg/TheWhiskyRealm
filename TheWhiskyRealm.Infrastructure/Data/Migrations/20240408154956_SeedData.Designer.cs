@@ -12,7 +12,7 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    [Migration("20240406051741_SeedData")]
+    [Migration("20240408154956_SeedData")]
     partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,22 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "44a539b2-223a-4c1b-9d1c-954ef8d889ff",
+                            ConcurrencyStamp = "eb8f0668-2e21-4903-81a3-b858513bb59c",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6",
+                            ConcurrencyStamp = "1c72eeac-aa45-4a8e-8606-6bbd1dca9a73",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -138,6 +154,28 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
+                            RoleId = "44a539b2-223a-4c1b-9d1c-954ef8d889ff"
+                        },
+                        new
+                        {
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
+                            RoleId = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6"
+                        },
+                        new
+                        {
+                            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            RoleId = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6"
+                        },
+                        new
+                        {
+                            UserId = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
+                            RoleId = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -174,7 +212,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasComment("The user birth date.");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -235,16 +274,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "376bcaa1-286a-4694-9174-01eac5576c83",
+                            ConcurrencyStamp = "52fa13cb-1c80-4ce5-90e4-e9a87c3f9188",
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHfxC9CIKtjVe9fyceYVKudr9GCmuwrryH5keAFiR0RE3xipjPCoylayS/hggCrMbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBqDsXqDrtpbEjg0cvAcxI/Ix8F85kh0j88sJJWT6oQiUuUqbUC8/UwMvC1EkMtypQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd7b6a5c-0a1b-4c08-a5cf-618b077344f0",
+                            SecurityStamp = "50ad8254-31f2-4c70-a87a-c13a7ae3667f",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -252,16 +291,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "74571395-9a6a-45ed-8c48-bd92fcb89d71",
+                            ConcurrencyStamp = "28d7a589-90a0-4b19-ae77-a5bbf4cf03a3",
                             DateOfBirth = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GMAIL.COM",
                             NormalizedUserName = "TEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI934Fmok8sYMqeqOp19SnQGraqTEWMiLVROhKrp7f5kBfLdfsl/dmQ2WXX99hvgrg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELRoJHXj1Nq11Wu/+qxY3MbH7jjlfjKjhyPEMZqXU6ZOdTj7TGXmPFf5CyMsw3AgRQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "63ef3377-71d0-44f4-b5f6-850f0178d668",
+                            SecurityStamp = "c620b951-ebf4-4f61-bdd9-e16c9111ec31",
                             TwoFactorEnabled = false,
                             UserName = "test@gmail.com"
                         },
@@ -269,16 +308,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9fe5a7ed-8ed1-4f55-afb6-d416653dcb06",
+                            ConcurrencyStamp = "c8c39a5e-2bff-41e8-8677-91ee847b2277",
                             DateOfBirth = new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sober@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOBER@GMAIL.COM",
                             NormalizedUserName = "SOBER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECq71RlyG494h2sX2Kb7tSNUgzUx+H+a0a2+CNaKkbom9l+evz05dYq/W2Pu6k30iQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMWwiPCblJPUP4zZ0iXYJ+WItKj6UHpW4n9HK4R8/L7OUL6ZBHdlHfr9LBpW5FnrsA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f55db157-4998-472b-b389-ee3b2858f9bb",
+                            SecurityStamp = "9e0bdb17-422c-41bd-8c9b-ffa0da906a7f",
                             TwoFactorEnabled = false,
                             UserName = "sober@gmail.com"
                         },
@@ -286,16 +325,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f683785-82cc-43e5-b4e3-b87584437d05",
+                            ConcurrencyStamp = "8a8c50c8-2b0d-4e48-bc7b-7bb80bfe5beb",
                             DateOfBirth = new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noToAlcohol@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NOTOALCOHOL@GMAIL.COM",
                             NormalizedUserName = "NOTOALCOHOL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECmIyC+4mduVSVgLcEy6vUxOJXbahaztikT1/85ZjCXJDrN8Eo8oKyPlQU5gnm6PkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELEOsQxCJad9eCUlOPh0MEYnOYlWdu6SKhGPSEk0ApBl7fsZ/OXCbM7wINX/gN+y+g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d96b9420-e2d0-4b4e-8074-b5984a7dbb57",
+                            SecurityStamp = "0cd08015-2e94-4d55-8842-0ca9bd737963",
                             TwoFactorEnabled = false,
                             UserName = "noToAlcohol@gmail.com"
                         });
