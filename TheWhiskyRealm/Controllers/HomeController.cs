@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using System.Security.Claims;
-using TheWhiskyRealm.Models;
 
 namespace TheWhiskyRealm.Controllers
 {
@@ -45,10 +43,10 @@ namespace TheWhiskyRealm.Controllers
                 return View("Error401");
             }
 
-            //if (statusCode == 404)
-            //{
-            //    return View("Error401");
-            //}
+            if (statusCode == 404)
+            {
+                return View("Error404");
+            }
 
             return View();
         }

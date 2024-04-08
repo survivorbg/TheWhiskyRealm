@@ -1,0 +1,41 @@
+﻿body {
+    background-color: #7cd0fc;
+    background-image: url('../../images/404.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    color: #fffdf0;
+    font-family: 'Lora', serif;
+    display: flex;
+    justify-content: center;
+}
+
+
+div {
+    text-align: center;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    display:inline-block;
+    padding:24px;
+}
+
+a {
+    color: black;
+    text-decoration: underline;
+    font-size:18px;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
