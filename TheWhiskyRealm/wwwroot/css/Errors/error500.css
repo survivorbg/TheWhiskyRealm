@@ -1,0 +1,48 @@
+﻿body {
+    background-color: #fec8ac;
+    background-image: url('../../images/500.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    color: black;
+    font-family: 'Lora', serif;
+    display: flex;
+    justify-content: center;
+}
+
+
+div {
+    text-align: center;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    display: inline-block;
+    padding: 24px ;
+    padding-top: 300px;
+}
+
+a {
+    color: black;
+    text-decoration: underline;
+    font-size: 18px;
+    padding: 8px 12px;
+    background: #fec8ac;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    color: white;
+}
+
+h1 {
+    padding: 8px 12px;
+    background: #fec8ac;
+    border: 1px solid lightgray;
+    border-radius: 25px;
+    color:white;
+}
+
+@font-face {
+    font-family: 'Lora';
+    src: url('../Assets/Lora/static/Lora-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
