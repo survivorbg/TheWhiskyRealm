@@ -81,15 +81,4 @@ public static class ServiceCollectionExtension
 
         return services;
     }
-
-    /// <summary>
-    /// Seeds the user roles into the application's Identity.
-    /// </summary>
-    /// <param name="app">The application builder.</param>
-    public static void SeedUserRoles(this IApplicationBuilder app)
-    {
-        using var scope = app.ApplicationServices.CreateScope();
-        var seeder = scope.ServiceProvider.GetRequiredService<UserRoleSeeder>();
-        seeder.AssignRolesAsync().Wait();
-    }
 }
