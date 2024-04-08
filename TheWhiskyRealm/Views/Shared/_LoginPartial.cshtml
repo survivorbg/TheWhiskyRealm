@@ -7,19 +7,7 @@
         <li class="nav-item">
             <a class="nav-link text-dark">Hello, @User.Identity.Name!</a>
         </li>
-        <li class="nav-item dropdown" onmouseover="showDropdownMenu()" onmouseleave="hideDropdownMenu()">
-            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" aria-expanded="false">
-                Profile
-            </a>
-            <ul class="dropdown-menu" id="profileDropdownMenu" aria-labelledby="profileDropdown">
-                <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="MyCollection">My Collection</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="MyReviews">My Reviews</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Rating" asp-action="MyRatings">My Ratings</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="MyEvents">My Events</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="MyArticles">My Articles</a></li>
-                <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Profile</a></li>
-            </ul>
-        </li>
+        @await Component.InvokeAsync(nameof(UserMenuComponent))
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
