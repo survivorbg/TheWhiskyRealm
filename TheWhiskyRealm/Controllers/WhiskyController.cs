@@ -247,6 +247,7 @@ public class WhiskyController : BaseController
     public async Task<IActionResult> MyCollection(int page = 1, int pageSize = 4)
     {
         var userId = User.Id();
+        userId = null;
         if (userId == null)
         {
             return BadRequest();
