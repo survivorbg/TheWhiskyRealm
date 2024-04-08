@@ -1,0 +1,30 @@
+﻿<ul class="navbar-nav flex-grow-1">
+    <li class="nav-item dropdown" onmouseover="showWhiskyDropdownMenu()" onmouseleave="hideWhiskyDropdownMenu()">
+        <a class="nav-link dropdown-toggle" href="#" id="whiskyDropdown" role="button" aria-expanded="false">
+            Whisky
+        </a>
+        <ul class="dropdown-menu" id="whiskyDropdownMenu" aria-labelledby="whiskyDropdown">
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Whisky" asp-action="All">All</a></li>
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Whisky" asp-action="Add">Add</a></li>
+        </ul>
+    </li>
+    <li class="nav-item dropdown" onmouseover="showEventDropdownMenu()" onmouseleave="hideEventDropdownMenu()">
+        <a class="nav-link dropdown-toggle" href="#" id="eventDropdown" role="button" aria-expanded="false">
+            Events
+        </a>
+        <ul class="dropdown-menu" id="eventDropdownMenu" aria-labelledby="eventDropdown">
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Event" asp-action="Index">All</a></li>
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Event" asp-action="PastEvents">Past</a></li>
+        </ul>
+    </li>
+    <li class="nav-item dropdown" onmouseover="showArticleDropdownMenu()" onmouseleave="hideArticleDropdownMenu()">
+        <a class="nav-link dropdown-toggle" href="#" id="articleDropdown" role="button" aria-expanded="false">
+            Articles
+        </a>
+        <ul class="dropdown-menu" id="articleDropdownMenu" aria-labelledby="articleDropdown">
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Article" asp-action="Index">All</a></li>
+            <li><a class="dropdown-item" asp-area="Admin" asp-controller="Article" asp-action="Add">Add</a></li>
+        </ul>
+    </li>
+
+</ul>
