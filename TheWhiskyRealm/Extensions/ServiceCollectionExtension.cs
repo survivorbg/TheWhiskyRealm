@@ -73,6 +73,7 @@ public static class ServiceCollectionExtension
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
+                options.User.RequireUniqueEmail = true;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<TheWhiskyRealmDbContext>();
