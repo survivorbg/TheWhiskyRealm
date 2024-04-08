@@ -1,0 +1,13 @@
+﻿body {
+    background-color: #f9f1da;
+    background-image: url('../../images/401.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    color: black;
+    font-family: 'Lora', serif;
+    display: flex;
+    justify-content: center;
+}
