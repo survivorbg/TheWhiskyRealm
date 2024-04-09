@@ -1,0 +1,31 @@
+﻿@model IEnumerable<CountryViewModel>
+
+<a asp-area="Admin" asp-controller="Country" asp-action="Add" class="btn btn-success mb-3">Add new Country</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Country" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                    <a asp-area="Admin" asp-controller="Country" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    <a asp-area="Admin" asp-controller="Region" asp-action="Create" asp-route-countryId="@item.Id" class="btn btn-info">Add Region To Country</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

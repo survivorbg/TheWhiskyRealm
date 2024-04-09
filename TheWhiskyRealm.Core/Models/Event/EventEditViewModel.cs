@@ -19,6 +19,8 @@ public class EventEditViewModel
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Start Date")]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "hh:mm dd.MM.yyyy", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = RequiredMessage)]
     public string StartDate { get; set; } = string.Empty;
 
