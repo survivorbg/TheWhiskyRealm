@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
-using TheWhiskyRealm.Core.Models.AdminArea;
 using TheWhiskyRealm.Core.Models.AdminArea.Country;
-using TheWhiskyRealm.Core.Services;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -66,7 +64,7 @@ public class CountryController : AdminBaseController
     public async Task<IActionResult> Edit(CountryViewModel model)
     {
 
-        if (model == null)
+        if (model == null) //TODO Check for null on every post
         {
             return BadRequest("Invalid request");
         }
