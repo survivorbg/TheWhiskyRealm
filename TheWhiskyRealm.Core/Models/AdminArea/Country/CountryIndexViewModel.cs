@@ -2,7 +2,7 @@
 using static TheWhiskyRealm.Infrastructure.Constants.CountryDataConstants;
 using static TheWhiskyRealm.Core.Constants.MessageConstants;
 
-namespace TheWhiskyRealm.Core.Models.AdminArea;
+namespace TheWhiskyRealm.Core.Models.AdminArea.Country;
 
 public class CountryIndexViewModel
 {
