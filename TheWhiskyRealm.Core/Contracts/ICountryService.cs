@@ -6,6 +6,7 @@ public interface ICountryService
 {
     public Task<ICollection<CountryViewModel>> GetAllCountriesAsync(int currentPage, int pageSize);
     public Task<bool> CountryWithNameExistsAsync(string countryName);
+    public Task<bool> CountryExistsAsync(int id);
     Task AddCountryAsync(string name);
     public Task<int> GetTotalCountriesAsync();
     Task<CountryViewModel?> GetByIdAsync(int id);

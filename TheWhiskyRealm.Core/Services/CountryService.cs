@@ -25,6 +25,13 @@ public class CountryService : ICountryService
         }
     }
 
+    public async Task<bool> CountryExistsAsync(int id)
+    {
+        return await repo
+          .AllReadOnly<Country>()
+          .AnyAsync(c => c.Id == id);
+    }
+
     public async Task<bool> CountryWithNameExistsAsync(string countryName)
     {
         return await repo

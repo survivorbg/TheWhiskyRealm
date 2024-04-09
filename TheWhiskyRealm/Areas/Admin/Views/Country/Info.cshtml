@@ -1,0 +1,30 @@
+﻿@model CountryInfoViewModel
+
+<style>
+    .country-name {
+        font-weight:900;
+        text-decoration:underline;
+        font-style:italic;
+        color:black;
+    }
+</style>
+<h2>Country: <span class="country-name">@Model.Name</span></h2>
+
+
+@if (Model.Regions.Any())
+{
+    <ul>
+        @foreach (var region in Model.Regions)
+        {
+            <li>
+                <strong>@region.Name</strong> - @region.Distilleries distilleries will be deleted
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>This country has no related data</p>
+}
+
+<a asp-area="Admin" asp-controller="Country" asp-action="Index" class="btn btn-primary">Back</a>

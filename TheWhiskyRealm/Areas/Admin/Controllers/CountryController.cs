@@ -9,10 +9,12 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers;
 public class CountryController : AdminBaseController
 {
     private readonly ICountryService countryService;
+    private readonly IRegionService regionService;
 
-    public CountryController(ICountryService countryService)
+    public CountryController(ICountryService countryService, IRegionService regionService)
     {
         this.countryService = countryService;
+        this.regionService = regionService;
     }
 
     [HttpGet]
@@ -35,12 +37,12 @@ public class CountryController : AdminBaseController
     [HttpPost]
     public async Task<IActionResult> Add(string name)
     {
-        if(await countryService.CountryWithNameExistsAsync(name))
+        if (await countryService.CountryWithNameExistsAsync(name))
         {
             return BadRequest();
         }
 
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
             await countryService.AddCountryAsync(name);
         }
@@ -68,6 +70,12 @@ public class CountryController : AdminBaseController
         {
             return BadRequest("Invalid request");
         }
+        var country = await countryService.GetByIdAsync(model.Id);
+
+        if (country == null)
+        {
+            return NotFound();
+        }
 
         if (await countryService.CountryWithNameExistsAsync(model.Name))
         {
@@ -80,15 +88,29 @@ public class CountryController : AdminBaseController
             return View(model);
         }
 
-        var country = await countryService.GetByIdAsync(model.Id);
+        await countryService.EditAsync(model);
+
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Info(int id)
+    {
+        var country = await countryService.GetByIdAsync(id);
 
         if (country == null)
         {
             return NotFound();
         }
 
-        await countryService.EditAsync(model);
+        var model = new CountryInfoViewModel()
+        {
+            Id = id,
+            Name = country.Name,
+            Regions = await regionService.GetAllRegionsByCountryIdAsync(id)
+        };
 
-        return RedirectToAction(nameof(Index));
+        return View(model);
     }
+
 }
