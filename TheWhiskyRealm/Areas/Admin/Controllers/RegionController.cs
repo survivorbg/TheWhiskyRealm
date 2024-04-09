@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Country;
 using TheWhiskyRealm.Core.Models.AdminArea.Region;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
@@ -52,5 +53,21 @@ public class RegionController : AdminBaseController
         await regionService.AddRegionAsync(model.Name,(int)model.CountryId);
 
         return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index(int currentPage = 1, int pageSize = 15)
+    {
+        var totalRegions = await regionService.GetTotalRegionsAsync();
+        var regions = await regionService.GetAllRegionsAsync(currentPage, pageSize);
+
+        var model = new RegionIndexViewModel
+        {
+            Regions = regions,
+            CurrentPage = currentPage,
+            TotalPages = (int)Math.Ceiling(totalRegions / (double)pageSize)
+        };
+
+        return View(model);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Country;
 using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -40,6 +41,30 @@ public class RegionService : IRegionService
             .ToListAsync();
 
     }
+
+    public async Task<ICollection<RegionViewModel>> GetAllRegionsAsync(int currentPage, int pageSize)
+    {
+        return await repo
+            .AllReadOnly<Region>()
+            .OrderBy(r=>r.CountryId)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .Select(r => new RegionViewModel
+            {
+                Id = r.Id,
+                Name = r.Name,
+                CountryName = r.Country.Name
+            })
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTotalRegionsAsync()
+    {
+        return await repo
+            .AllReadOnly<Region>()
+            .CountAsync();
+    }
+
     public async Task<bool> RegionExistsAsync(int id)
     {
         return await repo
