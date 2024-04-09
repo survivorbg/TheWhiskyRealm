@@ -64,6 +64,18 @@ public class CountryService : ICountryService
             .ToListAsync();
     }
 
+    public async Task<ICollection<CountryViewModel>> GetAllCountriesAsync()
+    {
+        return await repo
+          .AllReadOnly<Country>()
+          .Select(c => new CountryViewModel
+          {
+              Id = c.Id,
+              Name = c.Name,
+          })
+          .ToListAsync();
+    }
+
     public async Task<CountryViewModel?> GetByIdAsync(int id)
     {
         var country = await repo.GetByIdAsync<Country>(id);

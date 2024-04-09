@@ -1,0 +1,21 @@
+﻿@model AddRegionViewModel
+@{
+
+}
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CountryId">Country</label>
+        <select asp-for="CountryId" asp-items="@(new SelectList(Model.Countries, "Id", "Name"))" class="form-control"></select>
+        <span asp-validation-for="CountryId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Region</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

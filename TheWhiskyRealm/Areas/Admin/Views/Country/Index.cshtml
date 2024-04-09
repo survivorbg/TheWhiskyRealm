@@ -31,7 +31,7 @@
                 <td>
                     <a asp-area="Admin" asp-controller="Country" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
                     <a asp-area="Admin" asp-controller="Country" asp-action="Info" asp-route-id="@item.Id" class="btn btn-outline-secondary">Info</a>
-                    <a asp-area="Admin" asp-controller="Region" asp-action="Create" asp-route-countryId="@item.Id" class="btn btn-info">Add Region To Country</a>
+                    <a asp-area="Admin" asp-controller="Region" asp-action="Add" asp-route-countryId="@item.Id" class="btn btn-info">Add Region To Country</a>
                 </td>
             </tr>
         }
