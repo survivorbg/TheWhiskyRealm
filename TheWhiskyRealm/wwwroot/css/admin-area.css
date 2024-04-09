@@ -115,11 +115,11 @@ nav.admin {
             border-left: 10px solid #3498db;
         }
 
-       /* nav.admin li:nth-child(2) a {
+        nav.admin li:nth-child(2) a {
             border-left: 10px solid #ffd071;
         }
 
-        nav.admin li:nth-child(3) a {
+        /*nav.admin li:nth-child(3) a {
             border-left: 10px solid #f0776c;
         }
 
@@ -147,11 +147,11 @@ nav.admin {
             background: #3498db;
         }
 
-       /* nav.admin li:nth-child(2) a:after {
+        nav.admin li:nth-child(2) a:after {
             background: #ffd071;
         }
 
-        nav.admin li:nth-child(3) a:after {
+        /*nav.admin li:nth-child(3) a:after {
             background: #f0776c;
         }
 
