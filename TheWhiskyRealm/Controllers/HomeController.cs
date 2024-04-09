@@ -16,7 +16,12 @@ namespace TheWhiskyRealm.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            if (User.Identity.IsAuthenticated || User.IsAdmin())
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
+            if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("All", "Whisky");
             }

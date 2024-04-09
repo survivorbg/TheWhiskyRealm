@@ -4,8 +4,9 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
 public class HomeController : AdminBaseController
 {
-    public IActionResult DashBoard()
+    public IActionResult Index()
     {
         return View();
     }
+
 }

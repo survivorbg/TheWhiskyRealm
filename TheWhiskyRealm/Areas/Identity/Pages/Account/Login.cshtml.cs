@@ -114,7 +114,7 @@ namespace TheWhiskyRealm.Areas.Identity.Pages.Account
 
                     if(await _userManager.IsInRoleAsync(user, "Administrator"))
                     {
-                        return RedirectToAction("DashBoard", "Home", new { area = "Admin" });
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                      
 
