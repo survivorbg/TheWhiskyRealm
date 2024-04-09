@@ -15,10 +15,29 @@ public class CountryService : ICountryService
         this.repo = repo;
     }
 
-    public async Task<ICollection<CountryViewModel>> GetAllCountriesAsync()
+    public async Task AddCountryAsync(string name)
+    {
+        if (name != null)
+        {
+            var country = new Country { Name = name };
+            await repo.AddAsync(country);
+            await repo.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> CountryWithNameExistsAsync(string countryName)
     {
         return await repo
             .AllReadOnly<Country>()
+            .AnyAsync(c => c.Name.ToLower() == countryName.ToLower());
+    }
+
+    public async Task<ICollection<CountryViewModel>> GetAllCountriesAsync(int currentPage, int pageSize)
+    {
+        return await repo
+            .AllReadOnly<Country>()
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
             .Select(c => new CountryViewModel
             {
                 Id = c.Id,
@@ -26,4 +45,12 @@ public class CountryService : ICountryService
             })
             .ToListAsync();
     }
+
+    public async Task<int> GetTotalCountriesAsync()
+    {
+        return await repo
+            .AllReadOnly<Country>()
+            .CountAsync();
+    }
+
 }
