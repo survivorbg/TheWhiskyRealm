@@ -7,5 +7,7 @@ public interface IDistilleryService
 {
     Task<IEnumerable<DistilleryAddWhiskyViewModel>> GetAllDistilleriesAsync();
     Task<IEnumerable<DistilleryRegionViewModel>> GetAllDistilleriesAsync(int regionId);
+    Task<IEnumerable<DistilleryViewModel>> GetAllDistilleriesAsync(int currentPage, int pageSize, string sortOrder);
     Task<bool> DistilleryExistsAsync(int id);
+    Task<int> GetTotalDistilleriesAsync();
 }
