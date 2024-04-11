@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
@@ -246,5 +247,19 @@ public class WhiskyService : IWhiskyService
                 ImageURL = uw.Whisky.ImageURL
             })
             .ToListAsync();
+    }
+
+    public async Task<IEnumerable<WhiskyDistilleryViewModel>> GetWhiskiesByDistilleryIdAsync(int distilleryId)
+    {
+        return await repo
+            .AllReadOnly<Whisky>()
+            .Where(w => w.DistilleryId == distilleryId)
+            .Select(w => new WhiskyDistilleryViewModel
+            {
+                Id = w.Id,
+                Name = w.Name,
+            })
+            .ToListAsync();
+
     }
 }

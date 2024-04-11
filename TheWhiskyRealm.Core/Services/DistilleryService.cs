@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
+using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -94,6 +95,32 @@ public class DistilleryService : IDistilleryService
                 YearFounded = d.YearFounded
             })
             .ToListAsync();
+    }
+
+    public async Task<DistilleryInfoModel?> GetDistilleryInfoAsync(int id)
+    {
+        var distillery = await repo
+            .AllReadOnly<Distillery>()
+            .Include(d => d.Region)
+            .ThenInclude(r=>r.Country)
+            .Where(d=>d.Id == id)
+            .FirstOrDefaultAsync();
+
+        if (distillery == null)
+        {
+            return null;
+        }
+
+        var result = new DistilleryInfoModel
+        {
+            Id = id,
+            Name = distillery.Name,
+            Country = distillery.Region.Country.Name,
+            Region = distillery.Region.Name,
+            YearFounded= distillery.YearFounded
+        };
+
+        return result;
     }
 
     public async Task<int> GetTotalDistilleriesAsync()

@@ -1,0 +1,56 @@
+﻿@model DistilleryInfoModel
+
+<style>
+    .distillery-name {
+        font-weight: 900;
+        text-decoration: underline;
+        font-style: italic;
+        color: black;
+    }
+
+    p.dist-info{
+        font-style: italic;
+        color: black;
+    }
+</style>
+<h2>Distillery <span class="distillery-name">@Model.Name</span> Info:</h2>
+<p class="dist-info">Year Founded: @Model.YearFounded</p>
+<p class="dist-info">Country: @Model.Country</p>
+<p class="dist-info">Region: @Model.Region</p>
+
+
+@if (Model.Whiskies.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Whiskies)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Whisky" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Whisky" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Info</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>This distillery has no related data</p>
+}
+
+<a asp-area="Admin" asp-controller="Distillery" asp-action="Index" class="btn btn-primary">Back</a>

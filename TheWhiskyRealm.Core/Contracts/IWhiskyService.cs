@@ -1,4 +1,5 @@
-﻿using TheWhiskyRealm.Core.Models.Whisky;
+﻿using TheWhiskyRealm.Core.Models.AdminArea.Whisky;
+using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 
 namespace TheWhiskyRealm.Core.Contracts;
@@ -18,4 +19,5 @@ public interface IWhiskyService
     Task AddToFavouritesAsync(string userId, int whiskyId);
     Task RemoveFromFavouritesAsync(string userId, int whiskyId);
     Task<ICollection<MyCollectionWhiskyModel>> MyFavouriteWhiskiesAsync(string userId);
+    Task<IEnumerable<WhiskyDistilleryViewModel>> GetWhiskiesByDistilleryIdAsync(int distilleryId);
 }
