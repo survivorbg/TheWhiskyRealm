@@ -119,11 +119,11 @@ nav.admin {
             border-left: 10px solid #ffd071;
         }
 
-        /*nav.admin li:nth-child(3) a {
+        nav.admin li:nth-child(3) a {
             border-left: 10px solid #f0776c;
         }
 
-        nav.admin li:last-child a {
+        /*nav.admin li:last-child a {
             border-left: 10px solid #1abc9c;
         }*/
 
@@ -151,10 +151,10 @@ nav.admin {
             background: #ffd071;
         }
 
-        /*nav.admin li:nth-child(3) a:after {
+        nav.admin li:nth-child(3) a:after {
             background: #f0776c;
         }
 
-        nav.admin li:last-child a:after {
+        /*nav.admin li:last-child a:after {
             background: #1abc9c;
         }*/
