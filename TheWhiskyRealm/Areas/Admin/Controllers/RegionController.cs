@@ -9,11 +9,15 @@ public class RegionController : AdminBaseController
 {
     private readonly IRegionService regionService;
     private readonly ICountryService countryService;
+    private readonly IDistilleryService distilleryService;
 
-    public RegionController(IRegionService regionService, ICountryService countryService)
+    public RegionController(IRegionService regionService,
+        ICountryService countryService,
+        IDistilleryService distilleryService)
     {
         this.regionService = regionService;
         this.countryService = countryService;
+        this.distilleryService = distilleryService;
     }
 
     public async Task<IActionResult> Add(int? countryId)
@@ -93,7 +97,7 @@ public class RegionController : AdminBaseController
             return BadRequest("Invalid request");
         }
 
-        var country = await regionService.GetRegionByIdAsync(model.Id);
+        var region = await regionService.GetRegionByIdAsync(model.Id);
 
         if (model == null)
         {
@@ -119,5 +123,25 @@ public class RegionController : AdminBaseController
         await regionService.EditRegionAsync(model);
 
         return RedirectToAction(nameof(Index)); //TODO Redirect to Region/Info/Id
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Info(int id)
+    {
+        var region = await regionService.GetRegionByIdAsync(id);
+
+        if (region == null)
+        {
+            return NotFound();
+        }
+
+        var model = new RegionInfoViewModel()
+        {
+            Id = id,
+            Name = region.Name,
+            Distilleries = await distilleryService.GetAllDistilleriesAsync(id)
+        };
+
+        return View(model);
     }
 }
