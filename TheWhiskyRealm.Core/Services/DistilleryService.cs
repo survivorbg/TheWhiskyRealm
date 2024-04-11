@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
-using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -21,7 +20,7 @@ public class DistilleryService : IDistilleryService
     {
         return await repo
             .AllReadOnly<Distillery>()
-            .AnyAsync(d=>d.Id == id);
+            .AnyAsync(d => d.Id == id);
     }
 
     public async Task<IEnumerable<DistilleryAddWhiskyViewModel>> GetAllDistilleriesAsync()
@@ -41,12 +40,12 @@ public class DistilleryService : IDistilleryService
     {
         return await repo
            .AllReadOnly<Distillery>()
-           .Where(d=>d.RegionId == regionId)    
+           .Where(d => d.RegionId == regionId)
            .Select(d => new DistilleryRegionViewModel()
            {
-              Id = d.Id,
-              Name= d.Name,
-              YearFounded = d.YearFounded
+               Id = d.Id,
+               Name = d.Name,
+               YearFounded = d.YearFounded
            })
            .ToListAsync();
     }
@@ -71,6 +70,12 @@ public class DistilleryService : IDistilleryService
                 break;
             case "country_desc":
                 distilleries = distilleries.OrderByDescending(d => d.Region.Country.Name);
+                break;
+            case "Year":
+                distilleries = distilleries.OrderBy(d => d.YearFounded);
+                break;
+            case "year_desc":
+                distilleries = distilleries.OrderByDescending(d => d.YearFounded);
                 break;
             default:
                 distilleries = distilleries.OrderBy(d => d.Id);

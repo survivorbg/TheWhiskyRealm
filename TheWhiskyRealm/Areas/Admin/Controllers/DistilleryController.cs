@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Country;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using TheWhiskyRealm.Core.Models.AdminArea.Region;
+using TheWhiskyRealm.Core.Services;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -20,6 +22,7 @@ public class DistilleryController : AdminBaseController
         ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
         ViewData["RegionSortParm"] = sortOrder == "Region" ? "region_desc" : "Region";
         ViewData["CountrySortParm"] = sortOrder == "Country" ? "country_desc" : "Country";
+        ViewData["YearSortParm"] = sortOrder == "Year" ? "year_desc" : "Year";
         ViewData["CurrentSort"] = sortOrder;
 
         var totalDistilleries = await distilleryService.GetTotalDistilleriesAsync();
