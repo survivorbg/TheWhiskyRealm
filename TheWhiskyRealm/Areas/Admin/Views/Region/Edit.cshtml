@@ -1,0 +1,19 @@
+﻿@model EditRegionViewModel
+
+<form asp-area="Admin" asp-controller="Region" asp-action="Edit" method="post">
+    <div class="form-group">
+        <label for="countryName">Region Name:</label>
+        <input asp-for="Name" class="form-control" style="max-width: 300px;" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CountryId">Country</label>
+        <select asp-for="CountryId" asp-items="@(new SelectList(Model.Countries, "Id", "Name"))" class="form-control"></select>
+        <span asp-validation-for="CountryId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

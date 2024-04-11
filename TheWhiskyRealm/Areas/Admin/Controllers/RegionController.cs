@@ -70,4 +70,54 @@ public class RegionController : AdminBaseController
 
         return View(model);
     }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var model = await regionService.GetRegionByIdAsync(id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+        model.Countries = await countryService.GetAllCountriesAsync();
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(EditRegionViewModel model)
+    {
+
+        if (model == null) //TODO Check for null on every post
+        {
+            return BadRequest("Invalid request");
+        }
+
+        var country = await regionService.GetRegionByIdAsync(model.Id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        if (await countryService.CountryExistsAsync(model.CountryId) == false)
+        {
+            return BadRequest();
+        }
+
+        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, model.CountryId))
+        {
+            ModelState.AddModelError("Name", "There is already a region with this name in this country.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.Countries = await countryService.GetAllCountriesAsync();
+            return View(model);
+        }
+
+        await regionService.EditRegionAsync(model);
+
+        return RedirectToAction(nameof(Index)); //TODO Redirect to Region/Info/Id
+    }
 }

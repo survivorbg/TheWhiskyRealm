@@ -10,4 +10,6 @@ public interface IRegionService
     Task<bool> RegionExistsAsync(int id);
     Task<bool> RegionWithThisNameAndCountryExistsAsync(string name, int countryId);
     Task<ICollection<RegionViewModel>> GetAllRegionsAsync(int currentPage, int pageSize);
+    Task<EditRegionViewModel?> GetRegionByIdAsync(int id);
+    Task EditRegionAsync(EditRegionViewModel model);
 }

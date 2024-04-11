@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
-using TheWhiskyRealm.Core.Models.AdminArea.Country;
 using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -32,8 +31,8 @@ public class RegionService : IRegionService
     {
         return await repo
             .AllReadOnly<Region>()
-            .Where(r=>r.CountryId == countryId)
-            .Select(r=>new RegionCountryViewModel
+            .Where(r => r.CountryId == countryId)
+            .Select(r => new RegionCountryViewModel
             {
                 Name = r.Name,
                 Distilleries = r.Distilleries.Count()
@@ -46,7 +45,7 @@ public class RegionService : IRegionService
     {
         return await repo
             .AllReadOnly<Region>()
-            .OrderBy(r=>r.CountryId)
+            .OrderBy(r => r.CountryId)
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize)
             .Select(r => new RegionViewModel
@@ -77,5 +76,34 @@ public class RegionService : IRegionService
         return await repo
             .AllReadOnly<Region>()
             .AnyAsync(r => r.Name == name && r.CountryId == countryId);
+    }
+
+    public async Task<EditRegionViewModel?> GetRegionByIdAsync(int id)
+    {
+        var region = await repo.GetByIdAsync<Region>(id);
+        if (region == null)
+        {
+            return null;
+        }
+
+        var result = new EditRegionViewModel
+        {
+            Id = id,
+            CountryId = region.CountryId,
+            Name = region.Name,
+        };
+
+        return result;
+    }
+
+    public async Task EditRegionAsync(EditRegionViewModel model)
+    {
+        var region = await repo.GetByIdAsync<Region>(model.Id);
+        if(region != null)
+        {
+            region.Name = model.Name;
+            region.CountryId = model.CountryId;
+            await repo.SaveChangesAsync();
+        }
     }
 }
