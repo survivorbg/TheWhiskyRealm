@@ -30,6 +30,12 @@ public class CityService : ICityService
         return city.Id;
     }
 
+    public async Task<bool> CityExistAsync(int cityId)
+    {
+        return await repo.AllReadOnly<City>()
+            .AnyAsync(c => c.Id == cityId);
+    }
+
     public async Task<bool> CityWithThisNameAndCountryExistsAsync(string name, int countryId, int cityId = 0)
     {
         return await repo

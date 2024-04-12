@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using TheWhiskyRealm.Core.Models.AdminArea.Venue;
+using TheWhiskyRealm.Core.Services;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers
 {
@@ -70,15 +72,57 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var model = await venueService.GetVenueByIdAsync(id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            model.Cities = await cityService.GetAllCitiesAsync();
+
+            return View(model);
         }
+
         [HttpPost]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(VenueFormViewModel model)
         {
-            return View();
+
+            if (model == null)
+            {
+                return BadRequest("Invalid request");
+            }
+
+            var venue = await venueService.GetVenueByIdAsync(model.Id);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            if (await cityService.CityExistAsync(model.CityId) == false)
+            {
+                return NotFound();
+            }
+
+            if (await venueService.VenueExistByNameAsync(model.Name, model.CityId,model.Id))
+            {
+                ModelState.AddModelError("Name", "There is already a Venue with this name in this city.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                model.Cities = await cityService.GetAllCitiesAsync();
+                return View(model);
+            }
+
+            await venueService.EditVenueAsync(model);
+
+            return RedirectToAction("Info", "Venue", new { model.Id });
         }
+
         [HttpGet]
         public IActionResult Delete()
         {

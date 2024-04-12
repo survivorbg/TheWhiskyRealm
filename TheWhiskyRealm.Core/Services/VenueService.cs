@@ -30,11 +30,38 @@ public class VenueService : IVenueService
         return venue.Id;
     }
 
+    public async Task EditVenueAsync(VenueFormViewModel model)
+    {
+        var venue = await repo.GetByIdAsync<Venue>(model.Id);
+        if (venue != null)
+        {
+            venue.Name = model.Name;
+            venue.CityId = model.CityId;
+            venue.Capacity = model.Capacity;
+            await repo.SaveChangesAsync();
+        }
+    }
+
     public async Task<int> GetTotalVenuesAsync()
     {
         return await repo
              .AllReadOnly<Venue>()
              .CountAsync();
+    }
+
+    public async Task<VenueFormViewModel?> GetVenueByIdAsync(int id)
+    {
+        return await repo
+            .All<Venue>()
+            .Where(v => v.Id == id)
+            .Select(v => new VenueFormViewModel
+            {
+                Capacity = v.Capacity,
+                CityId = v.CityId,
+                Id = v.Id,
+                Name = v.Name,
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<ICollection<VenueViewModel>> GetVenuesAsync()
