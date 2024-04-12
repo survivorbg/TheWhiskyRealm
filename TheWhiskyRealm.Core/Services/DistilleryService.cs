@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
-using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -15,6 +14,27 @@ public class DistilleryService : IDistilleryService
     public DistilleryService(IRepository repo)
     {
         this.repo = repo;
+    }
+
+    public async Task AddDistilleryAsync(DistilleryAddViewModel model)
+    {
+        var distillery = new Distillery();
+        if(model != null)
+        {
+            distillery.Name = model.Name;   
+            distillery.YearFounded = model.YearFounded;
+            distillery.RegionId = model.RegionId;
+            distillery.ImageUrl = model.ImageUrl;
+            await repo.AddAsync(distillery);
+            await repo.SaveChangesAsync();
+        }
+    }
+
+    public async Task<bool> DistilleryExistByName(string name)
+    {
+        return await repo
+            .AllReadOnly<Distillery>()
+            .AnyAsync(d =>d.Name.ToLower() == name.ToLower());
     }
 
     public async Task<bool> DistilleryExistsAsync(int id)

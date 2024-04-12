@@ -106,4 +106,17 @@ public class RegionService : IRegionService
             await repo.SaveChangesAsync();
         }
     }
+
+    public async Task<ICollection<RegionViewModel>> GetAllRegionsAsync()
+    {
+        return await repo
+            .AllReadOnly<Region>()
+            .OrderBy(r => r.CountryId)
+            .Select(r => new RegionViewModel
+            {
+                Id = r.Id,
+                Name = r.Name + ", " + r.Country.Name
+            })
+            .ToListAsync();
+    }
 }

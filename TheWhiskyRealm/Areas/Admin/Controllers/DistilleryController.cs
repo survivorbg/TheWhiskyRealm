@@ -8,11 +8,15 @@ public class DistilleryController : AdminBaseController
 {
     private readonly IDistilleryService distilleryService;
     private readonly IWhiskyService whiskyService;
+    private readonly IRegionService regionService;
 
-    public DistilleryController(IDistilleryService distilleryService, IWhiskyService whiskyService)
+    public DistilleryController(IDistilleryService distilleryService,
+        IWhiskyService whiskyService,
+        IRegionService regionService)
     {
         this.distilleryService = distilleryService;
         this.whiskyService = whiskyService;
+        this.regionService = regionService;
     }
 
     [HttpGet]
@@ -50,5 +54,31 @@ public class DistilleryController : AdminBaseController
         model.Whiskies = await whiskyService.GetWhiskiesByDistilleryIdAsync(id);
 
         return View(model);
+    }
+
+    public async Task<IActionResult> Add()
+    {
+        var model = new DistilleryAddViewModel();
+        model.Regions = await regionService.GetAllRegionsAsync();
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Add(DistilleryAddViewModel model)
+    {
+        if (await distilleryService.DistilleryExistByName(model.Name))
+        {
+            ModelState.AddModelError("Name", "There is already a distillery with that name.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.Regions = await regionService.GetAllRegionsAsync();
+            return View(model);
+        }
+
+        await distilleryService.AddDistilleryAsync(model);
+
+        return RedirectToAction("Index");
     }
 }
