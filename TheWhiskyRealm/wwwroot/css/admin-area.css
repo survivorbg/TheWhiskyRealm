@@ -123,6 +123,10 @@ nav.admin {
             border-left: 10px solid #f0776c;
         }
 
+        nav.admin li:nth-child(4) a {
+            border-left: 10px solid #3498db;
+        }
+
         nav.admin li:last-child a {
             border-left: 10px solid #1abc9c;
         }
@@ -153,6 +157,10 @@ nav.admin {
 
         nav.admin li:nth-child(3) a:after {
             background: #f0776c;
+        }
+
+        nav.admin li:nth-child(4) a:after {
+            background: #3498db;
         }
 
         nav.admin li:last-child a:after {
