@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.City;
-using TheWhiskyRealm.Core.Models.AdminArea.Region;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -38,11 +37,22 @@ public class CityService : ICityService
             .AnyAsync(r => r.Name == name && r.CountryId == countryId && r.Id != cityId);
     }
 
+    public async Task EditCityAsync(CityFormViewModel model)
+    {
+        var city = await repo.GetByIdAsync<City>(model.Id);
+        if (city != null)
+        {
+            city.Name = model.Name;
+            city.CountryId = (int)model.CountryId;
+            city.ZipCode = model.Zip;
+            await repo.SaveChangesAsync();
+        }
+    }
+
     public async Task<IEnumerable<CityViewModel>> GetAllCitiesAsync(int currentPage, int pageSize)
     {
         return await repo
            .AllReadOnly<City>()
-           .OrderBy(r => r.CountryId)
            .Skip((currentPage - 1) * pageSize)
            .Take(pageSize)
            .Select(c => new CityViewModel
@@ -53,6 +63,21 @@ public class CityService : ICityService
                Zip = c.ZipCode,
            })
            .ToListAsync();
+    }
+
+    public async Task<CityFormViewModel?> GetCityByIdAsync(int id)
+    {
+        return await repo
+            .All<City>()
+            .Where(c => c.Id == id)
+            .Select(c => new CityFormViewModel
+            {
+                Id = c.Id,
+                CountryId = c.CountryId,
+                Name = c.Name,
+                Zip = c.ZipCode
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<int> GetTotalCitiesAsync()

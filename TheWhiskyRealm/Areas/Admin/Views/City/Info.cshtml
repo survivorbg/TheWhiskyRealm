@@ -1,0 +1,52 @@
+﻿@model CityInfoViewModel
+
+<style>
+    .region-name {
+        font-weight:900;
+        text-decoration:underline;
+        font-style:italic;
+        color:black;
+    }
+</style>
+<h2>Venues in the City: <span class="region-name">@Model.Name</span> :</h2>
+
+
+@if (Model.Venues.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Capacity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Venues)
+            {
+                <tr>
+                    <td>
+                        @item.VenueId
+                    </td>
+                    <td>
+                        @item.VenueName
+                    </td>
+                    <td>
+                        @item.Capacity
+                    </td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Distillery" asp-action="Edit" asp-route-id="@item.VenueId" class="btn btn-primary">Edit</a>
+                        <a asp-area="Admin" asp-controller="Distillery" asp-action="Info" asp-route-id="@item.VenueName" class="btn btn-outline-secondary">Info</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>This region has no related data</p>
+}
+
+<a asp-area="Admin" asp-controller="City" asp-action="Index" class="btn btn-primary">Back</a>

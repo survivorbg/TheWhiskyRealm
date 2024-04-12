@@ -27,6 +27,20 @@ public class VenueService : IVenueService
             .ToListAsync();
     }
 
+    public async Task<ICollection<VenueViewModel>> GetVenuesByCityAsync(int cityId)
+    {
+        return await repo
+           .AllReadOnly<Venue>()
+           .Where(v=>v.CityId == cityId)
+           .Select(v => new VenueViewModel
+           {
+               VenueId = v.Id,
+               VenueName = v.Name,
+               Capacity = v.Capacity,
+           })
+           .ToListAsync();
+    }
+
     public async Task<bool> VenueExistAsync(int id)
     {
         return await repo

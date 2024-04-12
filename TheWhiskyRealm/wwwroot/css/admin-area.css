@@ -123,9 +123,9 @@ nav.admin {
             border-left: 10px solid #f0776c;
         }
 
-        /*nav.admin li:last-child a {
+        nav.admin li:last-child a {
             border-left: 10px solid #1abc9c;
-        }*/
+        }
 
         nav.admin li a:after {
             content: "";
@@ -155,6 +155,6 @@ nav.admin {
             background: #f0776c;
         }
 
-        /*nav.admin li:last-child a:after {
+        nav.admin li:last-child a:after {
             background: #1abc9c;
-        }*/
+        }
