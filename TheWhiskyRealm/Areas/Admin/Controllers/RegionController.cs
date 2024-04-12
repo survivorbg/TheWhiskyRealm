@@ -54,9 +54,9 @@ public class RegionController : AdminBaseController
             return View(model);
         }
 
-        await regionService.AddRegionAsync(model.Name,(int)model.CountryId);
+        var id = await regionService.AddRegionAsync(model.Name,(int)model.CountryId);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Info", "Region", new {id});
     }
 
     [HttpGet]
@@ -75,6 +75,7 @@ public class RegionController : AdminBaseController
         return View(model);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var model = await regionService.GetRegionByIdAsync(id);
@@ -109,7 +110,7 @@ public class RegionController : AdminBaseController
             return BadRequest();
         }
 
-        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, model.CountryId))
+        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, model.CountryId,model.Id))
         {
             ModelState.AddModelError("Name", "There is already a region with this name in this country.");
         }
@@ -122,7 +123,7 @@ public class RegionController : AdminBaseController
 
         await regionService.EditRegionAsync(model);
 
-        return RedirectToAction(nameof(Index)); //TODO Redirect to Region/Info/Id
+        return RedirectToAction("Info", "Region", new {id=model.Id}); 
     }
 
     [HttpGet]

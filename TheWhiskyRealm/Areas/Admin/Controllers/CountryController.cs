@@ -75,7 +75,7 @@ public class CountryController : AdminBaseController
             return NotFound();
         }
 
-        if (await countryService.CountryWithNameExistsAsync(model.Name))
+        if (await countryService.CountryWithNameExistsAsync(model.Name,model.Id))
         {
             ModelState.AddModelError("Name", "There is already a country with that name.");
             return View(model);

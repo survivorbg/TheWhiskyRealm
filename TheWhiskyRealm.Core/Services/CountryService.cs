@@ -32,11 +32,11 @@ public class CountryService : ICountryService
           .AnyAsync(c => c.Id == id);
     }
 
-    public async Task<bool> CountryWithNameExistsAsync(string countryName)
+    public async Task<bool> CountryWithNameExistsAsync(string countryName, int id = 0)
     {
         return await repo
             .AllReadOnly<Country>()
-            .AnyAsync(c => c.Name.ToLower() == countryName.ToLower());
+            .AnyAsync(c => c.Name.ToLower() == countryName.ToLower() && c.Id != id);
     }
 
     public async Task EditAsync(CountryViewModel model)

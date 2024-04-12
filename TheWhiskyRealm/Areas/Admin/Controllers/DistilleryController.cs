@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
+using TheWhiskyRealm.Core.Models.AdminArea.Region;
+using TheWhiskyRealm.Core.Services;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -56,15 +58,16 @@ public class DistilleryController : AdminBaseController
         return View(model);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Add()
     {
-        var model = new DistilleryAddViewModel();
+        var model = new DistilleryFormViewModel();
         model.Regions = await regionService.GetAllRegionsAsync();
         return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(DistilleryAddViewModel model)
+    public async Task<IActionResult> Add(DistilleryFormViewModel model)
     {
         if (await distilleryService.DistilleryExistByName(model.Name))
         {
@@ -77,8 +80,60 @@ public class DistilleryController : AdminBaseController
             return View(model);
         }
 
-        await distilleryService.AddDistilleryAsync(model);
+        var id = await distilleryService.AddDistilleryAsync(model);
 
-        return RedirectToAction("Index");
+        return RedirectToAction("Info", "Distillery", new {id});
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var model = await distilleryService.GetDistilleryByIdAsync(id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        model.Regions = await regionService.GetAllRegionsAsync();
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(DistilleryFormViewModel model)
+    {
+
+        if (model == null) 
+        {
+            return BadRequest("Invalid request");
+        }
+
+        var distillery = await distilleryService.GetDistilleryByIdAsync(model.Id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        if (await regionService.RegionExistsAsync(model.RegionId) == false)
+        {
+            return BadRequest();
+        }
+
+        if (await distilleryService.DistilleryExistByName(model.Name,model.Id))
+        {
+            ModelState.AddModelError("Name", "There is already a distillery with that name.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            model.Regions = await regionService.GetAllRegionsAsync();
+            return View(model);
+        }
+
+        await distilleryService.EditDistilleryAsync(model);
+
+        return RedirectToAction("Info", "Distillery", new { model.Id });
     }
 }

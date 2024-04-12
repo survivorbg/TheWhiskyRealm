@@ -15,7 +15,7 @@ public class RegionService : IRegionService
         this.repo = repo;
     }
 
-    public async Task AddRegionAsync(string name, int countryId)
+    public async Task<int> AddRegionAsync(string name, int countryId)
     {
         var region = new Region
         {
@@ -25,6 +25,7 @@ public class RegionService : IRegionService
 
         await repo.AddAsync(region);
         await repo.SaveChangesAsync();
+        return region.Id;
     }
 
     public async Task<ICollection<RegionCountryViewModel>> GetAllRegionsByCountryIdAsync(int countryId)
@@ -71,11 +72,11 @@ public class RegionService : IRegionService
             .AnyAsync(r => r.Id == id);
     }
 
-    public async Task<bool> RegionWithThisNameAndCountryExistsAsync(string name, int countryId)
+    public async Task<bool> RegionWithThisNameAndCountryExistsAsync(string name, int countryId,int regionId = 0)
     {
         return await repo
             .AllReadOnly<Region>()
-            .AnyAsync(r => r.Name == name && r.CountryId == countryId);
+            .AnyAsync(r => r.Name == name && r.CountryId == countryId && r.Id != regionId);
     }
 
     public async Task<EditRegionViewModel?> GetRegionByIdAsync(int id)

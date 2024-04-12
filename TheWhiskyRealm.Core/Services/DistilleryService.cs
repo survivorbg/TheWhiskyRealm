@@ -16,7 +16,7 @@ public class DistilleryService : IDistilleryService
         this.repo = repo;
     }
 
-    public async Task AddDistilleryAsync(DistilleryAddViewModel model)
+    public async Task<int> AddDistilleryAsync(DistilleryFormViewModel model)
     {
         var distillery = new Distillery();
         if(model != null)
@@ -28,13 +28,14 @@ public class DistilleryService : IDistilleryService
             await repo.AddAsync(distillery);
             await repo.SaveChangesAsync();
         }
+        return distillery.Id;
     }
 
-    public async Task<bool> DistilleryExistByName(string name)
+    public async Task<bool> DistilleryExistByName(string name, int id = 0)
     {
         return await repo
             .AllReadOnly<Distillery>()
-            .AnyAsync(d =>d.Name.ToLower() == name.ToLower());
+            .AnyAsync(d =>d.Name.ToLower() == name.ToLower() && d.Id != id);
     }
 
     public async Task<bool> DistilleryExistsAsync(int id)
@@ -42,6 +43,20 @@ public class DistilleryService : IDistilleryService
         return await repo
             .AllReadOnly<Distillery>()
             .AnyAsync(d => d.Id == id);
+    }
+
+    public async Task EditDistilleryAsync(DistilleryFormViewModel model)
+    {
+        var distillery = await repo.GetByIdAsync<Distillery>(model.Id);
+        if(distillery != null)
+        {
+            distillery.YearFounded = model.YearFounded;
+            distillery .RegionId = model.RegionId;
+            distillery .ImageUrl = model.ImageUrl;
+            distillery.Name = model.Name;
+
+            await repo.SaveChangesAsync();
+        }
     }
 
     public async Task<IEnumerable<DistilleryAddWhiskyViewModel>> GetAllDistilleriesAsync()
@@ -115,6 +130,22 @@ public class DistilleryService : IDistilleryService
                 YearFounded = d.YearFounded
             })
             .ToListAsync();
+    }
+
+    public async Task<DistilleryFormViewModel?> GetDistilleryByIdAsync(int id)
+    {
+        return await repo
+            .All<Distillery>()
+            .Where(d => d.Id == id)
+            .Select(d => new DistilleryFormViewModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                ImageUrl = d.ImageUrl,
+                RegionId = d.RegionId,
+                YearFounded = d.YearFounded
+            })
+            .FirstOrDefaultAsync();
     }
 
     public async Task<DistilleryInfoModel?> GetDistilleryInfoAsync(int id)

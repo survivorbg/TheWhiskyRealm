@@ -11,6 +11,8 @@ public interface IDistilleryService
     Task<bool> DistilleryExistsAsync(int id);
     Task<int> GetTotalDistilleriesAsync();
     Task<DistilleryInfoModel?> GetDistilleryInfoAsync(int id);
-    Task<bool> DistilleryExistByName(string name);
-    Task AddDistilleryAsync(DistilleryAddViewModel model);
+    Task<bool> DistilleryExistByName(string name, int id = 0);
+    Task<int> AddDistilleryAsync(DistilleryFormViewModel model);
+    Task<DistilleryFormViewModel?> GetDistilleryByIdAsync(int id);
+    Task EditDistilleryAsync(DistilleryFormViewModel model);
 }
