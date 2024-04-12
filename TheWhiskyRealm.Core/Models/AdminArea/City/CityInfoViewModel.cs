@@ -1,4 +1,4 @@
-﻿using TheWhiskyRealm.Core.Models.Venue;
+﻿using TheWhiskyRealm.Core.Models.AdminArea.Venue;
 
 namespace TheWhiskyRealm.Core.Models.AdminArea.City;
 

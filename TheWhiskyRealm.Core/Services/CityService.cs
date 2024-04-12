@@ -65,6 +65,20 @@ public class CityService : ICityService
            .ToListAsync();
     }
 
+    public async Task<IEnumerable<CityViewModel>> GetAllCitiesAsync()
+    {
+        return await repo
+          .AllReadOnly<City>()
+          .Select(c => new CityViewModel
+          {
+              Id = c.Id,
+              Name = c.Name,
+              Country = c.Country.Name,
+              Zip = c.ZipCode,
+          })
+          .ToListAsync();
+    }
+
     public async Task<CityFormViewModel?> GetCityByIdAsync(int id)
     {
         return await repo

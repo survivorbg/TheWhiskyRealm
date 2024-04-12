@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using TheWhiskyRealm.Core.Contracts;
-using TheWhiskyRealm.Core.Models.Venue;
+using TheWhiskyRealm.Core.Models.AdminArea.Venue;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -15,6 +16,27 @@ public class VenueService : IVenueService
         this.repo = repo;
     }
 
+    public async Task<int> AddVenueAsync(VenueFormViewModel model)
+    {
+        var venue = new Venue
+        {
+            Capacity = model.Capacity,
+            CityId = model.CityId,
+            Name = model.Name,
+        };
+
+        await repo.AddAsync(venue);
+        await repo.SaveChangesAsync();
+        return venue.Id;
+    }
+
+    public async Task<int> GetTotalVenuesAsync()
+    {
+        return await repo
+             .AllReadOnly<Venue>()
+             .CountAsync();
+    }
+
     public async Task<ICollection<VenueViewModel>> GetVenuesAsync()
     {
         return await repo
@@ -27,11 +49,26 @@ public class VenueService : IVenueService
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<VenueViewModel>> GetVenuesAsync(int currentPage, int pageSize)
+    {
+        return await repo
+           .AllReadOnly<Venue>()
+           .Skip((currentPage - 1) * pageSize)
+           .Take(pageSize)
+           .Select(v => new VenueViewModel
+           {
+               VenueId = v.Id,
+               Capacity = v.Capacity,
+               VenueName = v.Name
+           })
+           .ToListAsync();
+    }
+
     public async Task<ICollection<VenueViewModel>> GetVenuesByCityAsync(int cityId)
     {
         return await repo
            .AllReadOnly<Venue>()
-           .Where(v=>v.CityId == cityId)
+           .Where(v => v.CityId == cityId)
            .Select(v => new VenueViewModel
            {
                VenueId = v.Id,
@@ -46,5 +83,12 @@ public class VenueService : IVenueService
         return await repo
             .AllReadOnly<Venue>()
             .AnyAsync(v => v.Id == id);
+    }
+
+    public async Task<bool> VenueExistByNameAsync(string name, int cityId, int venueId = 0)
+    {
+        return await repo
+            .AllReadOnly<Venue>()
+            .AnyAsync(v => v.Name == name && v.CityId == cityId && v.Id != venueId);
     }
 }

@@ -1,0 +1,44 @@
+﻿@model VenueIndexViewModel
+
+<a asp-area="Admin" asp-controller="Venue" asp-action="Add" class="btn btn-primary">Add new Venue</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Capacity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Venues)
+        {
+            <tr>
+                <td>
+                    @item.VenueId
+                </td>
+                <td>
+                    @item.VenueName
+                </td>
+                <td>
+                    @item.Capacity
+                </td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Venue" asp-action="Edit" asp-route-id="@item.VenueId" class="btn btn-primary">Edit</a>
+                    <a asp-area="Admin" asp-controller="Venue" asp-action="Info" asp-route-id="@item.VenueId" class="btn btn-outline-secondary">Info</a>
+                    <a asp-area="Admin" asp-controller="Venue" asp-action="Delete" asp-route-id="@item.VenueId" class="btn btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Page @Model.CurrentPage of @Model.TotalPages
+    <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)" class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : "")">Previous</a>
+    <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)" class="btn btn-primary @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">Next</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
