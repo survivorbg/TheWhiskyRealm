@@ -1,0 +1,64 @@
+﻿@model VenueInfoViewModel
+
+<h2>Events in: <strong>@Model.VenueName</strong></h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3></h3>
+        @if (Model.PendingEvents.Any() || Model.PastEvents.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Price</th>
+                        <th>Available Spots</th>
+                        <th>Joined Users</th>
+                        <th>Organiser Id</th>
+                        <th>Status</th>
+                        <th></th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PendingEvents)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></td> 
+                            <td>@item.StartDate.ToString("g")</td>
+                            <td>@item.EndDate.ToString("g")</td>
+                            <td>@item.Price</td>
+                            <td>@item.AvailableSpots</td>
+                            <td>@item.JoinedUsers</td>
+                            <td>@item.OrganiserId</td>
+                            <td>Pending</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model.PastEvents)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td><a asp-area="" asp-controller="Event" asp-action="Details" asp-route-id="@item.Id">@item.Title</a></td>
+                            <td>@item.StartDate.ToString("g")</td>
+                            <td>@item.EndDate.ToString("g")</td>
+                            <td>@item.Price</td>
+                            <td>@item.AvailableSpots</td>
+                            <td>@item.JoinedUsers</td>
+                            <td>@item.OrganiserId</td>
+                            <td>Past</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No events in this venue</p>
+        }
+    </div>
+</div>
+
+<a asp-action="Index" asp-controller="Venue" class="btn btn-primary">Back to Venues</a>

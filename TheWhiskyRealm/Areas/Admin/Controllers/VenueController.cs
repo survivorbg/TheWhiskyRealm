@@ -10,11 +10,13 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
     {
         private readonly IVenueService venueService;
         private readonly ICityService cityService;
+        private readonly IEventService eventService;
 
-        public VenueController(IVenueService venueService, ICityService cityService)
+        public VenueController(IVenueService venueService, ICityService cityService,IEventService eventService)
         {
             this.venueService = venueService;
             this.cityService = cityService;
+            this.eventService = eventService;
         }
 
         [HttpGet]
@@ -66,11 +68,27 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
             return RedirectToAction("Info", "Venue", new { id });
         }
 
-        [HttpGet]
-        public IActionResult Info()
+        public async Task<IActionResult> Info(int id)
         {
-            return View();
+            var venue = await venueService.GetVenueByIdAsync(id);
+            if (venue == null)
+            {
+                return NotFound();
+            }
+
+            var pendingEvents = await eventService.GetAllEventsInVenueAsync(id);
+            var pastEvents = await eventService.GetAllPastEventsInVenueAsync(id);
+
+            var model = new VenueInfoViewModel
+            {
+                VenueName = venue.Name,
+                PastEvents = pastEvents,
+                PendingEvents = pendingEvents
+            };
+
+            return View(model);
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {

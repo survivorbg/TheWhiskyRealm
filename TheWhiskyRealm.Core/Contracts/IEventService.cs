@@ -1,11 +1,14 @@
-﻿using TheWhiskyRealm.Core.Models.Event;
+﻿using TheWhiskyRealm.Core.Models.AdminArea.Venue;
+using TheWhiskyRealm.Core.Models.Event;
 
 namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IEventService
 {
     Task<ICollection<AllEventViewModel>> GetAllEventsAsync();
+    Task<ICollection<EventViewModel>> GetAllEventsInVenueAsync(int venueId);
     Task<ICollection<AllEventViewModel>> GetAllPastEventsAsync();
+    Task<ICollection<EventViewModel>> GetAllPastEventsInVenueAsync(int venueId);
     Task<EventDetailsViewModel?> GetEventAsync(int id);
     Task<string> GetOrganiserIdAsync(int id);
     Task<EventEditViewModel?> GetEventForEditAsync(int id);

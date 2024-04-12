@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TheWhiskyRealm.Core.Contracts;
+using TheWhiskyRealm.Core.Models.AdminArea.Venue;
 using TheWhiskyRealm.Core.Models.Event;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
@@ -90,6 +91,26 @@ public class EventService : IEventService
             .ToListAsync();
     }
 
+    public async Task<ICollection<EventViewModel>> GetAllEventsInVenueAsync(int venueId)
+    {
+        return await repo
+           .AllReadOnly<Event>()
+           .Where(e=>e.VenueId == venueId)
+           .Where(e => e.StartDate > DateTime.Now)
+           .Select(e => new EventViewModel
+           {
+               Id = e.Id,
+               Price = e.Price,
+               StartDate = e.StartDate,
+               Title = e.Title,
+               AvailableSpots = e.AvailableSpots,
+               EndDate = e.EndDate,
+               OrganiserId = e.OrganiserId,
+               JoinedUsers = e.UsersEvents.Count()
+           })
+           .ToListAsync();
+    }
+
     public async Task<ICollection<AllEventViewModel>> GetAllPastEventsAsync()
     {
         return await repo
@@ -103,6 +124,26 @@ public class EventService : IEventService
                 Title = e.Title,
                 VenueName = e.Venue.Name,
                 AvailableSpots = e.AvailableSpots
+            })
+            .ToListAsync();
+    }
+
+    public async Task<ICollection<EventViewModel>> GetAllPastEventsInVenueAsync(int venueId)
+    {
+        return await repo
+            .AllReadOnly<Event>()
+            .Where(e=>e.VenueId == venueId)
+            .Where(e => e.StartDate < DateTime.Now)
+            .Select(e => new EventViewModel
+            {
+                Id = e.Id,
+                Price = e.Price,
+                StartDate = e.StartDate,
+                Title = e.Title,
+                AvailableSpots = e.AvailableSpots,
+                EndDate = e.EndDate,
+                OrganiserId = e.OrganiserId,
+                JoinedUsers = e.UsersEvents.Count()
             })
             .ToListAsync();
     }
