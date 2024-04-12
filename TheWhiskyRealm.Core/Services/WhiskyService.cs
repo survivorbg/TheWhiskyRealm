@@ -207,21 +207,15 @@ public class WhiskyService : IWhiskyService
             case "oldest":
                 whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Age);
                 break;
-            case "youngest":
-                whiskiesQuery = whiskiesQuery.OrderBy(w => w.Age);
-                break;
             case "mostReviewed":
                 whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Reviews);
                 break;
             case "abv":
                 whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.AlcoholPercentage);
                 break;
-            //case "highestRating":
-            //    whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.AverageRating);
-            //    break;
-            //case "lowestRating":
-            //    whiskiesQuery = whiskiesQuery.OrderBy(w => w.AverageRating);
-            //    break;
+            case "type":
+                whiskiesQuery = whiskiesQuery.OrderBy(w => w.WhiskyType);
+                break;
             default:
                 whiskiesQuery = whiskiesQuery.OrderByDescending(w => w.Id);
                 break;
