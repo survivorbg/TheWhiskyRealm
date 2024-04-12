@@ -154,7 +154,7 @@ public class WhiskyService : IWhiskyService
     {
         return await repo
             .AllReadOnly<UserWhisky>()
-            .AnyAsync(uw=> uw.User.Id == userId && uw.Whisky.Id == whiskyId);
+            .AnyAsync(uw=> uw.UserId == userId && uw.WhiskyId == whiskyId);
     }
 
     public async Task AddToFavouritesAsync(string userId, int whiskyId)
