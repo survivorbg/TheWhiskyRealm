@@ -30,6 +30,11 @@
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="ImageURL"></label>
+                <input asp-for="ImageURL"class="form-control" placeholder="www.example.com/image-url..."></textarea>
+                <span asp-validation-for="ImageURL" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="DistilleryId"></label>
                 <select asp-for="DistilleryId" class="form-control">
                     <optgroup label="Scotland">

@@ -32,6 +32,12 @@
     </div>
 
     <div class="form-group">
+        <label asp-for="ImageURL"></label>
+        <input asp-for="ImageURL" class="form-control" />
+        <span asp-validation-for="ImageURL" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
         <label asp-for="DistilleryId"></label>
         <select asp-for="DistilleryId" class="form-control">
             <option value="">-- Select Distillery --</option>

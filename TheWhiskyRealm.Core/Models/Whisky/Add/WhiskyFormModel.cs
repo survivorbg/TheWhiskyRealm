@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using static TheWhiskyRealm.Core.Constants.MessageConstants;
 using static TheWhiskyRealm.Infrastructure.Constants.WhiskyDataConstants;
 
@@ -21,6 +22,10 @@ public class WhiskyFormModel
     [Required(ErrorMessage = RequiredMessage)]
     [StringLength(WhiskyMaxDescLength, MinimumLength = WhiskyMinDescLength, ErrorMessage = LengthMessage)]
     public string Description { get; set; } = string.Empty;
+
+    [Display(Name = "Image URL")]
+    [Required(ErrorMessage = RequiredMessage)]
+    public string ImageURL { get; set; } = string.Empty;
 
     [Display(Name = "Distillery")]
     [Required(ErrorMessage = RequiredMessage)]

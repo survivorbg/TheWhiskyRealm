@@ -100,7 +100,8 @@ public class WhiskyService : IWhiskyService
                 Description = model.Description,
                 DistilleryId = model.DistilleryId,
                 WhiskyTypeId = model.WhiskyTypeId,
-                Name = model.Name
+                Name = model.Name,
+                ImageURL = model.ImageURL
             };
             await repo.AddAsync(whisky);
             await repo.SaveChangesAsync();
@@ -120,6 +121,7 @@ public class WhiskyService : IWhiskyService
                 Description = w.Description,
                 WhiskyTypeId = w.WhiskyType.Id,
                 DistilleryId = w.Distillery.Id,
+                ImageURL = w.ImageURL
             })
             .FirstAsync();
     }
@@ -136,6 +138,7 @@ public class WhiskyService : IWhiskyService
             whisky.AlcoholPercentage = model.AlcoholPercentage;
             whisky.Description = model.Description;
             whisky.DistilleryId = model.DistilleryId;
+            whisky.ImageURL = model.ImageURL;
         }
 
         await repo.SaveChangesAsync();
