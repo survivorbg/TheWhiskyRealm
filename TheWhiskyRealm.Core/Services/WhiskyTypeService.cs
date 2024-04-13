@@ -27,10 +27,13 @@ public class WhiskyTypeService : IWhiskyTypeService
             .ToListAsync();
     }
 
-    public async Task<string> GetWhiskyTypeNameAsync(int id)
+    public async Task<string?> GetWhiskyTypeNameAsync(int id)
     {
         var whiskyType = await repo.GetByIdAsync<WhiskyType>(id);
-
+        if(whiskyType == null)
+        {
+            return null;
+        }
         return whiskyType.Name;
     }
 
