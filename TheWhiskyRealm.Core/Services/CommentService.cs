@@ -17,7 +17,7 @@ public class CommentService : ICommentService
 
     public async Task AddCommentAsync(CommentAddViewModel model, string userId)
     {
-        if (model != null)
+        if (model != null && userId != null)
         {
             Comment comment = new Comment()
             {
