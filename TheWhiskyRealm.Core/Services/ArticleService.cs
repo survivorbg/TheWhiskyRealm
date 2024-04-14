@@ -56,7 +56,7 @@ public class ArticleService : IArticleService
     {
         var article = await repo.GetByIdAsync<Article>(model.Id);
 
-        if (model != null)
+        if (article != null)
         {
             article.Title = model.Title;
             article.Content = model.Content;
