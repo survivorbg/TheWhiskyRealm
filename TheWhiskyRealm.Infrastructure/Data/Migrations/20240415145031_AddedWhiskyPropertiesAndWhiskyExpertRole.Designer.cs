@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TheWhiskyRealm.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    partial class TheWhiskyRealmDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240415145031_AddedWhiskyPropertiesAndWhiskyExpertRole")]
+    partial class AddedWhiskyPropertiesAndWhiskyExpertRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,16 +281,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dcc71517-4644-45b8-b1db-a539dbbbd98d",
+                            ConcurrencyStamp = "c9d86cc2-b62c-4b3e-b66d-0ecf1530ad72",
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBsWZa2UAO9zPfnaIcXDixxS46FJbEO87H0mvwht/d+j3pGVdj5x7ODSrAzzmYj28g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFUznCP05bwomPJq6fcBGnenFvGBkNDikl2pJQ3eKOSG6+4rPRdYS92rnTP+o/eymA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e9480d95-1164-4a9e-af9d-1d601a58dcdf",
+                            SecurityStamp = "2fedde63-3150-45fb-96e5-8f74357bb0cd",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -296,16 +298,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d412a35d-8d70-4526-b808-3df905f84934",
+                            ConcurrencyStamp = "cb99604f-da86-4cd9-8ab8-f91e171ce8ef",
                             DateOfBirth = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GMAIL.COM",
                             NormalizedUserName = "TEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC3dGwG5pQUDAyCXIjeWb9L5+taQZFq4Loek97RGZZ44bcAjXieY6MhywYMgZobnqw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDw1NU7rkE7+JmGnTqqJmTT4yr/oI3QkgpdsyCpMARS1cmZmKbKympEWn40qzpKLHw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8b49056-4a0f-4460-b673-7a925e5e0ffd",
+                            SecurityStamp = "9e54ed64-92c5-40ae-9537-05db8f129dd5",
                             TwoFactorEnabled = false,
                             UserName = "test@gmail.com"
                         },
@@ -313,16 +315,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "079198b8-a224-45a0-81f7-acae60ac9006",
+                            ConcurrencyStamp = "ec1260a5-ccc1-4b17-8cef-809545d7a783",
                             DateOfBirth = new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sober@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "SOBER@GMAIL.COM",
                             NormalizedUserName = "SOBER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBpJHgap3DXKLDZYV74rwnkjnPyQZ3ZwNfFhOPYiY0qu0/RoWYpbaJqV5aOgugHEGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG+oPnAKKBhHluLOPZs+lS9PGDgdHhgnX6qaG5pc8hJvLNBKJdxFaxuSS8MzIZ8oAA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b5fea60-5978-44bd-acf6-bb5a2b30a5a3",
+                            SecurityStamp = "8f543c9c-f183-49d7-ad79-46e6be8c681c",
                             TwoFactorEnabled = false,
                             UserName = "sober@gmail.com"
                         },
@@ -330,16 +332,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "183397d3-3921-4a64-9c04-38d5de3ac927",
+                            ConcurrencyStamp = "bacdc739-c7ef-484e-87dc-156d2163ef22",
                             DateOfBirth = new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noToAlcohol@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "NOTOALCOHOL@GMAIL.COM",
                             NormalizedUserName = "NOTOALCOHOL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJnQApeKdrcMewe9gMJRox0bgvYH+50mksTTO4gEzxuK1GAQ6CBwwa3xHy23pnLAxw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI9jK9s2bJyHs3S/hXZ8uQ5FryEDl+ECYpZrDPvw+gZdYJUKIvEigHqieaeG7DAixw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c7f129b-0246-486b-8208-536c086951b4",
+                            SecurityStamp = "c9bae462-6b44-4195-8f7a-dc052aeab86a",
                             TwoFactorEnabled = false,
                             UserName = "noToAlcohol@gmail.com"
                         });
@@ -419,7 +421,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                             Content = "I recently popped by Auchentoshan distillery whilst I was passing through the region. It’s a charming if curious place. Charming because it is a white-washed, manicured lawn, well-kept picture book of a distillery. Curious because such a picturesque place is wedged within the confines of a housing estate in Clydebank, on the outskirts of Glasgow. I’m sure back in 1825, when this Lowland distillery was founded by Irish refugees, there weren’t too many houses around and the location seemed like a good idea at the time.\r\n\r\nAuchentoshan Distillery\r\n\r\nWhilst I was there I had a look around – it’s got a nice distillery shop, with a decent tour to cater for the many passing tourists, and that tour finishes up in a stylish bar. As I was driving there was no sampling involved, but I did come away with a couple of dram samples to try later. One of those was a distillery-only wine cask Auchentoshan, which was far more interesting. In fact, if you ever head there then I reckon the most interesting thing you’ll find will be whatever special cask they have lined up, and which you can’t get anywhere else.\r\n\r\nI also came away with a sample of the Auchentoshan Three Wood, which was one of the core releases I hadn’t actually tried. Now, most of Auchentoshan’s core range is incredibly dull so I was prepared to fall asleep whilst drinking it. The Auchentoshan Three Wood is bottled at 43% ABV after being matured in a mixture of Pedro Ximénez sherry casks, bourbon casks and Oloroso sherry casks.\r\n\r\nAuchentoshan Three Wood\r\nAuchentoshan Three Wood Tasting Notes\r\n\r\nColour: tawny.\r\n\r\nOn the nose: very handsome aromas. Turkish delight. Sauternes or fino sherry. Maple syrup on pancakes. Raisins, figs, sultanas. Touch of cinnamon. Stem ginger. Mixed peel. Pastry – almost a mince-pie quality. Marzipan.\r\n\r\nIn the mouth: much of the same as the nose, with plenty of the dried fruits and maple syrup. There’s a bit of wood bitterness that doesn’t exactly balance the sweeter notes, but certainly contrasts with it. A bit of stewed apple, barley sugar. Cinnamon. Warming ginger and pepper. Grassy. Blood oranges, and quite tart at times. Plums. Chocolate. Nice, but not complex.\r\nConclusions\r\n\r\nThe underlying spirit doesn’t quite cut the mustard for the strong sherry influence. It’s not dense enough, in my books, to really make the most of the more robust sherry cask flavours, but it does at least make Auchentoshan Three Wood perhaps the most interesting of a dull core range. At £45 a bottle, I can imagine this being a very pleasant to have on the shelf as an everyday drinker.",
                             DateCreated = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ImageUrl = "https://www.bourbonbanter.com/content/images/wp-content/uploads/2019/03/auchentoshan-3-wood-single-malt-scotch-whisky-review-header.jpg",
-                            PublisherUserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+                            PublisherUserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
                             Title = "Review: Auchentoshan Three Wood",
                             Type = 3
                         });

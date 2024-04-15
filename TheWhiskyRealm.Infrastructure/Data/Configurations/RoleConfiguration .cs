@@ -31,6 +31,14 @@ public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole>
             ConcurrencyStamp = "1c72eeac-aa45-4a8e-8606-6bbd1dca9a73"
         });
 
+        roles.Add(new IdentityRole()
+        {
+            Name = "WhiskyExpert",
+            NormalizedName = "WHISKYEXPERT",
+            Id = "77af610e-3202-4bea-8d5c-c20c07f7effe",
+            ConcurrencyStamp = "3882b86e-4ce3-49e6-83a1-a0294c57a8ff"
+        });
+
         return roles.ToArray();
     }
 }

@@ -47,7 +47,7 @@ namespace TheWhiskyRealm.Infrastructure.Data.Configurations
                 ImageUrl = "https://www.bourbonbanter.com/content/images/wp-content/uploads/2019/03/auchentoshan-3-wood-single-malt-scotch-whisky-review-header.jpg",
                 DateCreated = new DateTime(2024, 4, 1),
                 Type = ArticleType.ProffesionalReview,
-                PublisherUserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
+                PublisherUserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442"
             });
 
             return articles.ToArray();

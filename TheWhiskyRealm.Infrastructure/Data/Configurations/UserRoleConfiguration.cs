@@ -23,13 +23,13 @@ public class UserRoleConfiguration : IEntityTypeConfiguration<IdentityUserRole<s
 
         roles.Add(new IdentityUserRole<string>
         {
-            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
-            RoleId = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6"
+            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+            RoleId = "77af610e-3202-4bea-8d5c-c20c07f7effe"
         });
 
         roles.Add(new IdentityUserRole<string>
         {
-            UserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
             RoleId = "dc3cf4ec-f90c-4915-b749-4ab01863fdf6"
         });
 
