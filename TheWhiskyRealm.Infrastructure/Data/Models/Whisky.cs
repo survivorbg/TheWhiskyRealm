@@ -57,6 +57,19 @@ public class Whisky
     public string ImageURL { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the state of the whisky.
+    /// </summary>
+    [Required]
+    [Comment("The state of the whisky.")]
+    public bool isApproved { get; set; } 
+
+    /// <summary>
+    /// Gets or sets the Id of the user who published the whisky, if not added by Administrator.
+    /// </summary>
+    [Comment("The Id of the user who published the whisky, if not added by Administrator.")]
+    public string? PublishedBy { get; set; }
+
+    /// <summary>
     /// Gets or sets the identifier of the distillery that produced the whisky.
     /// </summary>
     [Required]
