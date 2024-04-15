@@ -159,7 +159,6 @@ public class EventService : IEventService
                 Price = e.Price,
                 AvailableSpots = e.Venue.Capacity,
                 Description = e.Description,
-                //DurationInHours = e.DurationInHours,
                 EndDate = e.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 OrganiserName = e.Organiser.UserName,
                 StartDate = e.StartDate.ToString("hh:mm dddd, dd MMMM yyyy"),
@@ -177,7 +176,6 @@ public class EventService : IEventService
             .Select(e => new EventEditViewModel()
             {
                 Description = e.Description,
-                //DurationInHours = e.DurationInHours,
                 EndDate = e.EndDate.ToString("hh:mm dd.MM.yyyy"),
                 StartDate = e.StartDate.ToString("hh:mm dd.MM.yyyy"),
                 Id = e.Id,
@@ -206,9 +204,6 @@ public class EventService : IEventService
                 VenueName = e.Venue.Name
             })
             .ToListAsync();
-
-
-
     }
 
     public async Task<string> GetOrganiserIdAsync(int id)
@@ -271,17 +266,16 @@ public class EventService : IEventService
 
     public async Task JoinEventAsync(int id, string userId)
     {
-        var userEvent = new UserEvent
-        {
-            UserId = userId,
-            EventId = id
-        };
-
-        await repo.AddAsync(userEvent);
-
         var ev = await repo.GetByIdAsync<Event>(id);
-        if (ev != null)
+        if (ev != null && ev.AvailableSpots > 0)
         {
+            var userEvent = new UserEvent
+            {
+                UserId = userId,
+                EventId = id
+            };
+
+            await repo.AddAsync(userEvent);
             ev.AvailableSpots -= 1;
         }
 
