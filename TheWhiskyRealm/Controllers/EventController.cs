@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
@@ -44,6 +45,8 @@ public class EventController : BaseController
 
         return View(model);
     }
+
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -53,7 +56,7 @@ public class EventController : BaseController
             return NotFound();
         }
 
-        if(User.Id() != await eventService.GetOrganiserIdAsync(id))
+        if(User.Id() != await eventService.GetOrganiserIdAsync(id) && !User.IsAdmin())
         {
             return Unauthorized();
         }
@@ -69,6 +72,7 @@ public class EventController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Edit(EventEditViewModel model)
     {
@@ -83,43 +87,19 @@ public class EventController : BaseController
             return BadRequest();
         }
 
-        if (User.Id() != await eventService.GetOrganiserIdAsync(model.Id))
+        if (User.Id() != await eventService.GetOrganiserIdAsync(model.Id) && !User.IsAdmin())
         {
             return Unauthorized();
         }
 
-        DateTime startDate = DateTime.Now;
-
-        if (!DateTime.TryParseExact(
-           model.StartDate,
-           "hh:mm dd.MM.yyyy",
-           CultureInfo.InvariantCulture,
-           DateTimeStyles.None,
-           out startDate))
-        {
-            ModelState.AddModelError(nameof(model.StartDate), $"Invalid date! Format must be {"hh:mm dd.MM.yyyy"}");
-        }
-
-        DateTime endDate = DateTime.Now;
-
-        if (!DateTime.TryParseExact(
-           model.EndDate,
-           "hh:mm dd.MM.yyyy",
-           CultureInfo.InvariantCulture,
-           DateTimeStyles.None,
-           out endDate))
-        {
-            ModelState.AddModelError(nameof(model.EndDate), $"Invalid date! Format must be {"hh:mm dd.MM.yyyy"}");
-        }
-
-        if (startDate >= endDate)
+        if ( model.StartDate >= model.EndDate)
         {
             ModelState.AddModelError(nameof(model.EndDate), "End date must be after start date.");
         }
 
-        if (startDate <= DateTime.Now.AddDays(1))
+        if (model.StartDate <= DateTime.Now.AddDays(1))
         {
-            ModelState.AddModelError((model.StartDate), "The event must start atleast one day from now.");
+            ModelState.AddModelError(nameof(model.StartDate), "The event must start atleast one day from now.");
         }
 
         if (await venueService.VenueExistAsync(model.VenueId) == false)
@@ -133,11 +113,12 @@ public class EventController : BaseController
             return View(model);
         }
 
-        await eventService.EditEventAsync(model,startDate,endDate);
+        await eventService.EditEventAsync(model);
 
         return RedirectToAction("Details", new {id=model.Id});
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Add()
     {
@@ -148,41 +129,16 @@ public class EventController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Add(EventAddViewModel model)
     {
-        DateTime startDate = DateTime.Now;
-
-        if (!DateTime.TryParseExact(
-           model.StartDate,
-           "hh:mm dd.MM.yyyy",
-           CultureInfo.InvariantCulture,
-           DateTimeStyles.None,
-           out startDate))
-        {
-            ModelState.AddModelError(nameof(model.StartDate), $"Invalid date! Format must be {"hh:mm dd.MM.yyyy"}");
-        }
-
-        DateTime endDate = DateTime.Now;
-
-        if (!DateTime.TryParseExact(
-           model.EndDate,
-           "hh:mm dd.MM.yyyy",
-           CultureInfo.InvariantCulture,
-           DateTimeStyles.None,
-           out endDate))
-        {
-            ModelState.AddModelError(nameof(model.EndDate), $"Invalid date! Format must be {"hh:mm dd.MM.yyyy"}");
-            model!.Venues = await venueService.GetVenuesAsync();
-            return View(model);
-        }
-
-        if (startDate >= endDate)
+        if (model.StartDate >= model.EndDate)
         {
             ModelState.AddModelError(nameof(model.EndDate), "End date must be after start date.");
         }
 
-        if (startDate <= DateTime.Now.AddDays(1))
+        if (model.StartDate <= DateTime.Now.AddDays(1))
         {
             ModelState.AddModelError(nameof(model.StartDate), "The event must start atleast one day from now.");
         }
@@ -199,10 +155,12 @@ public class EventController : BaseController
         }
 
         var userId = User.Id();
-        await eventService.AddEventAsync(model, startDate, endDate, userId);
+        await eventService.AddEventAsync(model, userId);
 
         return RedirectToAction("Index");
     }
+
+    [Authorize(Roles = "WhiskyExpert, User")]
     [HttpPost]
     public async Task<IActionResult> Join(int id)
     {
@@ -231,6 +189,8 @@ public class EventController : BaseController
 
         return RedirectToAction("MyEvents"); 
     }
+
+    [Authorize(Roles = "WhiskyExpert, User")]
     [HttpPost]
     public async Task<IActionResult> Leave(int id)
     {
@@ -260,6 +220,7 @@ public class EventController : BaseController
         return RedirectToAction("MyEvents");
     }
 
+
     [HttpGet]
     public async Task<IActionResult> MyEvents()
     {
@@ -270,6 +231,7 @@ public class EventController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> OrganisedEvents()
     {
@@ -279,6 +241,7 @@ public class EventController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     public async Task<IActionResult> Delete(int id)
     {
         var ev = await eventService.GetEventAsync(id);

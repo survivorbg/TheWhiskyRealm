@@ -20,15 +20,17 @@ public class EventEditViewModel
 
     [Display(Name = "Start Date")]
     [DataType(DataType.DateTime)]
-    [DisplayFormat(DataFormatString = "hh:mm dd.MM.yyyy", ApplyFormatInEditMode = true)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = RequiredMessage)]
-    public string StartDate { get; set; } = string.Empty;
+    public DateTime StartDate { get; set; }
 
     [Display(Name = "End Date")]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = RequiredMessage)]
-    public string EndDate { get; set; } = string.Empty;
+    public DateTime EndDate { get; set; }
 
-    
+
     [Range(EventMinPrice, EventMaxPrice, ErrorMessage = ValueMessage)]
     public decimal? Price { get; set; }
 

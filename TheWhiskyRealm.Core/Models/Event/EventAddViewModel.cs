@@ -16,17 +16,22 @@ public class EventAddViewModel
     public string Description { get; set; } = string.Empty;
 
     [Display(Name = "Start Date")]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = RequiredMessage)]
-    public string StartDate { get; set; } = string.Empty;
+    public DateTime StartDate { get; set; }
 
     [Display(Name = "End Date")]
+    [DataType(DataType.DateTime)]
+    [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = RequiredMessage)]
-    public string EndDate { get; set; } = string.Empty;
+    public DateTime EndDate { get; set; }
 
 
     [Range(EventMinPrice, EventMaxPrice, ErrorMessage = ValueMessage)]
     public decimal? Price { get; set; }
 
+    [Display(Name = "Venue")]
     [Required]
     public int VenueId { get; set; }
 

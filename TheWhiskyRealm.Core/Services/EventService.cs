@@ -16,17 +16,17 @@ public class EventService : IEventService
         this.repo = repo;
     }
 
-    public async Task AddEventAsync(EventAddViewModel model, DateTime startDate, DateTime endDate, string userId)
+    public async Task AddEventAsync(EventAddViewModel model, string userId)
     {
         var venue = await repo.GetByIdAsync<Venue>(model.VenueId);
 
         var ev = new Event
         {
             Description = model.Description,
-            EndDate = endDate,
+            EndDate = model.EndDate,
             OrganiserId = userId,
             Price = model.Price,
-            StartDate = startDate,
+            StartDate = model.StartDate,
             VenueId = model.VenueId,
             Title = model.Title,
             AvailableSpots = venue!.Capacity
@@ -52,7 +52,7 @@ public class EventService : IEventService
         await repo.SaveChangesAsync();
     }
 
-    public async Task EditEventAsync(EventEditViewModel model, DateTime startDate, DateTime endDate)
+    public async Task EditEventAsync(EventEditViewModel model)
     {
         Event ev = await repo.GetByIdAsync<Event>(model.Id);
         if (ev != null)
@@ -61,8 +61,8 @@ public class EventService : IEventService
             ev.Description = model.Description;
             ev.Title = model.Title;
             ev.VenueId = model.VenueId;
-            ev.StartDate = startDate;
-            ev.EndDate = endDate;
+            ev.StartDate = model.StartDate;
+            ev.EndDate = model.EndDate;
         }
         await repo.SaveChangesAsync();
     }
@@ -79,6 +79,7 @@ public class EventService : IEventService
         return await repo
             .AllReadOnly<Event>()
             .Where(e => e.StartDate > DateTime.Now)
+            .OrderBy(e => e.StartDate)
             .Select(e => new AllEventViewModel
             {
                 Id = e.Id,
@@ -176,8 +177,8 @@ public class EventService : IEventService
             .Select(e => new EventEditViewModel()
             {
                 Description = e.Description,
-                EndDate = e.EndDate.ToString("hh:mm dd.MM.yyyy"),
-                StartDate = e.StartDate.ToString("hh:mm dd.MM.yyyy"),
+                EndDate = e.EndDate,
+                StartDate = e.StartDate,
                 Id = e.Id,
                 Price = e.Price,
                 Title = e.Title,
@@ -191,6 +192,7 @@ public class EventService : IEventService
         return await repo
             .AllReadOnly<Event>()
             .Where(e => e.OrganiserId == organiserId)
+            .OrderByDescending(e => e.StartDate)
             .Select(e => new EventDetailsViewModel
             {
                 Id = e.Id,
@@ -220,6 +222,7 @@ public class EventService : IEventService
     {
         return await repo
             .AllReadOnly<UserEvent>()
+            .OrderByDescending(ue => ue.Event.StartDate)
             .Where(ue => ue.UserId == userId)
             .Select(ue => new EventDetailsViewModel
             {
