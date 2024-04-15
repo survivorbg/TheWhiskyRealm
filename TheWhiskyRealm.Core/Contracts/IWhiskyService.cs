@@ -10,6 +10,7 @@ public interface IWhiskyService
     Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take, string sortOrder);
     Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take);
     Task<bool> WhiskyExistAsync(int id);
+    Task<bool> WhiskyIsApprovedAsync(int id);
     Task<DetailsWhiskyViewModel> GetWhiskyByIdAsync(int id);
     Task<WhiskyFormModel> GetWhiskyByIdForEditAsync(int id);
     Task AddWhiskyAsync(WhiskyFormModel model);
@@ -20,4 +21,5 @@ public interface IWhiskyService
     Task RemoveFromFavouritesAsync(string userId, int whiskyId);
     Task<ICollection<MyCollectionWhiskyModel>> MyFavouriteWhiskiesAsync(string userId);
     Task<IEnumerable<WhiskyDistilleryViewModel>> GetWhiskiesByDistilleryIdAsync(int distilleryId);
+    Task<string?> GetWhiskyPublisherAsync(int id);
 }

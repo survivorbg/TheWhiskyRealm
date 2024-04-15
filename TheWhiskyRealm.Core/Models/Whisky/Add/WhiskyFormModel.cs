@@ -27,6 +27,10 @@ public class WhiskyFormModel
     [Required(ErrorMessage = RequiredMessage)]
     public string ImageURL { get; set; } = string.Empty;
 
+    public bool IsApproved { get; set; }
+
+    public string? PublishedBy { get; set; }
+
     [Display(Name = "Distillery")]
     [Required(ErrorMessage = RequiredMessage)]
     public int DistilleryId { get; set; }

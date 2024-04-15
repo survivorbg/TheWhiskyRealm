@@ -22,6 +22,7 @@ public class WhiskyService : IWhiskyService
     public async Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take)
     {
         return await repo.AllReadOnly<Whisky>()
+            .Where(w => w.isApproved == true)
             .OrderByDescending(w => w.Id)
             .Skip(skip)
             .Take(take)
@@ -85,6 +86,7 @@ public class WhiskyService : IWhiskyService
                 RegionName = w.Distillery.Region.Name,
                 AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet",
                 ImageURL = w.ImageURL,
+                PublishedBy = w.PublishedBy,
             })
             .FirstAsync();
     }
@@ -101,7 +103,8 @@ public class WhiskyService : IWhiskyService
                 DistilleryId = model.DistilleryId,
                 WhiskyTypeId = model.WhiskyTypeId,
                 Name = model.Name,
-                ImageURL = model.ImageURL
+                ImageURL = model.ImageURL,
+                isApproved = model.IsApproved,
             };
             await repo.AddAsync(whisky);
             await repo.SaveChangesAsync();
@@ -121,7 +124,9 @@ public class WhiskyService : IWhiskyService
                 Description = w.Description,
                 WhiskyTypeId = w.WhiskyType.Id,
                 DistilleryId = w.Distillery.Id,
-                ImageURL = w.ImageURL
+                ImageURL = w.ImageURL,
+                PublishedBy = w.PublishedBy,
+                IsApproved = w.isApproved
             })
             .FirstAsync();
     }
@@ -130,7 +135,8 @@ public class WhiskyService : IWhiskyService
     {
         var whisky = await repo.GetByIdAsync<Whisky>(whiskyId);
 
-        if(whisky != null)
+
+        if (whisky != null)
         {
             whisky.Name = model.Name;
             whisky.Age = model.Age;
@@ -139,6 +145,7 @@ public class WhiskyService : IWhiskyService
             whisky.Description = model.Description;
             whisky.DistilleryId = model.DistilleryId;
             whisky.ImageURL = model.ImageURL;
+            whisky.isApproved = model.IsApproved;
         }
 
         await repo.SaveChangesAsync();
@@ -157,7 +164,7 @@ public class WhiskyService : IWhiskyService
     {
         return await repo
             .AllReadOnly<UserWhisky>()
-            .AnyAsync(uw=> uw.UserId == userId && uw.WhiskyId == whiskyId);
+            .AnyAsync(uw => uw.UserId == userId && uw.WhiskyId == whiskyId);
     }
 
     public async Task AddToFavouritesAsync(string userId, int whiskyId)
@@ -178,7 +185,7 @@ public class WhiskyService : IWhiskyService
             .Where(uw => uw.UserId == userId && uw.WhiskyId == whiskyId)
             .FirstOrDefaultAsync();
 
-        if(entityToRemove != null)
+        if (entityToRemove != null)
         {
             repo.Delete(entityToRemove);
         }
@@ -189,18 +196,19 @@ public class WhiskyService : IWhiskyService
     {
         var whiskiesQuery = repo
             .AllReadOnly<Whisky>()
+            .Where(w=>w.isApproved == true)
             .Select(x => new AllWhiskyModel()
-        {
-            Id = x.Id,
-            Name = x.Name,
-            Age = x.Age,
-            AlcoholPercentage = x.AlcoholPercentage,
-            WhiskyType = x.WhiskyType.Name,
-            Reviews = x.Reviews.Count(),
-            ImageURL = x.ImageURL,
-        });
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Age = x.Age,
+                AlcoholPercentage = x.AlcoholPercentage,
+                WhiskyType = x.WhiskyType.Name,
+                Reviews = x.Reviews.Count(),
+                ImageURL = x.ImageURL,
+            });
 
-        
+
 
         switch (sortOrder)
         {
@@ -231,7 +239,7 @@ public class WhiskyService : IWhiskyService
     {
         return await repo
             .AllReadOnly<UserWhisky>()
-            .Where(uw => uw.UserId == userId)
+            .Where(uw => uw.UserId == userId && uw.Whisky.isApproved == true)
             .Select(uw => new MyCollectionWhiskyModel()
             {
                 Id = uw.Whisky.Id,
@@ -258,5 +266,23 @@ public class WhiskyService : IWhiskyService
             })
             .ToListAsync();
 
+    }
+
+    public async Task<bool> WhiskyIsApprovedAsync(int id)
+    {
+        return await repo
+           .AllReadOnly<Whisky>()
+           .AnyAsync(w => w.Id == id && w.isApproved == true);
+    }
+
+    public async Task<string?> GetWhiskyPublisherAsync(int id)
+    {
+        string? publisherId = null;
+        var whisky = await repo.GetByIdAsync<Whisky>(id);
+        if(whisky != null)
+        {
+            publisherId = whisky.PublishedBy;
+        }
+        return publisherId;
     }
 }
