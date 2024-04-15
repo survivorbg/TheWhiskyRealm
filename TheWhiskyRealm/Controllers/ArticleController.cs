@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Article;
@@ -38,6 +39,7 @@ public class ArticleController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -48,7 +50,8 @@ public class ArticleController : BaseController
 
         var userId = User.Id();
 
-        if(await articleService.IsTheArticleAuthorAsync(userId,id) == false)
+        if(await articleService.IsTheArticleAuthorAsync(userId,id) == false && 
+            !User.IsAdmin())
         {
             return Unauthorized();
         }
@@ -60,6 +63,7 @@ public class ArticleController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Edit(ArticleEditViewModel model)
     {
@@ -70,7 +74,8 @@ public class ArticleController : BaseController
 
         var userId = User.Id();
 
-        if (await articleService.IsTheArticleAuthorAsync(userId, model.Id) == false)
+        if (await articleService.IsTheArticleAuthorAsync(userId, model.Id) == false &&
+            !User.IsAdmin())
         {
             return Unauthorized();
         }
@@ -86,7 +91,7 @@ public class ArticleController : BaseController
         return RedirectToAction("Details", new {id=model.Id});
     }
 
-
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public IActionResult Add()
     {
@@ -96,6 +101,7 @@ public class ArticleController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Add(ArticleAddViewModel model)
     {
@@ -113,6 +119,7 @@ public class ArticleController : BaseController
         return RedirectToAction("Details", "Article", new { id = newArticleId });
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
@@ -123,7 +130,8 @@ public class ArticleController : BaseController
 
         var userId = User.Id();
 
-        if (await articleService.IsTheArticleAuthorAsync(userId, id) == false)
+        if (await articleService.IsTheArticleAuthorAsync(userId, id) == false &&
+            !User.IsAdmin())
         {
             return Unauthorized();
         }
