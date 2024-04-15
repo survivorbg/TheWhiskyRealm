@@ -1,5 +1,8 @@
 ﻿@model ICollection<AwardViewModel>
-
+@inject IWhiskyService whiskyService
+@{
+    var publisherId = await whiskyService.GetWhiskyPublisherAsync(Model.Select(a => a.WhiskyId).FirstOrDefault()!);
+}
 <link rel="stylesheet" type="text/css" href="~/css/Award/award-partial.css">
 
 <div style="" id="awardsDiv">
@@ -14,10 +17,14 @@
                 </div>
             </div>
 
-            <div class="award-button-container">
-                <a class="award-button" asp-controller="Award" asp-action="Edit" asp-route-id="@award.Id">Edit</a>
-                <a class="award-button" asp-controller="Award" asp-action="Delete" asp-route-id="@award.Id">Delete</a>
-            </div>
+            @if (User.IsAdmin() || (User.IsWhiskyExpert() && publisherId == User.Id()))
+            {
+                <div class="award-button-container">
+                    <a class="award-button" asp-controller="Award" asp-action="Edit" asp-route-id="@award.Id">Edit</a>
+                    <a class="award-button" asp-controller="Award" asp-action="Delete" asp-route-id="@award.Id">Delete</a>
+                </div>
+            }
+
         </div>
     }
 </div>

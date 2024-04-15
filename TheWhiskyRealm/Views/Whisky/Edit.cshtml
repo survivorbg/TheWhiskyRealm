@@ -7,6 +7,7 @@
 <h1>Edit Whisky</h1>
 
 <form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="IsApproved" name="IsApproved" value="@Model.IsApproved" />
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" />

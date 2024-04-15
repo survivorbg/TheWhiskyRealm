@@ -44,7 +44,8 @@ public class WhiskyController : BaseController
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if (!await whiskyService.WhiskyExistAsync(id))
+        if (await whiskyService.WhiskyExistAsync(id) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(id) == false)
         {
             return NotFound();
         }
@@ -70,7 +71,7 @@ public class WhiskyController : BaseController
     }
 
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Add()
     {
@@ -82,7 +83,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Add(WhiskyFormModel model)
     {
@@ -118,11 +119,16 @@ public class WhiskyController : BaseController
             return View(model);
         }
 
+        if (User.IsInRole("Administrator"))
+        {
+            model.IsApproved = true;
+        }
         await whiskyService.AddWhiskyAsync(model);
 
         return RedirectToAction(nameof(All));
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -133,12 +139,18 @@ public class WhiskyController : BaseController
 
         var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
 
+        if(User.IsInRole("WhiskyExpert") && model.PublishedBy != User.Id())
+        {
+            return Unauthorized();
+        }
+
         model.WhiskyTypes = await whiskyTypeService.GetAllWhiskyTypesAsync();
         model.Distilleries = await distilleryService.GetAllDistilleriesAsync();
 
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator, WhiskyExpert")]
     [HttpPost]
     public async Task<IActionResult> Edit(int id, WhiskyFormModel model)
     {
@@ -150,6 +162,13 @@ public class WhiskyController : BaseController
         if (await whiskyService.WhiskyExistAsync(id) == false)
         {
             return NotFound();
+        }
+
+        var publisherId = await whiskyService.GetWhiskyPublisherAsync(id);
+
+        if (User.IsInRole("WhiskyExpert") && publisherId != User.Id())
+        {
+            return Unauthorized();
         }
 
         if (await distilleryService.DistilleryExistsAsync(model.DistilleryId) == false)
@@ -179,11 +198,19 @@ public class WhiskyController : BaseController
             return View(model);
         }
 
+        if (User.IsInRole("WhiskyExpert"))
+        {
+            model.IsApproved = false;
+            await whiskyService.EditWhiskyAsync(id, model);
+            return RedirectToAction("All");
+        }
+
         await whiskyService.EditWhiskyAsync(id, model);
 
         return RedirectToAction("Details", new { id });
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
@@ -197,6 +224,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator")]
     [HttpPost]
     public async Task<IActionResult> Delete(int id, WhiskyFormModel model)
     {
@@ -215,7 +243,11 @@ public class WhiskyController : BaseController
     public async Task<IActionResult> AddToFavourites(int id)
     {
         var userId = User.Id();
-
+        if (await whiskyService.WhiskyExistAsync(id) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(id) == false)
+        {
+            return NotFound();
+        }
 
         if (await whiskyService.WhiskyInFavouritesAsync(userId, id))
         {
@@ -232,6 +264,11 @@ public class WhiskyController : BaseController
     {
         var userId = User.Id();
 
+        if (await whiskyService.WhiskyExistAsync(id) == false ||
+           await whiskyService.WhiskyIsApprovedAsync(id) == false)
+        {
+            return NotFound();
+        }
 
         if (await whiskyService.WhiskyInFavouritesAsync(userId, id) == false)
         {
@@ -240,7 +277,7 @@ public class WhiskyController : BaseController
 
 
         await whiskyService.RemoveFromFavouritesAsync(userId, id);
-        
+
         return Ok();
     }
 

@@ -25,7 +25,8 @@ public class RatingController : BaseController
             return RedirectToPage("/Account/Login");
         }
 
-        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
         {
             return NotFound();
         }
@@ -39,17 +40,21 @@ public class RatingController : BaseController
 
         return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }
+
+    [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
 
         var model = await ratingService.GetRatingAsync(userId, id);
 
         if (model == null)
+        {
+            return NotFound();
+        }
+
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
         {
             return NotFound();
         }
@@ -68,12 +73,14 @@ public class RatingController : BaseController
     public async Task<IActionResult> Update(RatingViewModel model)
     {
         var userId = User.Id();
+
         if (userId == null)
         {
             return RedirectToPage("/Account/Login");
         }
 
-        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
         {
             return NotFound();
         }
@@ -90,7 +97,7 @@ public class RatingController : BaseController
             return BadRequest(ModelState);
         }
 
-        await ratingService.EditRatingAsync(model,rating.Id);
+        await ratingService.EditRatingAsync(model, rating.Id);
 
         return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
     }

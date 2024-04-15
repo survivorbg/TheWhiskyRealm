@@ -25,15 +25,16 @@ public class ReviewController : BaseController
             return RedirectToPage("/Account/Login");
         }
 
+        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
+        {
+            return NotFound();
+        }
+
         if (await reviewService.UserAlreadyReviewedWhiskyAsync(userId, model.WhiskyId))
         {
             var reviewId = reviewService.GetReviewIdAsync(userId, model.WhiskyId);
             return RedirectToPage("Edit", new { id = reviewId });
-        }
-
-        if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false)
-        {
-            return NotFound();
         }
 
         if (!ModelState.IsValid)
@@ -57,6 +58,13 @@ public class ReviewController : BaseController
         }
 
         var review = await reviewService.GetReviewAsync(id);
+
+
+        if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
+        {
+            return NotFound();
+        }
 
         if (userId != review.UserId)
         {
@@ -91,6 +99,13 @@ public class ReviewController : BaseController
 
         var review = await reviewService.GetReviewAsync(id);
 
+
+        if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
+        {
+            return NotFound();
+        }
+
         if (userId != review.UserId)
         {
             return Unauthorized();
@@ -121,6 +136,13 @@ public class ReviewController : BaseController
         }
 
         var review = await reviewService.GetReviewAsync(id);
+
+
+        if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
+            await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
+        {
+            return NotFound();
+        }
 
         if (userId != review.UserId)
         {
