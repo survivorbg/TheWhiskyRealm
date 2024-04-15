@@ -39,13 +39,7 @@ public class UserEventConfiguration : IEntityTypeConfiguration<UserEvent>
 
         usersEvents.Add(new UserEvent
         {
-            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
-            EventId = 1
-        });
-
-        usersEvents.Add(new UserEvent
-        {
-            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
+            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
             EventId = 2
         });
 

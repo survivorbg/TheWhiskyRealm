@@ -35,7 +35,7 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
             EndDate = new DateTime(2024, 3, 25, 21, 0, 0),
             Price = 25.99m,
             VenueId = 5,
-            AvailableSpots = 0
+            AvailableSpots = 1
         });
 
         events.Add(new Event
