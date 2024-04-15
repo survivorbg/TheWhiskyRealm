@@ -39,7 +39,7 @@ public class WhiskyService : IWhiskyService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take)
+    public async Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take) //TODO DELETE THIS as is unused
     {
 
         return await repo.AllReadOnly<Whisky>()
@@ -263,6 +263,7 @@ public class WhiskyService : IWhiskyService
             {
                 Id = w.Id,
                 Name = w.Name,
+                IsApproved = w.isApproved ? "Yes" : "No"
             })
             .ToListAsync();
 
@@ -284,5 +285,15 @@ public class WhiskyService : IWhiskyService
             publisherId = whisky.PublishedBy;
         }
         return publisherId;
+    }
+
+    public async Task ApproveWhiskyAsync(int id)
+    {
+        var whisky = await repo.GetByIdAsync<Whisky>(id);
+        if(whisky != null)
+        {
+            whisky.isApproved = true;
+            await repo.SaveChangesAsync();
+        }
     }
 }

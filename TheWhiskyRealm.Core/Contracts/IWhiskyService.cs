@@ -22,4 +22,5 @@ public interface IWhiskyService
     Task<ICollection<MyCollectionWhiskyModel>> MyFavouriteWhiskiesAsync(string userId);
     Task<IEnumerable<WhiskyDistilleryViewModel>> GetWhiskiesByDistilleryIdAsync(int distilleryId);
     Task<string?> GetWhiskyPublisherAsync(int id);
+    Task ApproveWhiskyAsync(int id);
 }

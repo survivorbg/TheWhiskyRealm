@@ -8,7 +8,7 @@
         color: black;
     }
 
-    p.dist-info{
+    p.dist-info {
         font-style: italic;
         color: black;
     }
@@ -26,6 +26,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Approved</th>
                 <th></th>
             </tr>
         </thead>
@@ -40,9 +41,20 @@
                         @item.Name
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="Whisky" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        @item.IsApproved
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Whisky" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary">Edit</a>
                         <a asp-area="" asp-controller="Whisky" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-secondary">Info</a>
                         <a asp-area="" asp-controller="Whisky" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Delete</a>
+                        @if (item.IsApproved == "No")
+                        {
+                            <form asp-area="" asp-action="Approve" asp-controller="Whisky" method="post" style="display:inline-block">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <input type="submit" class="btn btn-outline-primary" value="Approve" />
+                            </form>
+
+                        }
                     </td>
                 </tr>
             }

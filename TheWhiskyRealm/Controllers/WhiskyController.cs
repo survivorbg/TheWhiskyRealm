@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Review;
@@ -44,10 +45,14 @@ public class WhiskyController : BaseController
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if (await whiskyService.WhiskyExistAsync(id) == false ||
-            await whiskyService.WhiskyIsApprovedAsync(id) == false)
+        if (await whiskyService.WhiskyExistAsync(id) == false)
         {
             return NotFound();
+        }
+
+        if (await whiskyService.WhiskyIsApprovedAsync(id) == false && !User.IsAdmin())
+        {
+            return Unauthorized();
         }
 
         var model = await whiskyService.GetWhiskyByIdAsync(id);
@@ -139,7 +144,7 @@ public class WhiskyController : BaseController
 
         var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
 
-        if(User.IsInRole("WhiskyExpert") && model.PublishedBy != User.Id())
+        if (User.IsInRole("WhiskyExpert") && model.PublishedBy != User.Id())
         {
             return Unauthorized();
         }
@@ -298,5 +303,20 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
+    [Authorize(Roles = "Administrator")]
+    [HttpPost]
+    public async Task<IActionResult> Approve(int id)
+    {
+        var whisky = await whiskyService.GetWhiskyByIdForEditAsync(id);
+
+        if (whisky == null)
+        {
+            return NotFound();
+        }
+
+        await whiskyService.ApproveWhiskyAsync(id);
+
+        return RedirectToAction("Details", new {id});
+    }
 
 }
