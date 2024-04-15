@@ -5,8 +5,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using TheWhiskyRealm.Infrastructure.Data.Models;
+using TheWhiskyRealm.Infrastructure.Data.Validators;
 
 namespace TheWhiskyRealm.Areas.Identity.Pages.Account;
 
@@ -49,8 +51,11 @@ public class RegisterModel : PageModel
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Range(18, 99)]
-        public int Age { get; set; }
+        [PersonalData]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
+        [DateOfBirth(MinAge = 18, MaxAge = 120)]
+        public DateTime DateOfBirth { get; set; }
     }
 
 
@@ -69,6 +74,7 @@ public class RegisterModel : PageModel
             {
                 UserName = Input.Email,
                 Email = Input.Email,
+                DateOfBirth = Input.DateOfBirth
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
