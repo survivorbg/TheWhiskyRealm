@@ -138,7 +138,7 @@ public class RatingServiceUnitTests
         // Arrange
         var userId = "TestUserId";
         var expectedRatings = dbContext.Ratings
-            .Where(r => r.UserId == userId)
+            .Where(r => r.UserId == userId && r.Whisky.isApproved == true)
             .Select(r => new MyRatingViewModel
             {
                 Finish = r.Finish,

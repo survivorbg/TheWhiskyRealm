@@ -97,29 +97,27 @@ public class EventServiceUnitTests
     public async Task AddEventAsync_ShouldAddEventToDatabase()
     {
         // Arrange
-        var start = DateTime.Now.ToString();
-        var end = DateTime.Now.AddDays(1).ToString();
         var model = new EventAddViewModel
         {
             Title = "New Event",
             Description = "New Description",
-            StartDate = start,
-            EndDate = end,
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now.AddDays(1),
             Price = 100,
             VenueId = 1
         };
         var userId = "TestUserId";
 
         // Act
-        await service.AddEventAsync(model, DateTime.Parse(start), DateTime.Parse(end), userId);
+        await service.AddEventAsync(model,userId);
 
         // Assert
         var addedEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Title == model.Title);
         Assert.IsNotNull(addedEvent);
         Assert.AreEqual(model.Title, addedEvent.Title);
         Assert.AreEqual(model.Description, addedEvent.Description);
-        Assert.AreEqual(DateTime.Parse(model.StartDate), addedEvent.StartDate);
-        Assert.AreEqual(DateTime.Parse(model.EndDate), addedEvent.EndDate);
+        Assert.AreEqual(model.StartDate, addedEvent.StartDate);
+        Assert.AreEqual(model.EndDate, addedEvent.EndDate);
         Assert.AreEqual(model.Price, addedEvent.Price);
         Assert.AreEqual(model.VenueId, addedEvent.VenueId);
         Assert.AreEqual(userId, addedEvent.OrganiserId);
@@ -150,22 +148,22 @@ public class EventServiceUnitTests
             Id = 1,
             Title = "Edited Test Event",
             Description = "Edited Test Description",
-            StartDate = DateTime.Now.AddDays(1).ToString(),
-            EndDate = DateTime.Now.AddDays(2).ToString(),
+            StartDate = DateTime.Now.AddDays(1),
+            EndDate = DateTime.Now.AddDays(2),
             Price = 200,
             VenueId = 1
         };
 
         // Act
-        await service.EditEventAsync(model, DateTime.Parse(model.StartDate), DateTime.Parse(model.EndDate));
+        await service.EditEventAsync(model);
 
         // Assert
         var editedEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Id == model.Id);
         Assert.IsNotNull(editedEvent);
         Assert.AreEqual(model.Title, editedEvent.Title);
         Assert.AreEqual(model.Description, editedEvent.Description);
-        Assert.AreEqual(DateTime.Parse(model.StartDate), editedEvent.StartDate);
-        Assert.AreEqual(DateTime.Parse(model.EndDate), editedEvent.EndDate);
+        Assert.AreEqual(model.StartDate, editedEvent.StartDate);
+        Assert.AreEqual(model.EndDate, editedEvent.EndDate);
         Assert.AreEqual(model.Price, editedEvent.Price);
         Assert.AreEqual(model.VenueId, editedEvent.VenueId);
     }
@@ -201,6 +199,7 @@ public class EventServiceUnitTests
         // Arrange
         var actualEvents = dbContext.Events
             .Where(e => e.StartDate > DateTime.Now)
+            .OrderBy(e => e.StartDate)
             .Select(e => new AllEventViewModel
         {
             AvailableSpots = e.AvailableSpots,
@@ -426,8 +425,8 @@ public class EventServiceUnitTests
                 Id = e.Id,
                 Title = e.Title,
                 Description = e.Description,
-                StartDate = e.StartDate.ToString("hh:mm dd.MM.yyyy"),
-                EndDate = e.EndDate.ToString("hh:mm dd.MM.yyyy"),
+                StartDate = e.StartDate,
+                EndDate = e.EndDate,
                 Price = e.Price,
                 VenueId = e.Venue.Id
             })

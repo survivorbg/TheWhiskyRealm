@@ -140,7 +140,7 @@ public class ReviewServiceUnitTests
         // Arrange
         var userId = "TestUserId";
         var expectedReviews = dbContext.Reviews
-            .Where(r => r.UserId == userId)
+            .Where(r => r.UserId == userId && r.Whisky.isApproved == true)
             .OrderByDescending(r => r.Id)
             .Select(r => new MyReviewModel
             {
