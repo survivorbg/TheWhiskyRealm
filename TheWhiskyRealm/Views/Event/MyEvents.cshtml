@@ -1,15 +1,30 @@
 ﻿@inject IEventService eventService
 
 @model ICollection<EventDetailsViewModel>
+
 @{
+    var userId = User.Id();
 }
-<a class="btn btn-primary" asp-controller="Event" asp-action="OrganisedEvents">Events you organise</a>
+
+@if (User.IsAdmin() || User.IsWhiskyExpert())
+{
+    <a class="btn btn-primary" asp-controller="Event" asp-action="OrganisedEvents">Events you organise</a>
+}
 @foreach (var e in Model)
 {
+    var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(e.Id, userId);
+    var started = await eventService.HasAlreadyStartedAsync(e.Id);
     var organiserID = await eventService.GetOrganiserIdAsync(e.Id);
+
     <partial name="_EventDetailsPartial" model="@e" />
-    @if (User.Id() == organiserID || User.IsInRole("Administrator"))
+
+    @if (alreadyJoined && !started && !User.IsAdmin())
     {
-        <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
+        <div class="d-flex justify-content-center mb-5">
+        <form asp-controller="Event" asp-action="Leave" method="post">
+            <input type="hidden" name="id" value="@e.Id" />
+            <button type="submit" class="btn btn-success">Leave Event</button>
+        </form>
+        </div>
     }
 }

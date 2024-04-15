@@ -20,7 +20,7 @@
 
             <div class="col-lg-4 col-md-6">
                 <div class="card event-card">
-                    <div class="card-body">
+                    <div class="card-body pb-0">
                         <h5 class="card-title">@eventItem.Title</h5>
                         <p class="card-text">Start Date: @eventItem.StartDate</p>
                         <p class="card-text">
@@ -37,21 +37,28 @@
                         </p>
                         <p class="card-text">Venue: @eventItem.VenueName</p>
                         <p class="card-text">Available Spots: <span class="spots">@eventItem.AvailableSpots</span></p>
-                        <a href="@Url.Action("Details", "Event", new { id = eventItem.Id })" class="btn btn-primary">More</a>
-                        @if (!alreadyJoined && !alreadyStarted && isOrganiser != userId && eventItem.AvailableSpots > 0)
-                        {
-                            <form asp-controller="Event" asp-action="Join" method="post">
-                                <input type="hidden" name="id" value="@eventItem.Id" />
-                                <button type="submit" class="btn btn-success">Join Event</button>
-                            </form>
-                        }
-                        @if (alreadyJoined && !alreadyStarted)
-                        {
-                            <form asp-controller="Event" asp-action="Leave" method="post">
-                                <input type="hidden" name="id" value="@eventItem.Id" />
-                                <button type="submit" class="btn btn-success">Leave Event</button>
-                            </form>
-                        }
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="@Url.Action("Details", "Event", new { id = eventItem.Id })" class="btn btn-primary">More</a>
+                            @if (!alreadyJoined && !alreadyStarted && isOrganiser != userId && eventItem.AvailableSpots > 0 && !User.IsAdmin())
+                            {
+                                <form asp-controller="Event" asp-action="Join" method="post">
+                                    <input type="hidden" name="id" value="@eventItem.Id" />
+                                    <button type="submit" class="btn btn-success">Join Event</button>
+                                </form>
+                            }
+                            @if (alreadyJoined && !alreadyStarted && !User.IsAdmin())
+                            {
+                                <form asp-controller="Event" asp-action="Leave" method="post">
+                                    <input type="hidden" name="id" value="@eventItem.Id" />
+                                    <button type="submit" class="btn btn-success">Leave Event</button>
+                                </form>
+                            }
+                            @if (isOrganiser == userId || User.IsAdmin())
+                            {
+                                <a class="btn btn-secondary" asp-controller="Event" asp-action="Edit" asp-route-id="@eventItem.Id">Edit</a>
+                                <a class="btn btn-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@eventItem.Id">Delete</a>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

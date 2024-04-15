@@ -2,13 +2,33 @@
 
 @model EventDetailsViewModel
 @{
-    var organiserID = await eventService.GetOrganiserIdAsync(Model.Id);
-    var expired = await eventService.HasAlreadyStartedAsync(Model.Id);
+    var userId = User.Id();
+    var organiserId = await eventService.GetOrganiserIdAsync(Model.Id);
+    var started = await eventService.HasAlreadyStartedAsync(Model.Id);
+    var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(Model.Id, userId);
 }
-
-<partial name="_EventDetailsPartial" model="@Model" />
-@if ((User.Id() == organiserID || User.IsInRole("Administrator")) &&
-    !expired)
+@if ((User.Id() == organiserId || User.IsInRole("Administrator")) &&
+ !started)
 {
-    <a asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+    <div class="d-flex justify-content-around mt-4">
+        <a class="btn btn-primary" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+        <a class="btn btn-danger" asp-controller="Event" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    </div>
 }
+<partial name="_EventDetailsPartial" model="@Model" />
+<div class="d-flex justify-content-center">
+    @if (!alreadyJoined && !started && organiserId != userId && Model.AvailableSpots > 0 && !User.IsAdmin())
+    {
+        <form asp-controller="Event" asp-action="Join" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-success">Join Event</button>
+        </form>
+    }
+    @if (alreadyJoined && !started && !User.IsAdmin())
+    {
+        <form asp-controller="Event" asp-action="Leave" method="post">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <button type="submit" class="btn btn-success">Leave Event</button>
+        </form>
+    }
+</div>
