@@ -24,4 +24,13 @@ public static class ClaimsPrincipalExtensions
         return user.IsInRole("Administrator");
     }
 
+    /// <summary>
+    /// Checks if the user associated with the provided ClaimsPrincipal instance has the WhiskyExpert role.
+    /// </summary>
+    /// <param name="user">The ClaimsPrincipal instance representing the user.</param>
+    /// <returns>True if the user has the WhiskyExpert role, otherwise false.</returns>
+    public static bool IsWhiskyExpert(this ClaimsPrincipal user)
+    {
+        return user.IsInRole("WhiskyExpert");
+    }
 }
