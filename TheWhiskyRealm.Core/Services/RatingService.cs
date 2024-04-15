@@ -77,16 +77,19 @@ public class RatingService : IRatingService
 
     public async Task RateAsync(string userId, RatingViewModel model)
     {
-        var rating = new Rating()
+        if (userId != null && model != null)
         {
-            Finish = model.Finish,
-            Nose = model.Nose,
-            Taste = model.Taste,
-            UserId = userId,
-            WhiskyId = model.WhiskyId
-        };
+            var rating = new Rating()
+            {
+                Finish = model.Finish,
+                Nose = model.Nose,
+                Taste = model.Taste,
+                UserId = userId,
+                WhiskyId = model.WhiskyId
+            };
 
-        await repo.AddAsync(rating);
+            await repo.AddAsync(rating);
+        }
         await repo.SaveChangesAsync();
     }
 
