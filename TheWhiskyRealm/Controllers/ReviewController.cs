@@ -144,7 +144,7 @@ public class ReviewController : BaseController
             return NotFound();
         }
 
-        if (userId != review.UserId)
+        if (userId != review.UserId && !User.IsAdmin())
         {
             return Unauthorized();
         }

@@ -48,7 +48,7 @@ public class CommentController : BaseController
         }
         var userId = User.Id();
 
-        if (await commentService.GetCommentAuthorIdAsync(id) != userId)
+        if (await commentService.GetCommentAuthorIdAsync(id) != userId && !User.IsAdmin())
         {
             return Unauthorized();
         }
@@ -84,7 +84,7 @@ public class CommentController : BaseController
 
         var userId = User.Id();
 
-        if(await commentService.GetCommentAuthorIdAsync(model.Id) != userId)
+        if(await commentService.GetCommentAuthorIdAsync(model.Id) != userId && !User.IsAdmin())
         {
             return Unauthorized();
         }
@@ -113,7 +113,7 @@ public class CommentController : BaseController
 
         var userId = User.Id();
 
-        if (await commentService.GetCommentAuthorIdAsync(id) != userId)
+        if (await commentService.GetCommentAuthorIdAsync(id) != userId && !User.IsAdmin())
         {
             return Unauthorized();
         }
