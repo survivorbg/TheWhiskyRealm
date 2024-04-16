@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Review;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
+using static TheWhiskyRealm.Core.Constants.WhiskyConstants;
 
 namespace TheWhiskyRealm.Controllers;
 
@@ -76,7 +77,7 @@ public class WhiskyController : BaseController
     }
 
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Add()
     {
@@ -88,7 +89,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Add(WhiskyFormModel model)
     {
@@ -99,22 +100,22 @@ public class WhiskyController : BaseController
 
         if (await distilleryService.DistilleryExistsAsync(model.DistilleryId) == false)
         {
-            ModelState.AddModelError(nameof(model.DistilleryId), "Distillery does not exist!");
+            ModelState.AddModelError(nameof(model.DistilleryId), DistilleryDoesNotExist);
         }
 
         if (await whiskyTypeService.WhiskyTypeExistsAsync(model.WhiskyTypeId) == false)
         {
-            ModelState.AddModelError(nameof(model.DistilleryId), "Whisky type does not exist!");
+            ModelState.AddModelError(nameof(model.DistilleryId), WhiskyTypeDoesNotExist);
         }
 
-        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) == "Bourbon" && model.Age < 2)
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) == Bourbon && model.Age < minAgeForBourbon)
         {
-            ModelState.AddModelError("Age", "Bourbon whiskeys must be at least 2 years old!");
+            ModelState.AddModelError(nameof(model.Age), BourbonAgeRequirement);
         }
 
-        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) != "Bourbon" && model.Age < 3)
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) != Bourbon && model.Age < minAgeForWhisky)
         {
-            ModelState.AddModelError("Age", "All whiskies, except Bourbon, should be at least 3 years old!");
+            ModelState.AddModelError(nameof(model.Age), WhiskyAgeRequirement);
         }
 
         if (!ModelState.IsValid)
@@ -124,7 +125,7 @@ public class WhiskyController : BaseController
             return View(model);
         }
 
-        if (User.IsInRole("Administrator"))
+        if (User.IsInRole(Administrator))
         {
             model.IsApproved = true;
         }
@@ -133,7 +134,7 @@ public class WhiskyController : BaseController
         return RedirectToAction(nameof(All));
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -144,7 +145,7 @@ public class WhiskyController : BaseController
 
         var model = await whiskyService.GetWhiskyByIdForEditAsync(id);
 
-        if (User.IsInRole("WhiskyExpert") && model.PublishedBy != User.Id())
+        if (User.IsInRole(WhiskyExpert) && model.PublishedBy != User.Id())
         {
             return Unauthorized();
         }
@@ -155,7 +156,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Edit(int id, WhiskyFormModel model)
     {
@@ -171,29 +172,29 @@ public class WhiskyController : BaseController
 
         var publisherId = await whiskyService.GetWhiskyPublisherAsync(id);
 
-        if (User.IsInRole("WhiskyExpert") && publisherId != User.Id())
+        if (User.IsInRole(WhiskyExpert) && publisherId != User.Id())
         {
             return Unauthorized();
         }
 
         if (await distilleryService.DistilleryExistsAsync(model.DistilleryId) == false)
         {
-            ModelState.AddModelError(nameof(model.DistilleryId), "Distillery does not exist!");
+            ModelState.AddModelError(nameof(model.DistilleryId), DistilleryDoesNotExist);
         }
 
         if (await whiskyTypeService.WhiskyTypeExistsAsync(model.WhiskyTypeId) == false)
         {
-            ModelState.AddModelError(nameof(model.DistilleryId), "Whisky type does not exist!");
+            ModelState.AddModelError(nameof(model.DistilleryId), WhiskyTypeDoesNotExist);
         }
 
-        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) == "Bourbon" && model.Age < 2)
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) == Bourbon && model.Age < minAgeForBourbon)
         {
-            ModelState.AddModelError("Age", "Bourbon whiskeys must be at least 2 years old!");
+            ModelState.AddModelError(nameof(model.Age), BourbonAgeRequirement);
         }
 
-        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) != "Bourbon" && model.Age < 3)
+        if (await whiskyTypeService.GetWhiskyTypeNameAsync(model.WhiskyTypeId) != Bourbon && model.Age < minAgeForWhisky)
         {
-            ModelState.AddModelError("Age", "All whiskies, except Bourbon, should be at least 3 years old!");
+            ModelState.AddModelError(nameof(model.Age), WhiskyAgeRequirement);
         }
 
         if (!ModelState.IsValid)
@@ -203,19 +204,19 @@ public class WhiskyController : BaseController
             return View(model);
         }
 
-        if (User.IsInRole("WhiskyExpert"))
+        if (User.IsInRole(WhiskyExpert))
         {
             model.IsApproved = false;
             await whiskyService.EditWhiskyAsync(id, model);
-            return RedirectToAction("All");
+            return RedirectToAction(nameof(All));
         }
 
         await whiskyService.EditWhiskyAsync(id, model);
 
-        return RedirectToAction("Details", new { id });
+        return RedirectToAction(nameof(Details), new { id });
     }
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = Administrator)]
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
@@ -229,7 +230,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = Administrator)]
     [HttpPost]
     public async Task<IActionResult> Delete(int id, WhiskyFormModel model)
     {
@@ -256,7 +257,7 @@ public class WhiskyController : BaseController
 
         if (await whiskyService.WhiskyInFavouritesAsync(userId, id))
         {
-            return BadRequest("Whisky is already in favourites.");
+            return BadRequest();
         }
 
 
@@ -303,7 +304,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = Administrator)]
     [HttpPost]
     public async Task<IActionResult> Approve(int id)
     {
@@ -316,7 +317,7 @@ public class WhiskyController : BaseController
 
         await whiskyService.ApproveWhiskyAsync(id);
 
-        return RedirectToAction("Details", new {id});
+        return RedirectToAction(nameof(Details), new {id});
     }
 
 }
