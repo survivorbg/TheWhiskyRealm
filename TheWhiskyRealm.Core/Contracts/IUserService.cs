@@ -6,6 +6,6 @@ public interface IUserService
 {
     Task<IEnumerable<UserViewModel>> GetAllUsersAsync(int currentPage, int pageSize);
     Task<int> GetTotalUsersAsync();
-    
+    Task<UserInfoViewModel?> GetUserInfoAsync(string id);
 
 }

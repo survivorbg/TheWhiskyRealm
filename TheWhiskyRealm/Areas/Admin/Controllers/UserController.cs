@@ -243,6 +243,21 @@ public class UserController : AdminBaseController
 
         return RedirectToAction("Index");
     }
+    public async Task<IActionResult> Info(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
 
+        var model = await userService.GetUserInfoAsync(id);
+
+        if(model == null)
+        {
+            return NotFound();
+        }
+
+        return View(model);
+    }
 
 }

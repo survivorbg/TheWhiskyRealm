@@ -1,0 +1,50 @@
+﻿@model UserInfoViewModel
+
+<div class="container">
+    <h2>Информация за потребител</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Email:</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Role:</th>
+            <td>@Model.Role</td>
+        </tr>
+        <tr>
+            <th>Total Reviews:</th>
+            <td>@Model.TotalReviews</td>
+        </tr>
+        <tr>
+            <th>Total Ratings:</th>
+            <td>@Model.TotalRatings</td>
+        </tr>
+        <tr>
+            <th>Total Comments:</th>
+            <td>@Model.TotalComments</td>
+        </tr>
+        <tr>
+            <th>Joined Events:</th>
+            <td>@Model.JoinedEvents</td>
+        </tr>
+        <tr>
+            <th>Favourite Whiskies:</th>
+            <td>@Model.FavouriteWhiskies</td>
+        </tr>
+        @if (Model.Role == "WhiskyExpert")
+        {
+            <tr>
+                <th>Added Whiskies:</th>
+                <td>@Model.AddedWhiskies</td>
+            </tr>
+            <tr>
+                <th>Organised Events:</th>
+                <td>@Model.OrganisedEvents</td>
+            </tr>
+            <tr>
+                <th>Written Articles:</th>
+                <td>@Model.WrittenArticles</td>
+            </tr>
+        }
+    </table>
+</div>
