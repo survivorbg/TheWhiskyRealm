@@ -17,4 +17,11 @@ public class ApplicationUser : IdentityUser
     [DateOfBirth(MinAge = 18, MaxAge = 120)]
     [Comment("The user birth date.")]
     public DateTime DateOfBirth { get; set; }
+    public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+    public ICollection<UserEvent> UsersEvents { get; set; } = new List<UserEvent>();
+    public ICollection<UserWhisky> UsersWhiskies { get; set; } = new List<UserWhisky>();
+
+
 }
