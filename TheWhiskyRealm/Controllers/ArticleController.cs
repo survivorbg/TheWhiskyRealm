@@ -4,6 +4,7 @@ using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Article;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
 
 namespace TheWhiskyRealm.Controllers;
 
@@ -29,21 +30,24 @@ public class ArticleController : BaseController
     [HttpGet]
     public async Task<IActionResult> Details(int id)
     {
-        if(await articleService.ArticleExistsAsync(id) == false)
+        var model = await articleService.GetArticleDetailsAsync(id);
+        if (model == null)
         {
             return NotFound();
         }
 
-        var model = await articleService.GetArticleDetailsAsync(id);
         model.Comments = await  commentService.GetCommentsForArticleAsync(id);
+
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        if (await articleService.ArticleExistsAsync(id) == false)
+        var model = await articleService.GetArticleEditAsync(id);
+
+        if (model == null)
         {
             return NotFound();
         }
@@ -56,14 +60,12 @@ public class ArticleController : BaseController
             return Unauthorized();
         }
 
-        var model = await articleService.GetArticleEditAsync(id);
-
         model.ArticleTypeOptions = Enum.GetNames(typeof(ArticleType));
 
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Edit(ArticleEditViewModel model)
     {
@@ -88,10 +90,10 @@ public class ArticleController : BaseController
 
         await articleService.EditArticleAsync(model);
 
-        return RedirectToAction("Details", new {id=model.Id});
+        return RedirectToAction(nameof(Details), new {id=model.Id});
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public IActionResult Add()
     {
@@ -101,7 +103,7 @@ public class ArticleController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Add(ArticleAddViewModel model)
     {
@@ -116,10 +118,10 @@ public class ArticleController : BaseController
 
         var newArticleId = await articleService.AddArticleAsync(model, userId); //TODO check other Add action methods
 
-        return RedirectToAction("Details", "Article", new { id = newArticleId });
+        return RedirectToAction(nameof(Details), new { id = newArticleId });
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
@@ -138,7 +140,7 @@ public class ArticleController : BaseController
 
         await articleService.DeleteArticleAsync(id);
 
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]
