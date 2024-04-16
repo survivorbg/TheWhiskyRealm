@@ -13,7 +13,7 @@ public interface IEventService
     Task<string> GetOrganiserIdAsync(int id);
     Task<EventEditViewModel?> GetEventForEditAsync(int id);
     Task<bool> EventExistAsync(int id);
-    Task EditEventAsync(EventEditViewModel model);
+    Task EditEventAsync(EventEditViewModel model,int availableSpots);
     Task AddEventAsync(EventAddViewModel model, string userId);
     Task<bool> HasAvaialbleSpotsAsync(int id);
     Task<bool> IsUserAlreadyJoinedAsync(int id, string userId);
@@ -22,6 +22,8 @@ public interface IEventService
     Task LeaveEventAsync(int id, string userId);
     Task<ICollection<EventDetailsViewModel>> GetUserEventsAsync(string userId);
     Task<ICollection<string>> GetJoinedUsersAsync(int eventId);
+    Task<int> GetJoinedUsersCountAsync(int eventId);
     Task<ICollection<EventDetailsViewModel>> GetEventsOrganisedByUserAsync(string organiserId);
     Task DeleteEventAsync(int id);
+
 }

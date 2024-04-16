@@ -52,9 +52,10 @@ public class EventService : IEventService
         await repo.SaveChangesAsync();
     }
 
-    public async Task EditEventAsync(EventEditViewModel model)
+    public async Task EditEventAsync(EventEditViewModel model, int availableSpots)
     {
-        Event ev = await repo.GetByIdAsync<Event>(model.Id);
+        var ev = await repo.GetByIdAsync<Event>(model.Id);
+
         if (ev != null)
         {
             ev.Price = model.Price;
@@ -63,6 +64,7 @@ public class EventService : IEventService
             ev.VenueId = model.VenueId;
             ev.StartDate = model.StartDate;
             ev.EndDate = model.EndDate;
+            ev.AvailableSpots = availableSpots;
         }
         await repo.SaveChangesAsync();
     }
@@ -311,5 +313,13 @@ public class EventService : IEventService
             .Where(ue => ue.EventId == eventId)
             .Select(ue => ue.User.UserName)
             .ToListAsync();
+    }
+
+    public async Task<int> GetJoinedUsersCountAsync(int eventId)
+    {
+        return await repo
+            .AllReadOnly<UserEvent>()
+            .Where(ue => ue.EventId == eventId)
+            .CountAsync();
     }
 }

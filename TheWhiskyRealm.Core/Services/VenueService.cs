@@ -64,6 +64,13 @@ public class VenueService : IVenueService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<int> GetVenueCapacityAsync(int id)
+    {
+        var venue = await repo.GetByIdAsync<Venue>(id);
+
+        return venue.Capacity;
+    }
+
     public async Task<ICollection<VenueViewModel>> GetVenuesAsync()
     {
         return await repo
@@ -103,6 +110,19 @@ public class VenueService : IVenueService
                Capacity = v.Capacity,
            })
            .ToListAsync();
+    }
+
+    public async Task<ICollection<VenueViewModel>> GetVenuesWithMoreCapacityAsync(int capacity)
+    {
+        return await repo
+            .AllReadOnly<Venue>()
+            .Where(v=>v.Capacity >= capacity)
+            .Select(v => new VenueViewModel
+            {
+                VenueId = v.Id,
+                VenueName = v.Name,
+            })
+            .ToListAsync();
     }
 
     public async Task<bool> VenueExistAsync(int id)

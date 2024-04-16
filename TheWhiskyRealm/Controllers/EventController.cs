@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Globalization;
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Event;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
+using static TheWhiskyRealm.Core.Constants.EventConstants;
 
 namespace TheWhiskyRealm.Controllers;
 
@@ -48,12 +49,12 @@ public class EventController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var ev = await eventService.GetEventAsync(id);
-        if (ev == null)
+        var model = await eventService.GetEventForEditAsync(id);
+        if (model == null)
         {
             return NotFound();
         }
@@ -68,13 +69,18 @@ public class EventController : BaseController
             return BadRequest();
         }
 
-        var model = await eventService.GetEventForEditAsync(id);
-        model!.Venues = await venueService.GetVenuesAsync();
+        if(await venueService.VenueExistAsync(model.VenueId) == false)
+        {
+            return NotFound();
+        }
+
+        var alreadyJoined = await eventService.GetJoinedUsersCountAsync(id);
+        model.Venues = await venueService.GetVenuesWithMoreCapacityAsync(alreadyJoined);
 
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Edit(EventEditViewModel model)
     {
@@ -96,31 +102,33 @@ public class EventController : BaseController
 
         if ( model.StartDate >= model.EndDate)
         {
-            ModelState.AddModelError(nameof(model.EndDate), "End date must be after start date.");
+            ModelState.AddModelError(nameof(model.EndDate), EndDateMustBeAfterStartDate);
         }
 
         if (model.StartDate <= DateTime.Now.AddDays(1))
         {
-            ModelState.AddModelError(nameof(model.StartDate), "The event must start atleast one day from now.");
+            ModelState.AddModelError(nameof(model.StartDate), EventMustStartAtLeastOneDayFromNow);
         }
 
         if (await venueService.VenueExistAsync(model.VenueId) == false)
         {
-            ModelState.AddModelError(nameof(model.VenueId), "You must choose a valid venue.");
+            ModelState.AddModelError(nameof(model.VenueId), MustChooseAValidVenue);
         }
+        var alreadyJoined = await eventService.GetJoinedUsersCountAsync(model.Id);
 
         if (!ModelState.IsValid)
         {
-            model!.Venues = await venueService.GetVenuesAsync();
+            model.Venues = await venueService.GetVenuesWithMoreCapacityAsync(alreadyJoined);
             return View(model);
         }
 
-        await eventService.EditEventAsync(model);
+        var availableSpots = await venueService.GetVenueCapacityAsync(model.VenueId) - alreadyJoined;
+        await eventService.EditEventAsync(model, availableSpots);
 
-        return RedirectToAction("Details", new {id=model.Id});
+        return RedirectToAction(nameof(Details), new {id=model.Id});
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> Add()
     {
@@ -131,23 +139,23 @@ public class EventController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpPost]
     public async Task<IActionResult> Add(EventAddViewModel model)
     {
         if (model.StartDate >= model.EndDate)
         {
-            ModelState.AddModelError(nameof(model.EndDate), "End date must be after start date.");
+            ModelState.AddModelError(nameof(model.EndDate), EndDateMustBeAfterStartDate);
         }
 
         if (model.StartDate <= DateTime.Now.AddDays(1))
         {
-            ModelState.AddModelError(nameof(model.StartDate), "The event must start atleast one day from now.");
+            ModelState.AddModelError(nameof(model.StartDate), EventMustStartAtLeastOneDayFromNow);
         }
 
         if(await venueService.VenueExistAsync(model.VenueId) == false)
         {
-            ModelState.AddModelError(nameof(model.VenueId), "You must choose a valid venue.");
+            ModelState.AddModelError(nameof(model.VenueId), MustChooseAValidVenue);
         }
 
         if (!ModelState.IsValid)
@@ -159,10 +167,10 @@ public class EventController : BaseController
         var userId = User.Id();
         await eventService.AddEventAsync(model, userId);
 
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
-    [Authorize(Roles = "WhiskyExpert, User")]
+    [Authorize(Roles = $"{Administrator},{UserRole}")]
     [HttpPost]
     public async Task<IActionResult> Join(int id)
     {
@@ -172,10 +180,6 @@ public class EventController : BaseController
         }
 
         var userId = User.Id();
-        if(userId == null)
-        {
-            return RedirectToPage("/Identity/Login"); //TODO Check 
-        }
 
         if(await eventService.IsUserAlreadyJoinedAsync(id, userId) || await eventService.GetOrganiserIdAsync(id) == userId)
         {
@@ -189,10 +193,10 @@ public class EventController : BaseController
 
         await eventService.JoinEventAsync(id, userId);
 
-        return RedirectToAction("MyEvents"); 
+        return RedirectToAction(nameof(MyEvents)); 
     }
 
-    [Authorize(Roles = "WhiskyExpert, User")]
+    [Authorize(Roles = $"{Administrator},{UserRole}")]
     [HttpPost]
     public async Task<IActionResult> Leave(int id)
     {
@@ -202,10 +206,6 @@ public class EventController : BaseController
         }
 
         var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Identity/Login"); //TODO Check 
-        }
 
         if (await eventService.IsUserAlreadyJoinedAsync(id, userId) == false)
         {
@@ -219,7 +219,7 @@ public class EventController : BaseController
 
         await eventService.LeaveEventAsync(id, userId);
 
-        return RedirectToAction("MyEvents");
+        return RedirectToAction(nameof(MyEvents));
     }
 
 
@@ -233,7 +233,7 @@ public class EventController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> OrganisedEvents()
     {
@@ -243,7 +243,7 @@ public class EventController : BaseController
         return View(model);
     }
 
-    [Authorize(Roles = "Administrator, WhiskyExpert")]
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     public async Task<IActionResult> Delete(int id)
     {
         var ev = await eventService.GetEventAsync(id);
@@ -264,6 +264,6 @@ public class EventController : BaseController
 
         await eventService.DeleteEventAsync(id);
 
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 }
