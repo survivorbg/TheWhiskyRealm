@@ -39,7 +39,6 @@ public class WhiskyController : BaseController
     {
         var model = await whiskyService.GetPagedWhiskiesAsync(0, 9);
 
-
         return View(model);
     }
 
@@ -317,7 +316,7 @@ public class WhiskyController : BaseController
 
         await whiskyService.ApproveWhiskyAsync(id);
 
-        return RedirectToAction(nameof(Details), new {id});
+        return RedirectToAction(nameof(Details), new { id });
     }
 
 }

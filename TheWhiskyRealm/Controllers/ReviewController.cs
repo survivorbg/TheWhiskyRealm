@@ -20,10 +20,6 @@ public class ReviewController : BaseController
     public async Task<IActionResult> Add(ReviewFormModel model)
     {
         var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
 
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
@@ -44,21 +40,19 @@ public class ReviewController : BaseController
 
         await reviewService.AddReviewAsync(model, userId);
 
-        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
+        return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = model.WhiskyId });
     }
 
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var userId = User.Id();
-
-        if (await reviewService.ReviewExistAsync(id) == false)
-        {
-            return NotFound(); //TODO Change to My Reviews
-        }
-
         var review = await reviewService.GetReviewAsync(id);
 
+        if (review == null)
+        {
+            return NotFound();
+        }
 
         if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
@@ -87,18 +81,12 @@ public class ReviewController : BaseController
     {
         var userId = User.Id();
 
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
-
-        if (await reviewService.ReviewExistAsync(id) == false)
-        {
-            return NotFound(); //TODO Change to My Reviews
-        }
-
         var review = await reviewService.GetReviewAsync(id);
 
+        if (review == null)
+        {
+            return NotFound();
+        }
 
         if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
@@ -118,25 +106,19 @@ public class ReviewController : BaseController
 
         await reviewService.EditReviewAsync(id, model);
 
-        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
+        return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = model.WhiskyId });
     }
 
     public async Task<IActionResult> Delete(int id)
     {
         var userId = User.Id();
 
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
-
-        if (await reviewService.ReviewExistAsync(id) == false)
-        {
-            return NotFound(); //TODO Change to My Reviews
-        }
-
         var review = await reviewService.GetReviewAsync(id);
 
+        if (review == null)
+        {
+            return NotFound(); 
+        }
 
         if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(review.WhiskyId) == false)
@@ -151,16 +133,12 @@ public class ReviewController : BaseController
 
         await reviewService.DeleteReviewAsync(id);
 
-        return RedirectToAction("Details", "Whisky", new { id = review.WhiskyId });
+        return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = review.WhiskyId });
     }
     [HttpGet]
     public async Task<IActionResult> MyReviews()
     {
         var userId = User.Id();
-        if (userId == null)
-        {
-            return BadRequest();
-        }
 
         var model = await reviewService.AllUserReviewsAsync(userId);
 

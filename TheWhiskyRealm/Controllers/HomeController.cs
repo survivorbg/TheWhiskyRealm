@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
 
 namespace TheWhiskyRealm.Controllers
 {
@@ -18,19 +19,14 @@ namespace TheWhiskyRealm.Controllers
         {
             if (User.IsAdmin())
             {
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+                return RedirectToAction(nameof(Index), "Home", new { area = "Admin"});
             }
 
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("All", "Whisky");
+                return RedirectToAction(nameof(WhiskyController.All), "Whisky");
             }
 
-            return View();
-        }
-        [Authorize(Roles = "Administrator")]
-        public IActionResult Privacy()
-        {
             return View();
         }
 

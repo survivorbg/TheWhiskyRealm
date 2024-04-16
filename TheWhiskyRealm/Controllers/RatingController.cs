@@ -20,10 +20,6 @@ public class RatingController : BaseController
     public async Task<IActionResult> Rate(RatingViewModel model)
     {
         var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
 
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
@@ -38,7 +34,7 @@ public class RatingController : BaseController
 
         await ratingService.RateAsync(userId, model);
 
-        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
+        return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = model.WhiskyId });
     }
 
     [HttpGet]
@@ -69,15 +65,11 @@ public class RatingController : BaseController
 
         return PartialView("_RatingEditFormPartial", viewModel);
     }
+
     [HttpPost]
     public async Task<IActionResult> Update(RatingViewModel model)
     {
         var userId = User.Id();
-
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
 
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
@@ -92,24 +84,20 @@ public class RatingController : BaseController
             return NotFound();
         }
 
-        if (!ModelState.IsValid) //TODO 
+        if (!ModelState.IsValid) 
         {
-            return BadRequest(ModelState);
+            return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = model.WhiskyId });
         }
 
         await ratingService.EditRatingAsync(model, rating.Id);
 
-        return RedirectToAction("Details", "Whisky", new { id = model.WhiskyId });
+        return RedirectToAction(nameof(WhiskyController.Details), "Whisky", new { id = model.WhiskyId });
     }
 
     [HttpGet]
     public async Task<IActionResult> MyRatings()
     {
         var userId = User.Id();
-        if (userId == null)
-        {
-            return RedirectToPage("/Account/Login");
-        }
 
         var model = await ratingService.GetRatingsByUserAsync(userId);
 
