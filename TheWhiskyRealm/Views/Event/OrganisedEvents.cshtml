@@ -9,6 +9,9 @@
 {
 
     <partial name="_EventDetailsPartial" model="@e" />
-    <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
-    <button class="btn-danger btn" onclick="confirmDeleteEvent(@e.Id)">Delete</button>
+    <div class="d-flex justify-content-center gap-5">
+        <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
+        <button class="btn-danger btn" onclick="confirmDeleteEvent(@e.Id)">Delete</button>
+        <a asp-controller="Event" asp-action="Details" asp-route-id="@e.Id" class="btn btn-primary">Details</a>
+    </div>
 }

@@ -158,7 +158,7 @@ public class EventService : IEventService
             {
                 Id = e.Id,
                 Price = e.Price,
-                AvailableSpots = e.Venue.Capacity,
+                AvailableSpots = e.AvailableSpots,
                 Description = e.Description,
                 EndDate = e.EndDate.ToString("hh:mm dddd, dd MMMM yyyy"),
                 OrganiserName = e.Organiser.UserName,
@@ -303,5 +303,13 @@ public class EventService : IEventService
         }
 
         await repo.SaveChangesAsync();
+    }
+    public async Task<ICollection<string>> GetJoinedUsersAsync(int eventId)
+    {
+        return await repo
+            .AllReadOnly<UserEvent>()
+            .Where(ue => ue.EventId == eventId)
+            .Select(ue => ue.User.UserName)
+            .ToListAsync();
     }
 }

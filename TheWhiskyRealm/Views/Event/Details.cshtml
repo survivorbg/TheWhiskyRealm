@@ -8,7 +8,7 @@
     var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(Model.Id, userId);
 }
 @if ((User.Id() == organiserId || User.IsInRole("Administrator")) &&
- !started)
+!started)
 {
     <div class="d-flex justify-content-around mt-4">
         <a class="btn btn-primary" asp-controller="Event" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
@@ -32,3 +32,18 @@
         </form>
     }
 </div>
+@if (User.Id() == organiserId || User.IsInRole("Administrator"))
+{
+    <div class="container">
+        <h2>Joined Users: </h2>
+        <table class="table table-striped">
+            @foreach (var user in Model.JoinedUsers)
+            {
+                <tr>
+                    <th>User Name:</th>
+                    <td>@user</td>
+                </tr>
+            }
+        </table>
+    </div>
+}

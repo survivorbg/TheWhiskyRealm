@@ -38,10 +38,12 @@ public class EventController : BaseController
     public async Task<IActionResult> Details(int id)
     {
         var model = await eventService.GetEventAsync(id);
-        if(model == null)
+        
+        if (model == null)
         {
             return NotFound();
         }
+        model.JoinedUsers = await eventService.GetJoinedUsersAsync(id);
 
         return View(model);
     }

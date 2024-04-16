@@ -21,6 +21,7 @@ public interface IEventService
     Task<bool> HasAlreadyStartedAsync(int id);
     Task LeaveEventAsync(int id, string userId);
     Task<ICollection<EventDetailsViewModel>> GetUserEventsAsync(string userId);
+    Task<ICollection<string>> GetJoinedUsersAsync(int eventId);
     Task<ICollection<EventDetailsViewModel>> GetEventsOrganisedByUserAsync(string organiserId);
     Task DeleteEventAsync(int id);
 }
