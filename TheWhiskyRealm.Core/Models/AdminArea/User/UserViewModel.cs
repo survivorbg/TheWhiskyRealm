@@ -9,4 +9,5 @@ public class UserViewModel
     public string Role { get; set; } = string.Empty;
     [Display(Name = "Date of Birth")]
     public DateTime DateOfBirth { get; set; }
+    public bool IsLocked { get; set; }
 }

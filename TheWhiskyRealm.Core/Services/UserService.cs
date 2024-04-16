@@ -38,6 +38,7 @@ public class UserService : IUserService
                 Username = user.UserName,
                 Role = roles.FirstOrDefault() != null ? roles.First() : "No role",
                 DateOfBirth = user.DateOfBirth,
+                IsLocked = await userManager.IsLockedOutAsync(user),
             });
         }
 

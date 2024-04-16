@@ -206,6 +206,43 @@ public class UserController : AdminBaseController
         return View(model);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Lock(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
+
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Unlock(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        await userManager.SetLockoutEndDateAsync(user, null);
+
+        return RedirectToAction("Index");
+    }
 
 
 }
