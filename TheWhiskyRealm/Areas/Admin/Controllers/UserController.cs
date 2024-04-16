@@ -136,6 +136,76 @@ public class UserController : AdminBaseController
         return View(user);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> EditRole(string id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var user = await userManager.FindByIdAsync(id);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var model = new UserEditViewModel
+        {
+            Id = user.Id,
+            Email = user.Email,
+            DateOfBirth = user.DateOfBirth,
+            Roles = roleManager.Roles.Select(r => r.Name).ToList()
+        };
+
+        return View(model);
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> EditRole(UserEditViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = await userManager.FindByIdAsync(model.Id);
+            if (user != null)
+            {
+                var currentRole = await userManager.GetRolesAsync(user);
+                var existingRole = currentRole.SingleOrDefault();
+                if(existingRole == model.Role)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                if (existingRole != null)
+                {
+                    var removeRoleResult = await userManager.RemoveFromRoleAsync(user, existingRole);
+                    if (!removeRoleResult.Succeeded)
+                    {
+                        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+                        return View(model);
+                    }
+                }
+
+                var addRoleResult = await userManager.AddToRoleAsync(user, model.Role);
+                if (!addRoleResult.Succeeded)
+                {
+                    model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+                    return View(model);
+                }
+
+                var result = await userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+        }
+
+        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+        return View(model);
+    }
+
 
 
 }
