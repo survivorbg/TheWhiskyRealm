@@ -46,7 +46,7 @@ public class CountryController : AdminBaseController
             await countryService.AddCountryAsync(name);
         }
 
-        return RedirectToAction(nameof(Index)); //TODO change everything to nameof
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]

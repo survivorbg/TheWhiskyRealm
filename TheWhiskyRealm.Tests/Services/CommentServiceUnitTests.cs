@@ -221,7 +221,7 @@ public class CommentServiceUnitTests
         var commentViewModel = await service.GetCommentByIdAsync(nonExistingCommentId);
 
         // Assert
-        Assert.IsNull(commentViewModel, "CommentViewModel is not null."); //TODO Add messages everywhere
+        Assert.IsNull(commentViewModel, "CommentViewModel is not null.");
     }
     [Test]
     public async Task GetCommentsForArticleAsync_WithExistingArticleId_ShouldReturnCommentViewModels()

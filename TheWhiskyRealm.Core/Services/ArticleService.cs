@@ -107,7 +107,7 @@ public class ArticleService : IArticleService
             .Where(a => a.Id == id)
             .Select(a => new ArticleEditViewModel
             {
-                ArticleType = a.Type.GetDisplayName(), //TODO Fix other enum extracting
+                ArticleType = a.Type.GetDisplayName(),
                 Content = a.Content,
                 Id = a.Id,
                 ImageUrl = a.ImageUrl,

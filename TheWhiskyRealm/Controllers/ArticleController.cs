@@ -116,7 +116,7 @@ public class ArticleController : BaseController
 
         var userId = User.Id();
 
-        var newArticleId = await articleService.AddArticleAsync(model, userId); //TODO check other Add action methods
+        var newArticleId = await articleService.AddArticleAsync(model, userId);
 
         return RedirectToAction(nameof(Details), new { id = newArticleId });
     }

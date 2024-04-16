@@ -24,7 +24,7 @@ public class AwardController : BaseController
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var userId = User.Id(); //TODO Remove all unnecessary validations like this
+        var userId = User.Id(); 
 
         if (await awardService.AwardExistAsync(id) == false)
         {

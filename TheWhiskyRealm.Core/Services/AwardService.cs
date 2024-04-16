@@ -91,7 +91,7 @@ public class AwardService : IAwardService
                 Title = a.Title,
                 Year = a.Year,
                 WhiskyId = a.Whisky.Id,
-                MedalType = a.MedalType.ToString()
+                MedalType = a.MedalType.GetDisplayName(),
 
             })
             .FirstOrDefaultAsync();
