@@ -2,8 +2,6 @@
 using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Comment;
-using TheWhiskyRealm.Core.Services;
-using TheWhiskyRealm.Infrastructure.Data.Models;
 
 namespace TheWhiskyRealm.Controllers;
 
@@ -35,7 +33,7 @@ public class CommentController : BaseController
 
         await commentService.AddCommentAsync(model,userId);
 
-        return RedirectToAction("Details","Article", new { id = model.ArticleId });
+        return RedirectToAction(nameof(ArticleController.Details),"Article", new { id = model.ArticleId });
     }
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
@@ -96,7 +94,7 @@ public class CommentController : BaseController
 
         await commentService.EditCommentAsync(model);
 
-        return RedirectToAction("Details", "Article", new { id = model.ArticleId });
+        return RedirectToAction(nameof(ArticleController.Details),"Article", new { id = model.ArticleId });
     }
     public async Task<IActionResult> Delete(int id)
     {
@@ -120,6 +118,6 @@ public class CommentController : BaseController
 
         await commentService.DeleteCommentAsync(id);
 
-        return RedirectToAction("Details", "Article", new { id = comment.ArticleId });
+        return RedirectToAction(nameof(ArticleController.Details), "Article", new { id = comment.ArticleId });
     }
 }
