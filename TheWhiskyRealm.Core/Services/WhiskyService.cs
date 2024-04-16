@@ -39,26 +39,6 @@ public class WhiskyService : IWhiskyService
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<AllWhiskyModel>> GetMoreWhiskiesAsync(int skip, int take) //TODO DELETE THIS as is unused
-    {
-
-        return await repo.AllReadOnly<Whisky>()
-            .OrderByDescending(w => w.Id)
-            .Skip(skip)
-            .Take(take)
-            .Select(x => new AllWhiskyModel()
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Age = x.Age,
-                AlcoholPercentage = x.AlcoholPercentage,
-                WhiskyType = x.WhiskyType.Name,
-                Reviews = x.Reviews.Count(),
-                ImageURL = x.ImageURL
-            })
-            .ToListAsync();
-    }
-
     public async Task<bool> WhiskyExistAsync(int id)
     {
         return await repo
