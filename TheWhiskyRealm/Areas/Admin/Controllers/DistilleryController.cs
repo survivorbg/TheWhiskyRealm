@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
-using TheWhiskyRealm.Core.Models.AdminArea.Region;
-using TheWhiskyRealm.Core.Services;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -71,7 +70,7 @@ public class DistilleryController : AdminBaseController
     {
         if (await distilleryService.DistilleryExistByName(model.Name))
         {
-            ModelState.AddModelError("Name", "There is already a distillery with that name.");
+            ModelState.AddModelError(nameof(model.Name), DistilleryWithThatNameMessage);
         }
 
         if (!ModelState.IsValid)
@@ -82,7 +81,7 @@ public class DistilleryController : AdminBaseController
 
         var id = await distilleryService.AddDistilleryAsync(model);
 
-        return RedirectToAction("Info", "Distillery", new {id});
+        return RedirectToAction(nameof(Info), "Distillery", new {id});
     }
 
     [HttpGet]
@@ -106,12 +105,12 @@ public class DistilleryController : AdminBaseController
 
         if (model == null) 
         {
-            return BadRequest("Invalid request");
+            return BadRequest();
         }
 
         var distillery = await distilleryService.GetDistilleryByIdAsync(model.Id);
 
-        if (model == null)
+        if (distillery == null)
         {
             return NotFound();
         }
@@ -123,7 +122,7 @@ public class DistilleryController : AdminBaseController
 
         if (await distilleryService.DistilleryExistByName(model.Name,model.Id))
         {
-            ModelState.AddModelError("Name", "There is already a distillery with that name.");
+            ModelState.AddModelError(nameof(model.Name), DistilleryWithThatNameMessage);
         }
 
         if (!ModelState.IsValid)
@@ -134,6 +133,6 @@ public class DistilleryController : AdminBaseController
 
         await distilleryService.EditDistilleryAsync(model);
 
-        return RedirectToAction("Info", "Distillery", new { model.Id });
+        return RedirectToAction(nameof(Info), "Distillery", new { model.Id });
     }
 }

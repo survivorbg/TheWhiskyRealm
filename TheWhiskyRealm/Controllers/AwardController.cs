@@ -4,7 +4,7 @@ using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Award;
 using TheWhiskyRealm.Infrastructure.Data.Enums;
-using static TheWhiskyRealm.Core.Constants.AwardConstants;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 using static TheWhiskyRealm.Core.Constants.RoleConstants;
 
 namespace TheWhiskyRealm.Controllers;

@@ -2,6 +2,7 @@
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Country;
 using TheWhiskyRealm.Core.Models.AdminArea.Region;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -24,7 +25,7 @@ public class RegionController : AdminBaseController
     {
         var model = new AddRegionViewModel();
 
-        if(countryId != null && await countryService.CountryExistsAsync((int)countryId) == false)
+        if (countryId != null && await countryService.CountryExistsAsync((int)countryId) == false)
         {
             return BadRequest();
         }
@@ -37,26 +38,26 @@ public class RegionController : AdminBaseController
     [HttpPost]
     public async Task<IActionResult> Add(AddRegionViewModel model)
     {
-        if(model.CountryId == null || await countryService.CountryExistsAsync((int)model.CountryId) == false)
+        if (model.CountryId == null || await countryService.CountryExistsAsync((int)model.CountryId) == false)
         {
             model.Countries = await countryService.GetAllCountriesAsync();
             return View(model);
         }
 
-        if(await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, (int)model.CountryId))
+        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, (int)model.CountryId))
         {
-            ModelState.AddModelError("Name", "There is already a region with this name in this country.");
+            ModelState.AddModelError(nameof(model.Name), RegionWithThisNameInThisCountryMessage);
         }
 
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             model.Countries = await countryService.GetAllCountriesAsync();
             return View(model);
         }
 
-        var id = await regionService.AddRegionAsync(model.Name,(int)model.CountryId);
+        var id = await regionService.AddRegionAsync(model.Name, (int)model.CountryId);
 
-        return RedirectToAction("Info", "Region", new {id});
+        return RedirectToAction(nameof(Info), "Region", new { id });
     }
 
     [HttpGet]
@@ -95,12 +96,12 @@ public class RegionController : AdminBaseController
 
         if (model == null) //TODO Check for null on every post
         {
-            return BadRequest("Invalid request");
+            return BadRequest();
         }
 
         var region = await regionService.GetRegionByIdAsync(model.Id);
 
-        if (model == null)
+        if (region == null)
         {
             return NotFound();
         }
@@ -110,9 +111,9 @@ public class RegionController : AdminBaseController
             return BadRequest();
         }
 
-        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, model.CountryId,model.Id))
+        if (await regionService.RegionWithThisNameAndCountryExistsAsync(model.Name, model.CountryId, model.Id))
         {
-            ModelState.AddModelError("Name", "There is already a region with this name in this country.");
+            ModelState.AddModelError(nameof(model.Name), RegionWithThisNameInThisCountryMessage);
         }
 
         if (!ModelState.IsValid)
@@ -123,7 +124,7 @@ public class RegionController : AdminBaseController
 
         await regionService.EditRegionAsync(model);
 
-        return RedirectToAction("Info", "Region", new {id=model.Id}); 
+        return RedirectToAction(nameof(Info), "Region", new { id = model.Id });
     }
 
     [HttpGet]

@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
-using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using TheWhiskyRealm.Core.Models.AdminArea.Venue;
-using TheWhiskyRealm.Core.Services;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers
 {
@@ -54,7 +53,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (await venueService.VenueExistByNameAsync(model.Name,model.CityId))
             {
-                ModelState.AddModelError("Name", "There is already a Venue with this name in this city.");
+                ModelState.AddModelError(nameof(model.Name), VenueWithThisNameInThisCityMessage);
             }
 
             if (!ModelState.IsValid)
@@ -65,7 +64,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             var id = await venueService.AddVenueAsync(model);
 
-            return RedirectToAction("Info", "Venue", new { id });
+            return RedirectToAction(nameof(Info), "Venue", new { id });
         }
 
         public async Task<IActionResult> Info(int id)
@@ -110,7 +109,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (model == null)
             {
-                return BadRequest("Invalid request");
+                return BadRequest();
             }
 
             var venue = await venueService.GetVenueByIdAsync(model.Id);
@@ -127,7 +126,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (await venueService.VenueExistByNameAsync(model.Name, model.CityId,model.Id))
             {
-                ModelState.AddModelError("Name", "There is already a Venue with this name in this city.");
+                ModelState.AddModelError(nameof(model.Name), VenueWithThisNameInThisCityMessage);
             }
 
             if (!ModelState.IsValid)
@@ -138,18 +137,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             await venueService.EditVenueAsync(model);
 
-            return RedirectToAction("Info", "Venue", new { model.Id });
-        }
-
-        [HttpGet]
-        public IActionResult Delete()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Delete(int id)
-        {
-            return View();
+            return RedirectToAction(nameof(Info), "Venue", new { model.Id });
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Security.Claims;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Event;
 using static TheWhiskyRealm.Core.Constants.RoleConstants;
-using static TheWhiskyRealm.Core.Constants.EventConstants;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Controllers;
 

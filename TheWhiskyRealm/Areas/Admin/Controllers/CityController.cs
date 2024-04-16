@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.IO.Compression;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.City;
-using TheWhiskyRealm.Core.Models.AdminArea.Country;
-using TheWhiskyRealm.Core.Models.AdminArea.Region;
-using TheWhiskyRealm.Core.Services;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers
 {
@@ -65,7 +62,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (await cityService.CityWithThisNameAndCountryExistsAsync(model.Name, (int)model.CountryId))
             {
-                ModelState.AddModelError("Name", "There is already a city with this name in this country.");
+                ModelState.AddModelError(nameof(model.Name), CityWithThisNameInThisCountryMessage);
             }
 
             if (!ModelState.IsValid)
@@ -74,9 +71,9 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
                 return View(model);
             }
 
-            var id = await cityService.AddCityAsync(model.Name, (int)model.CountryId,model.Zip);
+            var id = await cityService.AddCityAsync(model.Name, (int)model.CountryId, model.Zip);
 
-            return RedirectToAction("Info", "City", new { id });
+            return RedirectToAction(nameof(Info), "City", new { id });
         }
 
         [HttpGet]
@@ -105,12 +102,12 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (model == null || model.CountryId == null) //TODO Check for null on every post
             {
-                return BadRequest("Invalid request");
+                return BadRequest();
             }
 
             var city = await cityService.GetCityByIdAsync(model.Id);
 
-            if (model == null)
+            if (city == null)
             {
                 return NotFound();
             }
@@ -122,7 +119,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             if (await cityService.CityWithThisNameAndCountryExistsAsync(model.Name, (int)model.CountryId, model.Id))
             {
-                ModelState.AddModelError("Name", "There is already a city with this name in this country.");
+                ModelState.AddModelError(nameof(model.Name), CityWithThisNameInThisCountryMessage);
             }
 
             if (!ModelState.IsValid)
@@ -133,7 +130,7 @@ namespace TheWhiskyRealm.Areas.Admin.Controllers
 
             await cityService.EditCityAsync(model);
 
-            return RedirectToAction("Info", "City", new { id = model.Id });
+            return RedirectToAction(nameof(Info), "City", new { id = model.Id });
         }
 
         [HttpGet]

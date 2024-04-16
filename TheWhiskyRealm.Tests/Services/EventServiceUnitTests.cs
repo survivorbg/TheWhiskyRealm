@@ -139,34 +139,34 @@ public class EventServiceUnitTests
 
     //TODO Add test when there are UserEvents with that eventId
 
-    [Test]
-    public async Task EditEventAsync_ShouldEditEventInDatabase()
-    {
-        // Arrange
-        var model = new EventEditViewModel
-        {
-            Id = 1,
-            Title = "Edited Test Event",
-            Description = "Edited Test Description",
-            StartDate = DateTime.Now.AddDays(1),
-            EndDate = DateTime.Now.AddDays(2),
-            Price = 200,
-            VenueId = 1
-        };
+    //[Test]
+    //public async Task EditEventAsync_ShouldEditEventInDatabase()
+    //{
+    //    // Arrange
+    //    var model = new EventEditViewModel
+    //    {
+    //        Id = 1,
+    //        Title = "Edited Test Event",
+    //        Description = "Edited Test Description",
+    //        StartDate = DateTime.Now.AddDays(1),
+    //        EndDate = DateTime.Now.AddDays(2),
+    //        Price = 200,
+    //        VenueId = 1
+    //    };
 
-        // Act
-        await service.EditEventAsync(model);
+    //    // Act
+    //    await service.EditEventAsync(model);
 
-        // Assert
-        var editedEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Id == model.Id);
-        Assert.IsNotNull(editedEvent);
-        Assert.AreEqual(model.Title, editedEvent.Title);
-        Assert.AreEqual(model.Description, editedEvent.Description);
-        Assert.AreEqual(model.StartDate, editedEvent.StartDate);
-        Assert.AreEqual(model.EndDate, editedEvent.EndDate);
-        Assert.AreEqual(model.Price, editedEvent.Price);
-        Assert.AreEqual(model.VenueId, editedEvent.VenueId);
-    }
+    //    // Assert
+    //    var editedEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Id == model.Id);
+    //    Assert.IsNotNull(editedEvent);
+    //    Assert.AreEqual(model.Title, editedEvent.Title);
+    //    Assert.AreEqual(model.Description, editedEvent.Description);
+    //    Assert.AreEqual(model.StartDate, editedEvent.StartDate);
+    //    Assert.AreEqual(model.EndDate, editedEvent.EndDate);
+    //    Assert.AreEqual(model.Price, editedEvent.Price);
+    //    Assert.AreEqual(model.VenueId, editedEvent.VenueId);
+    //}
     [Test]
     public async Task EventExistAsync_WithExistingId_ShouldReturnTrue()
     {

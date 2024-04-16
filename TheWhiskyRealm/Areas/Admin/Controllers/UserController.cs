@@ -67,7 +67,7 @@ public class UserController : AdminBaseController
                 if (roleResult.Succeeded)
                 {
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -92,7 +92,7 @@ public class UserController : AdminBaseController
         model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
         return View(model);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> Delete(string id)
     {
@@ -102,7 +102,7 @@ public class UserController : AdminBaseController
         }
 
         var user = await userManager.FindByIdAsync(id);
-        
+
         if (user == null)
         {
             return NotFound();
@@ -116,7 +116,7 @@ public class UserController : AdminBaseController
         return View(model);
     }
 
-    
+
     [HttpPost]
     public async Task<IActionResult> Delete(UserFormModel model)
     {
@@ -126,7 +126,7 @@ public class UserController : AdminBaseController
             var result = await userManager.DeleteAsync(user);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             foreach (var error in result.Errors)
             {
@@ -172,9 +172,9 @@ public class UserController : AdminBaseController
             {
                 var currentRole = await userManager.GetRolesAsync(user);
                 var existingRole = currentRole.SingleOrDefault();
-                if(existingRole == model.Role)
+                if (existingRole == model.Role)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
 
                 if (existingRole != null)
@@ -197,7 +197,7 @@ public class UserController : AdminBaseController
                 var result = await userManager.UpdateAsync(user);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Index));
                 }
             }
         }
@@ -222,7 +222,7 @@ public class UserController : AdminBaseController
 
         await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
 
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpPost]
@@ -241,7 +241,7 @@ public class UserController : AdminBaseController
 
         await userManager.SetLockoutEndDateAsync(user, null);
 
-        return RedirectToAction("Index");
+        return RedirectToAction(nameof(Index));
     }
     public async Task<IActionResult> Info(string id)
     {
@@ -252,7 +252,7 @@ public class UserController : AdminBaseController
 
         var model = await userService.GetUserInfoAsync(id);
 
-        if(model == null)
+        if (model == null)
         {
             return NotFound();
         }

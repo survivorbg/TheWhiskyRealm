@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Country;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -67,7 +68,7 @@ public class CountryController : AdminBaseController
 
         if (model == null) //TODO Check for null on every post
         {
-            return BadRequest("Invalid request");
+            return BadRequest();
         }
         var country = await countryService.GetByIdAsync(model.Id);
 
@@ -78,7 +79,7 @@ public class CountryController : AdminBaseController
 
         if (await countryService.CountryWithNameExistsAsync(model.Name,model.Id))
         {
-            ModelState.AddModelError("Name", "There is already a country with that name.");
+            ModelState.AddModelError(nameof(model.Name), CountryWithThatNameMessage);
             return View(model);
         }
 

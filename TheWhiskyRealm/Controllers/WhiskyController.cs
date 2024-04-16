@@ -6,7 +6,7 @@ using TheWhiskyRealm.Core.Models.Review;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using static TheWhiskyRealm.Core.Constants.RoleConstants;
-using static TheWhiskyRealm.Core.Constants.WhiskyConstants;
+using static TheWhiskyRealm.Core.Constants.ControllerConstants;
 
 namespace TheWhiskyRealm.Controllers;
 
