@@ -48,6 +48,7 @@ public class CountryController : AdminBaseController
         return RedirectToAction(nameof(Index)); //TODO change everything to nameof
     }
 
+    [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var model = await countryService.GetByIdAsync(id);
