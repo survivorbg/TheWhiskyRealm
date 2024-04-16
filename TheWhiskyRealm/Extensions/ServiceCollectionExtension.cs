@@ -36,6 +36,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<ICityService, CityService>();
+        services.AddScoped<IUserService, UserService>();
 
         return services;
     }
