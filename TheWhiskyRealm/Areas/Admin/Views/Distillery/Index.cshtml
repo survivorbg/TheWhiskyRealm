@@ -1,6 +1,14 @@
 ﻿@model DistilleryIndexViewModel
 
+<script src="~/js/AdminArea/Distillery/search-functionallity.js"></script>
+
 <a asp-area="Admin" asp-controller="Distillery" asp-action="Add" class="btn btn-primary">Add new Distillery</a>
+<form id="searchForm">
+    <input type="text" id="searchInput" name="search" placeholder="Search...">
+    <button type="button" id="searchButton" class="btn btn-primary">Search</button>
+    <button type="button" id="resetButton" class="btn btn-secondary">Reset</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -53,7 +61,6 @@
     <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : "")">Previous</a>
     <a asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)" asp-route-sortOrder="@ViewData["CurrentSort"]" class="btn btn-primary @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">Next</a>
 </div>
-
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
