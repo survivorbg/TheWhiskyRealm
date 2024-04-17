@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AllWhiskyModel>
+
+@{
+    ViewData["Title"] = "All Whiskies";
+}
+<link rel="stylesheet" type="text/css" href="~/css/Whisky/whisky-all.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="~/js/Whisky/scrollFunction.js"></script>
+
+<div class="container" id="whiskiesContainer">
+    <h1 class="text-center">All Whiskies</h1>
+    <div class="row" id="whiskyRow">
+        @foreach (var whisky in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card text-center">
+                    <img src="@whisky.ImageURL" class="card-img-top" alt="Whisky Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@whisky.Name</h5>
+                        <p class="card-text whisky-type">@whisky.WhiskyType</p>
+                        @if (whisky.Age.HasValue)
+                        {
+                            <p class="card-text">
+                                Age: @whisky.Age YO
+                            </p>
+                        }
+                        <p class="card-text">ABV: @whisky.AlcoholPercentage%</p>
+                        <p class="card-text">Reviews: @whisky.Reviews</p>
+                        <div class="w-100">
+                            <form asp-area="Admin" asp-action="Approve" asp-controller="ForApprove" method="post" class="w-100">
+                                <input type="hidden" name="id" value="@whisky.Id" />
+                                <input type="submit" class="btn btn-outline-primary btn-block" value="Approve" />
+                            </form>
+                            <a asp-area="" class="btn btn-outline-primary btn-block" asp-controller="Whisky" asp-action="Details" asp-route-id="@whisky.Id">More Info</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+

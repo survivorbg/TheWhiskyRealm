@@ -130,6 +130,9 @@ nav.admin {
         nav.admin li:nth-child(5) a {
             border-left: 10px solid #ffd071;
         }
+        nav.admin li:nth-child(6) a {
+            border-left: 10px solid #f0776c;
+        }
 
         nav.admin li:last-child a {
             border-left: 10px solid #1abc9c;
@@ -169,8 +172,10 @@ nav.admin {
 
         nav.admin li:nth-child(5) a:after {
             background: #ffd071;
+            }
+        nav.admin li:nth-child(6) a:after {
+            background: #f0776c;
         }
-
         nav.admin li:last-child a:after {
             background: #1abc9c;
         }

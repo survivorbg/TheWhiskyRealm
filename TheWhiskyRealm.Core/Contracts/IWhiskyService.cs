@@ -6,6 +6,7 @@ namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IWhiskyService
 {
+    Task<IEnumerable<AllWhiskyModel>> GetAllWhiskiesForApproveAsync();
     Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take);
     Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take, string sortOrder);
     Task<bool> WhiskyExistAsync(int id);

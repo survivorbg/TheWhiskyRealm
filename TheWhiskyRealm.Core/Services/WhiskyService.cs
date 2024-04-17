@@ -276,4 +276,21 @@ public class WhiskyService : IWhiskyService
             await repo.SaveChangesAsync();
         }
     }
+
+    public async Task<IEnumerable<AllWhiskyModel>> GetAllWhiskiesForApproveAsync()
+    {
+        return await repo.AllReadOnly<Whisky>()
+            .Where(w => w.isApproved == false)
+            .Select(x => new AllWhiskyModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Age = x.Age,
+                AlcoholPercentage = x.AlcoholPercentage,
+                WhiskyType = x.WhiskyType.Name,
+                Reviews = x.Reviews.Count(),
+                ImageURL = x.ImageURL
+            })
+            .ToListAsync();
+    }
 }

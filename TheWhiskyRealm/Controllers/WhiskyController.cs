@@ -302,21 +302,4 @@ public class WhiskyController : BaseController
         model.Whiskies = paginatedWhiskies;
         return View(model);
     }
-
-    [Authorize(Roles = Administrator)]
-    [HttpPost]
-    public async Task<IActionResult> Approve(int id)
-    {
-        var whisky = await whiskyService.GetWhiskyByIdForEditAsync(id);
-
-        if (whisky == null)
-        {
-            return NotFound();
-        }
-
-        await whiskyService.ApproveWhiskyAsync(id);
-
-        return RedirectToAction(nameof(Details), new { id });
-    }
-
 }
