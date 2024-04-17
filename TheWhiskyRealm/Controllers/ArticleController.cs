@@ -143,6 +143,7 @@ public class ArticleController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
+    [Authorize(Roles = $"{Administrator},{WhiskyExpert}")]
     [HttpGet]
     public async Task<IActionResult> MyArticles()
     {

@@ -1,11 +1,14 @@
 ﻿<ul class="navbar-nav flex-grow-1">
     <li class="nav-item dropdown" onmouseover="showWhiskyDropdownMenu()" onmouseleave="hideWhiskyDropdownMenu()">
         <a class="nav-link dropdown-toggle" href="#" id="whiskyDropdown" role="button" aria-expanded="false">
-            Whisky
+            Whiskies
         </a>
         <ul class="dropdown-menu" id="whiskyDropdownMenu" aria-labelledby="whiskyDropdown">
-            <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">All</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="Add">Add</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">Explore All</a></li>
+            @if (User.IsAdmin() || User.IsWhiskyExpert())
+            {
+                <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="Add">Add New Whisky</a></li>
+            }
         </ul>
     </li>
     <li class="nav-item dropdown" onmouseover="showEventDropdownMenu()" onmouseleave="hideEventDropdownMenu()">
@@ -13,8 +16,12 @@
             Events
         </a>
         <ul class="dropdown-menu" id="eventDropdownMenu" aria-labelledby="eventDropdown">
-            <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="Index">All</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="PastEvents">Past</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="Index">Upcoming</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="PastEvents">Past Events</a></li>
+            @if (User.IsAdmin() || User.IsWhiskyExpert())
+            {
+                <li><a class="dropdown-item" asp-area="" asp-controller="Event" asp-action="Add">Add Event</a></li>
+            }
         </ul>
     </li>
     <li class="nav-item dropdown" onmouseover="showArticleDropdownMenu()" onmouseleave="hideArticleDropdownMenu()">
@@ -22,8 +29,11 @@
             Articles
         </a>
         <ul class="dropdown-menu" id="articleDropdownMenu" aria-labelledby="articleDropdown">
-            <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Index">All</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Add">Add</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Index">See All</a></li>
+            @if (User.IsAdmin() || User.IsWhiskyExpert())
+            {
+                <li><a class="dropdown-item" asp-area="" asp-controller="Article" asp-action="Add">Write Article</a></li>
+            }
         </ul>
     </li>
 
