@@ -30,7 +30,8 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             Email = "admin@gmail.com",
             NormalizedEmail = "ADMIN@GMAIL.COM",
             DateOfBirth = new DateTime(1980, 1, 1),
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            LockoutEnabled = false
         };
 
         userOne.PasswordHash = hasher.HashPassword(userOne, "admin123");
@@ -44,7 +45,8 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             Email = "test@gmail.com",
             NormalizedEmail = "TEST@GMAIL.COM",
             DateOfBirth = new DateTime(1994, 9, 23),
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            LockoutEnabled = true
         };
 
         userTwo.PasswordHash = hasher.HashPassword(userTwo, "password123");
@@ -60,7 +62,8 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             Email = "sober@gmail.com",
             NormalizedEmail = "SOBER@GMAIL.COM",
             DateOfBirth = new DateTime(1995, 10, 24),
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            LockoutEnabled = true
         };
 
         userThree.PasswordHash = hasher.HashPassword(userThree, "password123");
@@ -76,7 +79,8 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             Email = "noToAlcohol@gmail.com",
             NormalizedEmail = "NOTOALCOHOL@GMAIL.COM",
             DateOfBirth = new DateTime(2004, 1, 2),
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            LockoutEnabled = true
         };
 
         userFour.PasswordHash = hasher.HashPassword(userFour, "password123");
