@@ -4,9 +4,18 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark">Hello, @User.Identity.Name!</a>
-        </li>
+        if (User.IsAdmin())
+        {
+            <li>
+                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index" title="Back">Admin Interface</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark">Hello, @User.Identity.Name!</a>
+            </li>
+        }
         @await Component.InvokeAsync(nameof(UserMenuComponent))
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
