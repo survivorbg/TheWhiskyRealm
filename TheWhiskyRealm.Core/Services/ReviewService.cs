@@ -61,7 +61,8 @@ public class ReviewService : IReviewService
                 Recommend= r.Recommend,
                 Title = r.Title,
                 WhiskyId = r.WhiskyId,
-                WhiskyName = r.Whisky.Name
+                WhiskyName = r.Whisky.Name,
+                WhiskyImageUrl = r.Whisky.ImageURL
             })
             .ToListAsync();
     }

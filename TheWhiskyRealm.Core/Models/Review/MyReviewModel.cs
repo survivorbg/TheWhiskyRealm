@@ -21,4 +21,5 @@ public class MyReviewModel
     [Required(ErrorMessage = RequiredMessage)]
     public int WhiskyId { get; set; }
     public string WhiskyName { get; set; } = string.Empty;
+    public string WhiskyImageUrl { get; set; } = string.Empty;
 }
