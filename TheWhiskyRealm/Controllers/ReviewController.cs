@@ -19,18 +19,18 @@ public class ReviewController : BaseController
     [HttpPost]
     public async Task<IActionResult> Add(ReviewFormModel model)
     {
-        var userId = User.Id();
-
         if (await whiskyService.WhiskyExistAsync(model.WhiskyId) == false ||
             await whiskyService.WhiskyIsApprovedAsync(model.WhiskyId) == false)
         {
             return NotFound();
         }
 
+        var userId = User.Id();
+
         if (await reviewService.UserAlreadyReviewedWhiskyAsync(userId, model.WhiskyId))
         {
-            var reviewId = reviewService.GetReviewIdAsync(userId, model.WhiskyId);
-            return RedirectToPage("Edit", new { id = reviewId });
+            var reviewId = await reviewService.GetReviewIdAsync(userId, model.WhiskyId);
+            return RedirectToAction("Edit", new { id = reviewId });
         }
 
         if (!ModelState.IsValid)
@@ -79,8 +79,6 @@ public class ReviewController : BaseController
     [HttpPost]
     public async Task<IActionResult> Edit(int id, ReviewFormModel model)
     {
-        var userId = User.Id();
-
         var review = await reviewService.GetReviewAsync(id);
 
         if (review == null)
@@ -93,7 +91,7 @@ public class ReviewController : BaseController
         {
             return NotFound();
         }
-
+        var userId = User.Id();
         if (userId != review.UserId)
         {
             return Unauthorized();
@@ -117,7 +115,7 @@ public class ReviewController : BaseController
 
         if (review == null)
         {
-            return NotFound(); 
+            return NotFound();
         }
 
         if (await whiskyService.WhiskyExistAsync(review.WhiskyId) == false ||
