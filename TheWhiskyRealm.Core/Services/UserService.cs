@@ -4,6 +4,7 @@ using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.User;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
 
 namespace TheWhiskyRealm.Core.Services;
 
@@ -31,6 +32,10 @@ public class UserService : IUserService
         foreach (var user in users)
         {
             var roles = await userManager.GetRolesAsync(user);
+            if (await userManager.IsInRoleAsync(user, Administrator))
+            {
+                continue;
+            }
             userViewModels.Add(new UserViewModel
             {
                 Id = user.Id,

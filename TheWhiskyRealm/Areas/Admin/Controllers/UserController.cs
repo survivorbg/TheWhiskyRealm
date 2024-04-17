@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.User;
 using TheWhiskyRealm.Infrastructure.Data.Models;
+using static TheWhiskyRealm.Core.Constants.RoleConstants;
 
 namespace TheWhiskyRealm.Areas.Admin.Controllers;
 
@@ -42,7 +44,9 @@ public class UserController : AdminBaseController
     public IActionResult Create()
     {
         var model = new UserFormModel();
-        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+        model.Roles = roleManager.Roles
+            .Where(r=>r.Name != Administrator)
+            .Select(r => r.Name).ToList();
         return View(model);
     }
 
@@ -89,7 +93,11 @@ public class UserController : AdminBaseController
         }
 
 
-        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+        model.Roles = roleManager.Roles
+           .Where(r => r.Name != Administrator)
+           .Select(r => r.Name)
+           .ToList();
+
         return View(model);
     }
 
@@ -107,6 +115,12 @@ public class UserController : AdminBaseController
         {
             return NotFound();
         }
+        
+        if (await userManager.IsInRoleAsync(user, Administrator))
+        {
+            return BadRequest();
+        }
+
         var model = new UserFormModel()
         {
             Id = id,
@@ -123,6 +137,11 @@ public class UserController : AdminBaseController
         var user = await userManager.FindByIdAsync(model.Id);
         if (user != null)
         {
+            if (await userManager.IsInRoleAsync(user, Administrator))
+            {
+                return BadRequest();
+            }
+
             var result = await userManager.DeleteAsync(user);
             if (result.Succeeded)
             {
@@ -150,13 +169,19 @@ public class UserController : AdminBaseController
             return NotFound();
         }
 
+        if (await userManager.IsInRoleAsync(user, Administrator))
+        {
+            return BadRequest();
+        }
+
         var model = new UserEditViewModel
         {
             Id = user.Id,
             Email = user.Email,
             DateOfBirth = user.DateOfBirth,
-            Roles = roleManager.Roles.Select(r => r.Name).ToList()
-        };
+            Roles = roleManager.Roles.Where(r => r.Name != Administrator).Select(r => r.Name)
+           .ToList()
+    };
 
         return View(model);
     }
@@ -170,6 +195,11 @@ public class UserController : AdminBaseController
             var user = await userManager.FindByIdAsync(model.Id);
             if (user != null)
             {
+                if (await userManager.IsInRoleAsync(user, Administrator))
+                {
+                    return BadRequest();
+                }
+
                 var currentRole = await userManager.GetRolesAsync(user);
                 var existingRole = currentRole.SingleOrDefault();
                 if (existingRole == model.Role)
@@ -182,7 +212,7 @@ public class UserController : AdminBaseController
                     var removeRoleResult = await userManager.RemoveFromRoleAsync(user, existingRole);
                     if (!removeRoleResult.Succeeded)
                     {
-                        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+                        model.Roles = roleManager.Roles.Where(r => r.Name != Administrator).Select(r => r.Name).ToList(); 
                         return View(model);
                     }
                 }
@@ -190,7 +220,7 @@ public class UserController : AdminBaseController
                 var addRoleResult = await userManager.AddToRoleAsync(user, model.Role);
                 if (!addRoleResult.Succeeded)
                 {
-                    model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+                    model.Roles = roleManager.Roles.Where(r => r.Name != Administrator).Select(r => r.Name).ToList();
                     return View(model);
                 }
 
@@ -202,7 +232,7 @@ public class UserController : AdminBaseController
             }
         }
 
-        model.Roles = roleManager.Roles.Select(r => r.Name).ToList();
+        model.Roles = roleManager.Roles.Where(r => r.Name != Administrator).Select(r => r.Name).ToList();
         return View(model);
     }
 
@@ -218,6 +248,11 @@ public class UserController : AdminBaseController
         if (user == null)
         {
             return NotFound();
+        }
+
+        if (await userManager.IsInRoleAsync(user, Administrator))
+        {
+            return BadRequest();
         }
 
         await userManager.SetLockoutEndDateAsync(user, DateTimeOffset.MaxValue);
@@ -237,6 +272,11 @@ public class UserController : AdminBaseController
         if (user == null)
         {
             return NotFound();
+        }
+
+        if (await userManager.IsInRoleAsync(user, Administrator))
+        {
+            return BadRequest();
         }
 
         await userManager.SetLockoutEndDateAsync(user, null);
