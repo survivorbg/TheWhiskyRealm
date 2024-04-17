@@ -12,8 +12,8 @@ using TheWhiskyRealm.Infrastructure.Data;
 namespace TheWhiskyRealm.Infrastructure.Data
 {
     [DbContext(typeof(TheWhiskyRealmDbContext))]
-    [Migration("20240415150124_ChangedArticlePublisherId")]
-    partial class ChangedArticlePublisherId
+    [Migration("20240417194239_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -281,16 +281,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dcc71517-4644-45b8-b1db-a539dbbbd98d",
+                            ConcurrencyStamp = "e42a99fa-14b0-4cd2-b594-b929f105e9ee",
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBsWZa2UAO9zPfnaIcXDixxS46FJbEO87H0mvwht/d+j3pGVdj5x7ODSrAzzmYj28g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBRj/iLVSBDBlwehjeZjiiQCiVaPy7xeWY5jXfo2LHx+4evLiih4hICBnzypwgfU3Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e9480d95-1164-4a9e-af9d-1d601a58dcdf",
+                            SecurityStamp = "6c1f43a9-d6ee-4a7a-bdf4-00167dda3bb0",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -298,16 +298,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d412a35d-8d70-4526-b808-3df905f84934",
+                            ConcurrencyStamp = "57a15255-ba81-48f7-b990-06cdd4618f0f",
                             DateOfBirth = new DateTime(1994, 9, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "test@gmail.com",
                             EmailConfirmed = true,
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "TEST@GMAIL.COM",
                             NormalizedUserName = "TEST@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC3dGwG5pQUDAyCXIjeWb9L5+taQZFq4Loek97RGZZ44bcAjXieY6MhywYMgZobnqw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELKOoGaxyGn8X0gBaF1ZYba6Zrc/bqWNn1zQvDM9tnR6LxiEdZb/6hDbpSlHWhEkeQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a8b49056-4a0f-4460-b673-7a925e5e0ffd",
+                            SecurityStamp = "5d5a77ac-4f57-4561-9e3f-fb68292f65b8",
                             TwoFactorEnabled = false,
                             UserName = "test@gmail.com"
                         },
@@ -315,16 +315,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "079198b8-a224-45a0-81f7-acae60ac9006",
+                            ConcurrencyStamp = "e68811c2-8bf0-455c-8677-e881cdd4610e",
                             DateOfBirth = new DateTime(1995, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "sober@gmail.com",
                             EmailConfirmed = true,
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "SOBER@GMAIL.COM",
                             NormalizedUserName = "SOBER@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBpJHgap3DXKLDZYV74rwnkjnPyQZ3ZwNfFhOPYiY0qu0/RoWYpbaJqV5aOgugHEGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAxX+sgCqY393JDubU9/ZRhO0rkmNbUgrHeQyBSuWSO6qNNlHi87gPyTSx4Ok8Gp6w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5b5fea60-5978-44bd-acf6-bb5a2b30a5a3",
+                            SecurityStamp = "9f75312a-360c-485f-b0a7-7c5f1e865891",
                             TwoFactorEnabled = false,
                             UserName = "sober@gmail.com"
                         },
@@ -332,16 +332,16 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         {
                             Id = "1cf4a321-6128-459e-8e4e-e4615c85d30f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "183397d3-3921-4a64-9c04-38d5de3ac927",
+                            ConcurrencyStamp = "62e3d22f-d189-437d-ad9f-b3503055560a",
                             DateOfBirth = new DateTime(2004, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "noToAlcohol@gmail.com",
                             EmailConfirmed = true,
-                            LockoutEnabled = false,
+                            LockoutEnabled = true,
                             NormalizedEmail = "NOTOALCOHOL@GMAIL.COM",
                             NormalizedUserName = "NOTOALCOHOL@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJnQApeKdrcMewe9gMJRox0bgvYH+50mksTTO4gEzxuK1GAQ6CBwwa3xHy23pnLAxw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO9XFvZBpWH91pTgHMU8AVv2OzpI9AFPyzf4qbGVjOyYyHQ/QM3iQz7rloGQJvwZmA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c7f129b-0246-486b-8208-536c086951b4",
+                            SecurityStamp = "be5cb855-17de-468e-9a58-e134866f46ec",
                             TwoFactorEnabled = false,
                             UserName = "noToAlcohol@gmail.com"
                         });
@@ -1225,6 +1225,9 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("ArticleId")
                         .HasColumnType("int")
                         .HasComment("The identifier of the article associated with the comment.");
@@ -1245,6 +1248,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .HasComment("The identifier of the user who posted the comment.");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("ArticleId");
 
@@ -2877,7 +2882,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         new
                         {
                             Id = 1,
-                            AvailableSpots = 0,
+                            AvailableSpots = 1,
                             Description = "Join us for an evening of whisky tasting and discovery.",
                             EndDate = new DateTime(2024, 3, 25, 21, 0, 0, 0, DateTimeKind.Unspecified),
                             OrganiserId = "7dfb241e-f8a5-4ba4-a5aa-5becf035c442",
@@ -3587,13 +3592,8 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         },
                         new
                         {
-                            EventId = 1,
-                            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3"
-                        },
-                        new
-                        {
                             EventId = 2,
-                            UserId = "f99c5e20-d91e-4a5e-9b73-fdb38b89ffc3"
+                            UserId = "bd6bbdc1-dc81-4d8d-82ad-e9cb3d393ce4"
                         });
                 });
 
@@ -4320,6 +4320,10 @@ namespace TheWhiskyRealm.Infrastructure.Data
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Comment", b =>
                 {
+                    b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.Article", "Article")
                         .WithMany()
                         .HasForeignKey("ArticleId")
@@ -4370,7 +4374,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Rating", b =>
                 {
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -4400,7 +4404,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.Review", b =>
                 {
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -4425,7 +4429,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
                         .IsRequired();
 
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("UsersEvents")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -4438,7 +4442,7 @@ namespace TheWhiskyRealm.Infrastructure.Data
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.UserWhisky", b =>
                 {
                     b.HasOne("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("UsersWhiskies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -4482,6 +4486,19 @@ namespace TheWhiskyRealm.Infrastructure.Data
                     b.Navigation("Distillery");
 
                     b.Navigation("WhiskyType");
+                });
+
+            modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Ratings");
+
+                    b.Navigation("Reviews");
+
+                    b.Navigation("UsersEvents");
+
+                    b.Navigation("UsersWhiskies");
                 });
 
             modelBuilder.Entity("TheWhiskyRealm.Infrastructure.Data.Models.City", b =>
