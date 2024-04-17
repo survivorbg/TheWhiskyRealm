@@ -24,14 +24,12 @@ public class AwardController : BaseController
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var userId = User.Id(); 
+        var model = await awardService.GetAwardByIdAsync(id);
 
-        if (await awardService.AwardExistAsync(id) == false)
+        if (model == null)
         {
             return NotFound();
         }
-
-        var model = await awardService.GetAwardByIdAsync(id);
 
         var publisherId = await whiskyService.GetWhiskyPublisherAsync(model.WhiskyId);
 
