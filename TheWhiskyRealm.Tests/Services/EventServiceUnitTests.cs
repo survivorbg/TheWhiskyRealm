@@ -809,4 +809,49 @@ public class EventServiceUnitTests
         Assert.AreEqual(initialJoinedUsers-1, JoinedUsersAfter);
     }
 
+    [Test]
+    public async Task GetJoinedUsersAsync_ShouldReturnCorrectUsernames()
+    {
+        // Arrange
+        var eventId = 1;
+
+        // Act
+        var result = await service.GetJoinedUsersAsync(eventId);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(1, result.Count);
+        Assert.AreEqual("JoinedUser", result.First());
+    }
+    [Test]
+    public async Task EditEventAsync_ShouldEditEventCorrectly()
+    {
+        // Arrange
+        var model = new EventEditViewModel
+        {
+            Id = 1,
+            Title = "Edited Event",
+            Description = "Edited Description",
+            StartDate = DateTime.Now.AddDays(1),
+            EndDate = DateTime.Now.AddDays(2),
+            Price = 200,
+            VenueId = 1
+        };
+        var availableSpots = 50;
+
+        // Act
+        await service.EditEventAsync(model, availableSpots);
+
+        // Assert
+        var editedEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Id == model.Id);
+        Assert.IsNotNull(editedEvent);
+        Assert.AreEqual(model.Title, editedEvent.Title);
+        Assert.AreEqual(model.Description, editedEvent.Description);
+        Assert.AreEqual(model.StartDate, editedEvent.StartDate);
+        Assert.AreEqual(model.EndDate, editedEvent.EndDate);
+        Assert.AreEqual(model.Price, editedEvent.Price);
+        Assert.AreEqual(model.VenueId, editedEvent.VenueId);
+        Assert.AreEqual(availableSpots, editedEvent.AvailableSpots);
+    }
+
 }
