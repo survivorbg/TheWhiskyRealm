@@ -170,7 +170,7 @@ public class EventController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
-    [Authorize(Roles = $"{Administrator},{UserRole}")]
+    [Authorize(Roles = $"{WhiskyExpert},{UserRole}")]
     [HttpPost]
     public async Task<IActionResult> Join(int id)
     {
@@ -196,7 +196,7 @@ public class EventController : BaseController
         return RedirectToAction(nameof(MyEvents)); 
     }
 
-    [Authorize(Roles = $"{Administrator},{UserRole}")]
+    [Authorize(Roles = $"{WhiskyExpert},{UserRole}")]
     [HttpPost]
     public async Task<IActionResult> Leave(int id)
     {
