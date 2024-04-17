@@ -1,4 +1,35 @@
 ﻿@model UserIndexViewModel
+<style>
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+</style>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script src="~/js/AdminArea/Users/filter-functionallity.js"></script>
+<form id="userRoleFilterForm">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Show only</button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#" data-role="All">All</a>
+                <a class="dropdown-item" href="#" data-role="User">User</a>
+                <a class="dropdown-item" href="#" data-role="WhiskyExpert">WhiskyExpert</a>
+            </div>
+        </div>
+        <div class="input-group-append">
+            <button type="button" id="userClearFilterButton" class="btn btn-outline-dark">Clear</button>
+        </div>
+    </div>
+</form>
+
+
+
 <a asp-area="Admin" asp-controller="User" asp-action="Create" class="btn btn-primary">Add new User</a>
 <table class="table">
     <thead>
