@@ -257,7 +257,7 @@ public class EventController : BaseController
             return BadRequest();
         }
 
-        if (User.Id() != await eventService.GetOrganiserIdAsync(id))
+        if (User.Id() != await eventService.GetOrganiserIdAsync(id) && !User.IsAdmin())
         {
             return Unauthorized();
         }
