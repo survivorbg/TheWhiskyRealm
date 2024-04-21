@@ -85,6 +85,7 @@ public class WhiskyService : IWhiskyService
                 Name = model.Name,
                 ImageURL = model.ImageURL,
                 isApproved = model.IsApproved,
+                PublishedBy = model.PublishedBy
             };
             await repo.AddAsync(whisky);
             await repo.SaveChangesAsync();

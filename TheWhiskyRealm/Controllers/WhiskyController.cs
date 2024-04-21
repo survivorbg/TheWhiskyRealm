@@ -128,6 +128,11 @@ public class WhiskyController : BaseController
         {
             model.IsApproved = true;
         }
+        else
+        {
+            model.PublishedBy = User.Id();
+        }
+
         await whiskyService.AddWhiskyAsync(model);
 
         return RedirectToAction(nameof(All));
