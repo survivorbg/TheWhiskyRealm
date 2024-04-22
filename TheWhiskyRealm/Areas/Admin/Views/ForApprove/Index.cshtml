@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<AllWhiskyModel>
 
 @{
-    ViewData["Title"] = "All Whiskies";
+    ViewData["Title"] = "For Approve";
 }
 <link rel="stylesheet" type="text/css" href="~/css/Whisky/whisky-all.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="~/js/Whisky/scrollFunction.js"></script>
 
 <div class="container" id="whiskiesContainer">
-    <h1 class="text-center">All Whiskies</h1>
+    <h1 class="text-center">Whiskies for Approve</h1>
     <div class="row" id="whiskyRow">
         @foreach (var whisky in Model)
         {
