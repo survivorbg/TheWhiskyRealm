@@ -5,26 +5,34 @@
 <link rel="stylesheet" type="text/css" href="~/css/Whisky/whisky-my-collection.css">
 <h1 class="text-center">Favourite Whiskies</h1>
 <div class="row">
-    @foreach (var whisky in Model.Whiskies)
+    @if (Model.Whiskies.Any())
     {
-        string ageProp = (whisky.Age != null) ? (@whisky.Age + " Y.O.") : "N/A";
+        @foreach (var whisky in Model.Whiskies)
+        {
+            string ageProp = (whisky.Age != null) ? (@whisky.Age + " Y.O.") : "N/A";
 
-        <article class="card">
-            <img src="@whisky.ImageURL"
-                 alt="" class="img-bg">
+            <article class="card">
+                <img src="@whisky.ImageURL"
+                     alt="" class="img-bg">
 
-            <div class="content">
-                <ul class="meta" role="list">
-                    <li class="meta-item">@ageProp</li>
-                    <li class="meta-item">@whisky.ABV %</li>
-                    <li class="meta-item">@whisky.DistilleryName</li>
-                </ul>
+                <div class="content">
+                    <ul class="meta" role="list">
+                        <li class="meta-item">@ageProp</li>
+                        <li class="meta-item">@whisky.ABV %</li>
+                        <li class="meta-item">@whisky.DistilleryName</li>
+                    </ul>
 
-                <h2 class="title">@whisky.Name</h2>
-                <p class="desc">@whisky.Description</p>
-                <a href="@Url.Action("Details", "Whisky", new { id = whisky.Id })" class="btn btn-primary">See More</a>
-            </div>
-        </article>
+                    <h2 class="title">@whisky.Name</h2>
+                    <p class="desc">@whisky.Description</p>
+                    <a href="@Url.Action("Details", "Whisky", new { id = whisky.Id })" class="btn btn-primary">See More</a>
+                </div>
+            </article>
+        }
+
+    }
+    else
+    {
+        <h2 class="text-center mt-5">You don't have any whiskeys in your favorites yet. <a class="btn btn-outline-info" asp-action="All">Go and Explore!</a></h2>
     }
     <div class="pagination">
         @if (Model.page > 1)
