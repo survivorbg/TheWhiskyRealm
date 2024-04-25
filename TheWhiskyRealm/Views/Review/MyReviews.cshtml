@@ -4,30 +4,36 @@
     ViewData["Title"] = "User Reviews";
 }
 
-<h1 class="text-center">Your Reviews</h1>
 
-@foreach (var review in Model)
+@if (Model.Any())
 {
-    var border = review.Recommend ? "border border-success" : "border border-danger";
+    <h1 class="text-center">Your Reviews</h1>
+    @foreach (var review in Model)
+    {
+        var border = review.Recommend ? "border border-success" : "border border-danger";
 
-    <div class="card mb-3 @border">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img src="@review.WhiskyImageUrl" class="img-fluid rounded-start" alt="Whisky Image">
+        <div class="card mb-3 @border">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="@review.WhiskyImageUrl" class="img-fluid rounded-start" alt="Whisky Image">
                 </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">@review.WhiskyName</h5>
-                    <hr />
-                    <h5>@review.Title</h5>
-                    <p class="card-text">@review.Content</p>
-                    <div class="btn-group" role="group" aria-label="Review Actions">
-                        <a href="@Url.Action("Edit", "Review", new { id = review.Id })" class="btn btn-primary">Edit</a>
-                        <a href="@Url.Action("Delete", "Review", new { id = review.Id })" class="btn btn-danger">Delete</a>
-                        <a href="@Url.Action("Details", "Whisky", new { id = review.WhiskyId })" class="btn btn-secondary">Go to Whisky</a>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">@review.WhiskyName</h5>
+                        <hr />
+                        <h5>@review.Title</h5>
+                        <p class="card-text">@review.Content</p>
+                        <div class="btn-group" role="group" aria-label="Review Actions">
+                            <a href="@Url.Action("Edit", "Review", new { id = review.Id })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Delete", "Review", new { id = review.Id })" class="btn btn-danger">Delete</a>
+                            <a href="@Url.Action("Details", "Whisky", new { id = review.WhiskyId })" class="btn btn-secondary">Go to Whisky</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }           }
+else
+{
+    <h2 class="text-center mt-5">You don't have any reviews yet. <a class="btn btn-outline-info" asp-action="All" asp-controller="Whisky">Go and Explore!</a></h2>
 }
