@@ -5,13 +5,22 @@
 }
 <script src="~/js/Event/event.js"></script>
 <a class="btn btn-primary" asp-controller="Event" asp-action="MyEvents">Joined events</a>
-@foreach (var e in Model)
+@if (Model.Any())
 {
+    <h1 class="text-center mb-5">Organised Events</h1>
+    @foreach (var e in Model)
+    {
 
-    <partial name="_EventDetailsPartial" model="@e" />
-    <div class="d-flex justify-content-center gap-5">
-        <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
-        <button class="btn-danger btn" onclick="confirmDeleteEvent(@e.Id)">Delete</button>
-        <a asp-controller="Event" asp-action="Details" asp-route-id="@e.Id" class="btn btn-primary">Details</a>
-    </div>
+        <partial name="_EventDetailsPartial" model="@e" />
+        <div class="d-flex justify-content-center gap-5">
+            <a asp-controller="Event" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-primary">Edit</a>
+            <button class="btn-danger btn" onclick="confirmDeleteEvent(@e.Id)">Delete</button>
+            <a asp-controller="Event" asp-action="Details" asp-route-id="@e.Id" class="btn btn-primary">Details</a>
+        </div>
+    }
+
+}
+else
+{
+    <h2 class="text-center mt-5">You haven't organized any events yet. <a class="btn btn-outline-info" asp-action="Add" asp-controller="Event">Organise</a></h2>
 }
