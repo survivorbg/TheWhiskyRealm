@@ -3,15 +3,21 @@
 }
 <link rel="stylesheet" type="text/css" href="~/css/Rating/rating-my-ratings.css">
 
-<h2>Your Ratings</h2>
-
-@foreach (var rating in Model)
+@if (Model.Any())
 {
-    <div class="user-rating" style="border:1px solid black;padding:24px;">
-        <h3><a asp-controller="Whisky" asp-action="Details" asp-route-id="@rating.WhiskyId" >@rating.WhiskyName</a></h3>
-        <div class="nose" style="width: @(rating.Nose)%">Nose: @rating.Nose</div>
-        <div class="taste" style="width: @(rating.Taste)%">Taste: @rating.Taste</div>
-        <div class="finish" style="width: @(rating.Finish)%">Finish: @rating.Finish</div>
-        <a href="@Url.Action("Details", "Whisky", new { id = rating.WhiskyId })" class="btn btn-primary">See More</a>
-    </div>
+    <h1 class="text-center">Your Ratings</h1>
+    @foreach (var rating in Model)
+    {
+        <div class="user-rating" style="border:1px solid black;padding:24px;">
+            <h3><a asp-controller="Whisky" asp-action="Details" asp-route-id="@rating.WhiskyId">@rating.WhiskyName</a></h3>
+            <div class="nose" style="width: @(rating.Nose)%">Nose: @rating.Nose</div>
+            <div class="taste" style="width: @(rating.Taste)%">Taste: @rating.Taste</div>
+            <div class="finish" style="width: @(rating.Finish)%">Finish: @rating.Finish</div>
+            <a href="@Url.Action("Details", "Whisky", new { id = rating.WhiskyId })" class="btn btn-primary">See More</a>
+        </div>
+    }
+}
+else
+{
+    <h2 class="text-center mt-5">You don't have any ratings yet. <a class="btn btn-outline-info" asp-action="All" asp-controller="Whisky">Go and Explore!</a></h2>
 }
