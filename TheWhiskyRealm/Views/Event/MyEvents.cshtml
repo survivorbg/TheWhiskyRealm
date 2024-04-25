@@ -10,21 +10,30 @@
 {
     <a class="btn btn-primary" asp-controller="Event" asp-action="OrganisedEvents">Events you organise</a>
 }
-@foreach (var e in Model)
+@if (Model.Any())
 {
-    var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(e.Id, userId);
-    var started = await eventService.HasAlreadyStartedAsync(e.Id);
-    var organiserID = await eventService.GetOrganiserIdAsync(e.Id);
-
-    <partial name="_EventDetailsPartial" model="@e" />
-
-    @if (alreadyJoined && !started && !User.IsAdmin())
+    <h1 class="text-center">Joined Events</h1>
+    @foreach (var e in Model)
     {
-        <div class="d-flex justify-content-center mb-5">
-        <form asp-controller="Event" asp-action="Leave" method="post">
-            <input type="hidden" name="id" value="@e.Id" />
-            <button type="submit" class="btn btn-success">Leave Event</button>
-        </form>
-        </div>
+        var alreadyJoined = await eventService.IsUserAlreadyJoinedAsync(e.Id, userId);
+        var started = await eventService.HasAlreadyStartedAsync(e.Id);
+        var organiserID = await eventService.GetOrganiserIdAsync(e.Id);
+
+        <partial name="_EventDetailsPartial" model="@e" />
+
+        @if (alreadyJoined && !started && !User.IsAdmin())
+        {
+            <div class="d-flex justify-content-center mb-5">
+                <form asp-controller="Event" asp-action="Leave" method="post">
+                    <input type="hidden" name="id" value="@e.Id" />
+                    <button type="submit" class="btn btn-success">Leave Event</button>
+                </form>
+            </div>
+        }
+
     }
+}
+else
+{
+    <h2 class="text-center mt-5">You haven't signed up for any events yet. <a class="btn btn-outline-info" asp-action="Index" asp-controller="Event">Upcoming events</a></h2>
 }
