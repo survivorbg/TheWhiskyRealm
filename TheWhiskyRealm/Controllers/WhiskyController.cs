@@ -18,6 +18,7 @@ public class WhiskyController : BaseController
     private readonly IDistilleryService distilleryService;
     private readonly IReviewService reviewService;
     private readonly IAwardService awardService;
+    private readonly Random random;
 
     public WhiskyController(IWhiskyService whiskyService,
         IWhiskyTypeService whiskyTypeService,
@@ -32,6 +33,7 @@ public class WhiskyController : BaseController
         this.distilleryService = distilleryService;
         this.reviewService = reviewService;
         this.awardService = awardService;
+        random = new Random();
     }
 
     [HttpGet]
@@ -306,5 +308,22 @@ public class WhiskyController : BaseController
         var paginatedWhiskies = allWhiskies.Skip((page - 1) * pageSize).Take(pageSize).ToList();
         model.Whiskies = paginatedWhiskies;
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Random()
+    {
+        var whiskyIds = await whiskyService.GetAllWhiskiesIdsAsync();
+
+        int randomIndex = random.Next(whiskyIds.Count);
+
+        var randomId = whiskyIds[randomIndex];
+
+        if (await whiskyService.WhiskyExistAsync(randomId) == false)
+        {
+            return BadRequest();
+        }
+
+        return RedirectToAction(nameof(Details), new { id = randomId });
     }
 }

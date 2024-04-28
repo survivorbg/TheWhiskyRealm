@@ -294,4 +294,13 @@ public class WhiskyService : IWhiskyService
             })
             .ToListAsync();
     }
+
+    public async Task<List<int>> GetAllWhiskiesIdsAsync()
+    {
+        return await repo
+            .AllReadOnly<Whisky>()
+            .Where(w=>w.isApproved == true)
+            .Select(x => x.Id)
+            .ToListAsync();
+    }
 }
