@@ -1,0 +1,29 @@
+﻿@model List<AllWhiskyModel>
+@{
+    ViewData["Title"] = "Top Rated";
+}
+<link rel="stylesheet" type="text/css" href="~/css/Whisky/top-rated-whiskies.css">
+
+<div class="container">
+    <h1 class="page-title">Top 10 Rated Whiskies</h1>
+
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        var whisky = Model[i];
+        var rankClass = i == 0 ? "gold" : i == 1 ? "silver" : i == 2 ? "bronze" : "normal";
+        <a href="@Url.Action("Details", "Whisky", new { id = whisky.Id })" style="text-decoration: none; color: inherit;">
+            <div class="box">
+                <div class="list">
+                    <div class="imgBx">
+                        <img src="@whisky.ImageURL" />
+                    </div>
+                    <div class="content">
+                        <h2 class="rank @rankClass">@(i + 1)</h2>
+                        <h4>@whisky.Name</h4>
+                        <h1><span>@whisky.AverageRating.ToString("F2")</span> points</h1>
+                    </div>
+                </div>
+            </div>
+        </a>
+    }
+</div>

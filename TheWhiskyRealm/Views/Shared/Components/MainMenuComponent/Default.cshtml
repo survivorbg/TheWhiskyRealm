@@ -5,6 +5,7 @@
         </a>
         <ul class="dropdown-menu" id="whiskyDropdownMenu" aria-labelledby="whiskyDropdown">
             <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">Explore All</a></li>
+            <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated">Top 10</a></li>
             <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="Random">Explore Random</a></li>
             @if (User.IsAdmin() || User.IsWhiskyExpert())
             {

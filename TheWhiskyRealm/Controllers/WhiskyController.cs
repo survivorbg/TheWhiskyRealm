@@ -326,4 +326,12 @@ public class WhiskyController : BaseController
 
         return RedirectToAction(nameof(Details), new { id = randomId });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> TopRated()
+    {
+        var model = await whiskyService.GetTopTenRatedWhiskiesAsync();
+
+        return View(model);
+    }
 }

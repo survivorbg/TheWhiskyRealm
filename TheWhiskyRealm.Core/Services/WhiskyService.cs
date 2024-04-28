@@ -303,4 +303,28 @@ public class WhiskyService : IWhiskyService
             .Select(x => x.Id)
             .ToListAsync();
     }
+
+    public async Task<List<AllWhiskyModel>> GetTopTenRatedWhiskiesAsync()
+    {
+        var whiskies = await repo
+            .AllReadOnly<Whisky>()
+            .Where(w => w.isApproved == true)
+            .Select(x => new AllWhiskyModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Age = x.Age,
+                AlcoholPercentage = x.AlcoholPercentage,
+                WhiskyType = x.WhiskyType.Name,
+                Reviews = x.Reviews.Count(),
+                ImageURL = x.ImageURL,
+                AverageRating = x.Ratings.Average(r => (r.Finish + r.Nose + r.Taste) / 3.0)
+            })
+            .OrderByDescending(w => w.AverageRating)
+            .Take(10)
+            .ToListAsync();
+
+        return whiskies;
+    }
+
 }

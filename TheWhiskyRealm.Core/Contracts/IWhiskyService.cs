@@ -9,6 +9,7 @@ public interface IWhiskyService
     Task<IEnumerable<AllWhiskyModel>> GetAllWhiskiesForApproveAsync();
     Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take);
     Task<IEnumerable<AllWhiskyModel>> GetPagedWhiskiesAsync(int skip, int take, string sortOrder);
+    Task<List<AllWhiskyModel>> GetTopTenRatedWhiskiesAsync();
     Task<bool> WhiskyExistAsync(int id);
     Task<bool> WhiskyIsApprovedAsync(int id);
     Task<DetailsWhiskyViewModel> GetWhiskyByIdAsync(int id);
