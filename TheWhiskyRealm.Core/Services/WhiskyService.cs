@@ -304,11 +304,18 @@ public class WhiskyService : IWhiskyService
             .ToListAsync();
     }
 
-    public async Task<List<AllWhiskyModel>> GetTopTenRatedWhiskiesAsync()
+    public async Task<List<AllWhiskyModel>> GetTopTenRatedWhiskiesAsync(string type)
     {
-        var whiskies = await repo
+        var whiskiesQuery = repo
             .AllReadOnly<Whisky>()
-            .Where(w => w.isApproved == true)
+            .Where(w => w.isApproved == true);
+
+        if (type.ToLower() != "all")
+        {
+            whiskiesQuery = whiskiesQuery.Where(w => w.WhiskyType.Name.ToLower() == type.ToLower());
+        }
+
+        var whiskies = await whiskiesQuery
             .Select(x => new AllWhiskyModel()
             {
                 Id = x.Id,
@@ -318,7 +325,7 @@ public class WhiskyService : IWhiskyService
                 WhiskyType = x.WhiskyType.Name,
                 Reviews = x.Reviews.Count(),
                 ImageURL = x.ImageURL,
-                AverageRating = x.Ratings.Average(r => (r.Finish + r.Nose + r.Taste) / 3.0)
+                AverageRating = x.Ratings.Any() ? x.Ratings.Average(r => (r.Finish + r.Nose + r.Taste) / 3.0) : 0
             })
             .OrderByDescending(w => w.AverageRating)
             .Take(10)

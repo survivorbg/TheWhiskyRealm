@@ -328,10 +328,16 @@ public class WhiskyController : BaseController
     }
 
     [HttpGet]
-    public async Task<IActionResult> TopRated()
+    public async Task<IActionResult> TopRated(string type)
     {
-        var model = await whiskyService.GetTopTenRatedWhiskiesAsync();
+        if(await whiskyTypeService.WhiskyTypeExistsByNameAsync(type) == false)
+        {
+            return BadRequest();
+        }
+
+        var model = await whiskyService.GetTopTenRatedWhiskiesAsync(type);
 
         return View(model);
     }
+
 }

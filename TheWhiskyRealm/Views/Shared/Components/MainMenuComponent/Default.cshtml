@@ -5,8 +5,17 @@
         </a>
         <ul class="dropdown-menu" id="whiskyDropdownMenu" aria-labelledby="whiskyDropdown">
             <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="All">Explore All</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated">Top 10</a></li>
             <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="Random">Explore Random</a></li>
+            <li class="nav-item dropdown" onmouseover="showTop10DropdownMenu()" onmouseleave="hideTop10DropdownMenu()">
+                <a class="dropdown-item dropdown-toggle" href="#" id="top10Dropdown" role="button" aria-expanded="false">Top 10</a>
+                <ul class="dropdown-menu" id="top10DropdownMenu" aria-labelledby="top10Dropdown">
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated" asp-route-type="all">Top 10 All</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated" asp-route-type="single malt">Top 10 Single Malt</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated" asp-route-type="irish">Top 10 Irish</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated" asp-route-type="bourbon">Top 10 Bourbons</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="TopRated" asp-route-type="japanese">Top 10 Japanese</a></li>
+                </ul>
+            </li>
             @if (User.IsAdmin() || User.IsWhiskyExpert())
             {
                 <li><a class="dropdown-item" asp-area="" asp-controller="Whisky" asp-action="Add">Add New Whisky</a></li>

@@ -44,5 +44,10 @@ public class WhiskyTypeService : IWhiskyTypeService
             .AnyAsync(wt=>wt.Id == id);
     }
 
-    
+    public async Task<bool> WhiskyTypeExistsByNameAsync(string name)
+    {
+        return await repo
+            .AllReadOnly<WhiskyType>()
+            .AnyAsync(wt => wt.Name.ToLower() == name.ToLower());
+    }
 }
