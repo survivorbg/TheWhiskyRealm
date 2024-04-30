@@ -9,10 +9,13 @@ namespace TheWhiskyRealm.Controllers
     public class WhiskyApiController : ControllerBase
     {
         private readonly IWhiskyService whiskyService;
+        private readonly IDistilleryService distilleryService;
 
-        public WhiskyApiController(IWhiskyService whiskyService)
+        public WhiskyApiController(IWhiskyService whiskyService,
+            IDistilleryService distilleryService)
         {
             this.whiskyService = whiskyService;
+            this.distilleryService = distilleryService;
         }
 
         [HttpGet("all")]
@@ -39,6 +42,15 @@ namespace TheWhiskyRealm.Controllers
             }
 
             return Ok(whisky);
+        }
+
+        [HttpGet("distilleries")]
+        public async Task<IActionResult> GetAllDistilleries()
+        {
+            var distilleries = await distilleryService.GetAllDistilleriesForApi();
+
+
+            return Ok(distilleries);
         }
     }
 }

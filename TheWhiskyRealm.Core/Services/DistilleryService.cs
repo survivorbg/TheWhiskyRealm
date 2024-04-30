@@ -2,6 +2,7 @@
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
+using TheWhiskyRealm.Core.Models.Whisky.WhiskyApi;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -130,6 +131,21 @@ public class DistilleryService : IDistilleryService
                 YearFounded = d.YearFounded
             })
             .ToListAsync();
+    }
+
+    public async Task<IEnumerable<DistilleryApiModel>> GetAllDistilleriesForApi()
+    {
+        return await repo
+           .AllReadOnly<Distillery>()
+           .Select(d => new DistilleryApiModel()
+           {
+               Name = d.Name,
+               Country = d.Region.Country.Name,
+               Region = d.Region.Name,
+               YearFounded = d.YearFounded,
+               Id = d.Id
+           })
+           .ToListAsync();
     }
 
     public async Task<DistilleryFormViewModel?> GetDistilleryByIdAsync(int id)

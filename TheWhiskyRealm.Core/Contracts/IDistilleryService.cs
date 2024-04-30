@@ -1,11 +1,13 @@
 ﻿using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
+using TheWhiskyRealm.Core.Models.Whisky.WhiskyApi;
 
 namespace TheWhiskyRealm.Core.Contracts;
 
 public interface IDistilleryService
 {
     Task<IEnumerable<DistilleryAddWhiskyViewModel>> GetAllDistilleriesAsync();
+    Task<IEnumerable<DistilleryApiModel>> GetAllDistilleriesForApi();
     Task<IEnumerable<DistilleryRegionViewModel>> GetAllDistilleriesAsync(int regionId);
     Task<IEnumerable<DistilleryViewModel>> GetAllDistilleriesAsync(int currentPage, int pageSize, string sortOrder);
     Task<bool> DistilleryExistsAsync(int id);
