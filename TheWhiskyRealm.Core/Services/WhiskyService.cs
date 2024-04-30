@@ -3,6 +3,7 @@ using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
+using TheWhiskyRealm.Core.Models.Whisky.WhiskyApi;
 using TheWhiskyRealm.Infrastructure.Data.Common;
 using TheWhiskyRealm.Infrastructure.Data.Models;
 
@@ -334,4 +335,23 @@ public class WhiskyService : IWhiskyService
         return whiskies;
     }
 
+    public async Task<IEnumerable<WhiskyApiModel>> GetAllWhiskiesAsync()
+    {
+        return await repo.AllReadOnly<Whisky>()
+            .Where(w => w.isApproved == true)
+            .OrderBy(w => w.Id)
+            .Select(x => new WhiskyApiModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Age = x.Age,
+                AlcoholPercentage = x.AlcoholPercentage,
+                WhiskyType = x.WhiskyType.Name,
+                Description = x.Description,
+                Distillery = x.Distillery.Name,
+                Country = x.Distillery.Region.Country.Name,
+                Region = x.Distillery.Region.Name
+            })
+            .ToListAsync();
+    }
 }

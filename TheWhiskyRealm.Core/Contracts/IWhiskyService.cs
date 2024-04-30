@@ -1,6 +1,7 @@
 ﻿using TheWhiskyRealm.Core.Models.AdminArea.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
+using TheWhiskyRealm.Core.Models.Whisky.WhiskyApi;
 
 namespace TheWhiskyRealm.Core.Contracts;
 
@@ -25,4 +26,5 @@ public interface IWhiskyService
     Task<string?> GetWhiskyPublisherAsync(int id);
     Task ApproveWhiskyAsync(int id);
     Task<List<int>> GetAllWhiskiesIdsAsync();
+    Task<IEnumerable<WhiskyApiModel>> GetAllWhiskiesAsync();
 }
