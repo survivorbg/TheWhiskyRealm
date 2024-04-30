@@ -27,4 +27,5 @@ public interface IWhiskyService
     Task ApproveWhiskyAsync(int id);
     Task<List<int>> GetAllWhiskiesIdsAsync();
     Task<IEnumerable<WhiskyApiModel>> GetAllWhiskiesAsync();
+    Task<WhiskyApiModel?> GetWhiskyApiModelByIdAsync(int id);
 }

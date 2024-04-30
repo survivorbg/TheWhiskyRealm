@@ -178,7 +178,7 @@ public class WhiskyService : IWhiskyService
     {
         var whiskiesQuery = repo
             .AllReadOnly<Whisky>()
-            .Where(w=>w.isApproved == true)
+            .Where(w => w.isApproved == true)
             .Select(x => new AllWhiskyModel()
             {
                 Id = x.Id,
@@ -262,7 +262,7 @@ public class WhiskyService : IWhiskyService
     {
         string? publisherId = null;
         var whisky = await repo.GetByIdAsync<Whisky>(id);
-        if(whisky != null)
+        if (whisky != null)
         {
             publisherId = whisky.PublishedBy;
         }
@@ -272,7 +272,7 @@ public class WhiskyService : IWhiskyService
     public async Task ApproveWhiskyAsync(int id)
     {
         var whisky = await repo.GetByIdAsync<Whisky>(id);
-        if(whisky != null)
+        if (whisky != null)
         {
             whisky.isApproved = true;
             await repo.SaveChangesAsync();
@@ -300,7 +300,7 @@ public class WhiskyService : IWhiskyService
     {
         return await repo
             .AllReadOnly<Whisky>()
-            .Where(w=>w.isApproved == true)
+            .Where(w => w.isApproved == true)
             .Select(x => x.Id)
             .ToListAsync();
     }
@@ -340,18 +340,40 @@ public class WhiskyService : IWhiskyService
         return await repo.AllReadOnly<Whisky>()
             .Where(w => w.isApproved == true)
             .OrderBy(w => w.Id)
-            .Select(x => new WhiskyApiModel()
+            .Select(w => new WhiskyApiModel()
             {
-                Id = x.Id,
-                Name = x.Name,
-                Age = x.Age,
-                AlcoholPercentage = x.AlcoholPercentage,
-                WhiskyType = x.WhiskyType.Name,
-                Description = x.Description,
-                Distillery = x.Distillery.Name,
-                Country = x.Distillery.Region.Country.Name,
-                Region = x.Distillery.Region.Name
+                Id = w.Id,
+                Name = w.Name,
+                Age = w.Age,
+                AlcoholPercentage = w.AlcoholPercentage,
+                WhiskyType = w.WhiskyType.Name,
+                Description = w.Description,
+                Distillery = w.Distillery.Name,
+                Country = w.Distillery.Region.Country.Name,
+                Region = w.Distillery.Region.Name
             })
             .ToListAsync();
+    }
+
+    public async Task<WhiskyApiModel?> GetWhiskyApiModelByIdAsync(int id)
+    {
+        var whisky = await repo
+            .AllReadOnly<Whisky>()
+            .Where(w => w.Id == id)
+            .Select(w => new WhiskyApiModel
+            {
+                Id = w.Id,
+                Name = w.Name,
+                Age = w.Age,
+                AlcoholPercentage = w.AlcoholPercentage,
+                WhiskyType = w.WhiskyType.Name,
+                Description = w.Description,
+                Distillery = w.Distillery.Name,
+                Country = w.Distillery.Region.Country.Name,
+                Region = w.Distillery.Region.Name
+            })
+            .FirstOrDefaultAsync();
+
+        return whisky;
     }
 }
