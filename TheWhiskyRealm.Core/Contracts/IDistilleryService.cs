@@ -17,4 +17,5 @@ public interface IDistilleryService
     Task<int> AddDistilleryAsync(DistilleryFormViewModel model);
     Task<DistilleryFormViewModel?> GetDistilleryByIdAsync(int id);
     Task EditDistilleryAsync(DistilleryFormViewModel model);
+    Task<DistilleryDetailsApiModel?> GetDistilleryDetailsForApi(int id);
 }

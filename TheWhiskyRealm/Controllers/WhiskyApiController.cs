@@ -28,7 +28,7 @@ namespace TheWhiskyRealm.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("whiskies/{id}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,12 +45,30 @@ namespace TheWhiskyRealm.Controllers
         }
 
         [HttpGet("distilleries")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllDistilleries()
         {
             var distilleries = await distilleryService.GetAllDistilleriesForApi();
 
 
             return Ok(distilleries);
+        }
+
+        [HttpGet("distilleries/{id}")]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetDistilleryDetails(int id)
+        {
+            var distillery = await distilleryService.GetDistilleryDetailsForApi(id);
+
+            if (distillery == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(distillery);
         }
     }
 }

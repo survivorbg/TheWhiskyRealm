@@ -20,9 +20,9 @@ public class DistilleryService : IDistilleryService
     public async Task<int> AddDistilleryAsync(DistilleryFormViewModel model)
     {
         var distillery = new Distillery();
-        if(model != null)
+        if (model != null)
         {
-            distillery.Name = model.Name;   
+            distillery.Name = model.Name;
             distillery.YearFounded = model.YearFounded;
             distillery.RegionId = model.RegionId;
             distillery.ImageUrl = model.ImageUrl;
@@ -36,7 +36,7 @@ public class DistilleryService : IDistilleryService
     {
         return await repo
             .AllReadOnly<Distillery>()
-            .AnyAsync(d =>d.Name.ToLower() == name.ToLower() && d.Id != id);
+            .AnyAsync(d => d.Name.ToLower() == name.ToLower() && d.Id != id);
     }
 
     public async Task<bool> DistilleryExistsAsync(int id)
@@ -49,11 +49,11 @@ public class DistilleryService : IDistilleryService
     public async Task EditDistilleryAsync(DistilleryFormViewModel model)
     {
         var distillery = await repo.GetByIdAsync<Distillery>(model.Id);
-        if(distillery != null)
+        if (distillery != null)
         {
             distillery.YearFounded = model.YearFounded;
-            distillery .RegionId = model.RegionId;
-            distillery .ImageUrl = model.ImageUrl;
+            distillery.RegionId = model.RegionId;
+            distillery.ImageUrl = model.ImageUrl;
             distillery.Name = model.Name;
 
             await repo.SaveChangesAsync();
@@ -164,13 +164,41 @@ public class DistilleryService : IDistilleryService
             .FirstOrDefaultAsync();
     }
 
+    public async Task<DistilleryDetailsApiModel?> GetDistilleryDetailsForApi(int id)
+    {
+        return await repo
+            .All<Distillery>()
+            .Where(d => d.Id == id)
+            .Select(d => new DistilleryDetailsApiModel
+            {
+                Id = d.Id,
+                Name = d.Name,
+                YearFounded = d.YearFounded,
+                Country = d.Region.Country.Name,
+                Region = d.Region.Name,
+                Whiskies = d.Whiskies.Select(w => new WhiskyApiModel
+                {
+                    Id = w.Id,
+                    Name = w.Name,
+                    Age = w.Age,
+                    AlcoholPercentage = w.AlcoholPercentage,
+                    Description = w.Description,
+                    WhiskyType = w.WhiskyType.Name,
+                    Distillery = w.Distillery.Name,
+                    Country = w.Distillery.Region.Country.Name,
+                    Region = w.Distillery.Region.Name
+                })
+            })
+            .FirstOrDefaultAsync();
+    }
+
     public async Task<DistilleryInfoModel?> GetDistilleryInfoAsync(int id)
     {
         var distillery = await repo
             .AllReadOnly<Distillery>()
             .Include(d => d.Region)
-            .ThenInclude(r=>r.Country)
-            .Where(d=>d.Id == id)
+            .ThenInclude(r => r.Country)
+            .Where(d => d.Id == id)
             .FirstOrDefaultAsync();
 
         if (distillery == null)
@@ -184,7 +212,7 @@ public class DistilleryService : IDistilleryService
             Name = distillery.Name,
             Country = distillery.Region.Country.Name,
             Region = distillery.Region.Name,
-            YearFounded= distillery.YearFounded
+            YearFounded = distillery.YearFounded
         };
 
         return result;
