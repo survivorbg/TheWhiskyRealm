@@ -330,7 +330,7 @@ public class WhiskyController : BaseController
     [HttpGet]
     public async Task<IActionResult> TopRated(string type)
     {
-        if(await whiskyTypeService.WhiskyTypeExistsByNameAsync(type) == false)
+        if(await whiskyTypeService.WhiskyTypeExistsByNameAsync(type) == false && type.ToLower() != "all")
         {
             return BadRequest();
         }
