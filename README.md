@@ -25,6 +25,7 @@ The Whisky Realm is a web application that immerses you in the kingdom of whisky
 * GitHub
 
 # Screenshots
+![This is an alt text.](/screenshots/0.png "This is a sample image.")
 ![This is an alt text.](/screenshots/1.png "This is a sample image.")
 ![This is an alt text.](/screenshots/2.png "This is a sample image.")
 ![This is an alt text.](/screenshots/3.png "This is a sample image.")
