@@ -36,6 +36,7 @@ public class WhiskyController : BaseController
         random = new Random();
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> All()
     {
@@ -69,6 +70,7 @@ public class WhiskyController : BaseController
         return View(model);
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> LoadMoreWhiskies(int skip, int take, string sortOrder)
     {
