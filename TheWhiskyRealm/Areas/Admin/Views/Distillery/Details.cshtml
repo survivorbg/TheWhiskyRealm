@@ -1,0 +1,55 @@
+﻿@model DistilleryInfoModel
+<style>
+    footer {
+        visibility: hidden;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/css/Whisky/whisky-details.css">
+<div class="container">
+    <div class="row mb-3 justify-content-center">
+        <div class="col-md-12 text-center">
+            <h1>@Model.Name</h1>
+        </div>
+    </div>
+
+    <div class="row mb-3 justify-content-center mb-3">
+        <div class="col-md-12 text-center">
+            <img src="@(!string.IsNullOrEmpty(Model.ImageUrl) ? Model.ImageUrl : "/images/distillery-default.jpg")" alt="@Model.Name" class="img-fluid" />
+        </div>
+    </div>
+</div>
+<div class="row box">
+    <div class="col">
+        <div class="whisky-info-box">
+            <div class="box-img-div">
+                <img src="~/images/country.svg" alt="country" class="box-img" />
+            </div>
+            <div class="box-content">
+                <p>Country</p>
+                @Model.Country
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="whisky-info-box">
+            <div class="box-img-div">
+                <img src="~/images/region.svg" alt="region" class="box-img" />
+            </div>
+            <div class="box-content">
+                <p>Region</p>
+                @Model.Region
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="whisky-info-box">
+            <div class="box-img-div">
+                <img src="~/images/year-founded.svg" alt="Year Founded" class="box-img" />
+            </div>
+            <div class="box-content">
+                <p>Founded</p>
+                @Model.YearFounded
+            </div>
+        </div>
+    </div>
+</div>

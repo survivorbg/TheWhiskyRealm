@@ -7,5 +7,5 @@ public class DistilleryViewModel
     public string Name { get; set; } = string.Empty;
     public string Region { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
-
+    public string? ImageUrl { get; set; }
 }

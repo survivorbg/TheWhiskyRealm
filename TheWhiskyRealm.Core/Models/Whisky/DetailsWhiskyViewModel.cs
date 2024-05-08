@@ -16,8 +16,8 @@ public class DetailsWhiskyViewModel
 
     public string Description { get; set; } = string.Empty;
     public string ImageURL { get; set; } = string.Empty;
-
     public string DistilleryName { get; set; } = string.Empty;
+    public int DistilleryId { get; set; }
     public string WhiskyType { get; set; } = string.Empty;
     public string CountryName { get; set; } = string.Empty;
     public string RegionName { get; set; } = string.Empty;

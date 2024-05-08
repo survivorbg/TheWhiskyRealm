@@ -212,7 +212,8 @@ public class DistilleryService : IDistilleryService
             Name = distillery.Name,
             Country = distillery.Region.Country.Name,
             Region = distillery.Region.Name,
-            YearFounded = distillery.YearFounded
+            YearFounded = distillery.YearFounded,
+            ImageUrl = distillery.ImageUrl
         };
 
         return result;

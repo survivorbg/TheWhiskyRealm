@@ -63,6 +63,7 @@ public class WhiskyService : IWhiskyService
                 Description = w.Description,
                 WhiskyType = w.WhiskyType.Name,
                 DistilleryName = w.Distillery.Name,
+                DistilleryId = w.Distillery.Id,
                 CountryName = w.Distillery.Region.Country.Name,
                 RegionName = w.Distillery.Region.Name,
                 AverageRating = avgRating != -1 ? avgRating.ToString("F2") : "No ratings yet",

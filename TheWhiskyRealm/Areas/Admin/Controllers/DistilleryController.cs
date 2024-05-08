@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.AdminArea.Distillery;
 using static TheWhiskyRealm.Core.Constants.ControllerConstants;
@@ -134,5 +135,20 @@ public class DistilleryController : AdminBaseController
         await distilleryService.EditDistilleryAsync(model);
 
         return RedirectToAction(nameof(Info), "Distillery", new { model.Id });
+    }
+
+    [Route("Distillery/Details/{id}")]
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> Details(int id)
+    {
+        var model = await distilleryService.GetDistilleryInfoAsync(id);
+
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        return View(model);
     }
 }
