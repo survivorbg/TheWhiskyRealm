@@ -23,7 +23,7 @@ public class WhiskyTypeService : IWhiskyTypeService
         return await cache.GetOrCreateAsync("WhiskyTypes", async entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
-        return await repo
+            return await repo
             .AllReadOnly<WhiskyType>()
             .Select(wt => new WhiskyTypeViewModel
             {
@@ -37,12 +37,16 @@ public class WhiskyTypeService : IWhiskyTypeService
 
     public async Task<string?> GetWhiskyTypeNameAsync(int id)
     {
-        var whiskyType = await repo.GetByIdAsync<WhiskyType>(id);
-        if(whiskyType == null)
+        return await cache.GetOrCreateAsync($"WhiskyTypeName-{id}", async entry =>
         {
-            return null;
-        }
-        return whiskyType.Name;
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
+            var whiskyType = await repo.GetByIdAsync<WhiskyType>(id);
+            if (whiskyType == null)
+            {
+                return null;
+            }
+            return whiskyType.Name;
+        });
     }
 
     public async Task<bool> WhiskyTypeExistsAsync(int id)
