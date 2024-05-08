@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using TheWhiskyRealm.Core.Contracts;
 using TheWhiskyRealm.Core.Models.Whisky.Add;
 using TheWhiskyRealm.Infrastructure.Data.Common;
@@ -9,14 +10,19 @@ namespace TheWhiskyRealm.Core.Services;
 public class WhiskyTypeService : IWhiskyTypeService
 {
     private readonly IRepository repo;
+    private readonly IMemoryCache cache;
 
-    public WhiskyTypeService(IRepository repo)
+    public WhiskyTypeService(IRepository repo, IMemoryCache cache)
     {
         this.repo = repo;
+        this.cache = cache;
     }
 
     public async Task<IEnumerable<WhiskyTypeViewModel>> GetAllWhiskyTypesAsync()
     {
+        return await cache.GetOrCreateAsync("WhiskyTypes", async entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
         return await repo
             .AllReadOnly<WhiskyType>()
             .Select(wt => new WhiskyTypeViewModel
@@ -25,6 +31,8 @@ public class WhiskyTypeService : IWhiskyTypeService
                 Name = wt.Name
             })
             .ToListAsync();
+        });
+
     }
 
     public async Task<string?> GetWhiskyTypeNameAsync(int id)
@@ -41,7 +49,7 @@ public class WhiskyTypeService : IWhiskyTypeService
     {
         return await repo
             .AllReadOnly<WhiskyType>()
-            .AnyAsync(wt=>wt.Id == id);
+            .AnyAsync(wt => wt.Id == id);
     }
 
     public async Task<bool> WhiskyTypeExistsByNameAsync(string name)
